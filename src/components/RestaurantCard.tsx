@@ -24,7 +24,7 @@ const RestaurantCard = ({ restaurant, animationDelay = 0 }: RestaurantCardProps)
   return (
     <Link to={`/restaurant/${restaurant.id}`}>
       <Card 
-        className="overflow-hidden hover:shadow-xl transition-all duration-300 cursor-pointer hover:scale-105 animate-fade-in" 
+        className="overflow-hidden hover:shadow-xl transition-all duration-300 cursor-pointer hover:scale-105 animate-fade-in dark:bg-gray-800 dark:border-gray-700" 
         style={{animationDelay: `${animationDelay}ms`}}
       >
         <div className="relative">
@@ -50,15 +50,15 @@ const RestaurantCard = ({ restaurant, animationDelay = 0 }: RestaurantCardProps)
         
         <CardContent className="p-4">
           <div className="flex justify-between items-start mb-2">
-            <h3 className="font-semibold text-lg text-gray-900 truncate">
+            <h3 className="font-semibold text-lg text-gray-900 dark:text-white truncate">
               {restaurant.name}
             </h3>
-            <Badge variant="outline" className="text-xs">
+            <Badge variant="outline" className="text-xs dark:border-gray-600 dark:text-gray-300">
               {restaurant.cuisine}
             </Badge>
           </div>
           
-          <div className="flex items-center justify-between text-sm text-gray-600">
+          <div className="flex items-center justify-between text-sm text-gray-600 dark:text-gray-400">
             <div className="flex items-center space-x-1">
               <Clock className="h-4 w-4" />
               <span>{restaurant.deliveryTime}</span>
