@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import { ArrowLeft, Star, Clock, Truck, Plus, Minus, ShoppingCart, Sun, Moon } from "lucide-react";
@@ -6,19 +5,19 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { toast } from "@/hooks/use-toast";
+import { getRestaurantMenu } from "@/data/restaurantMenus";
 
 const Restaurant = () => {
   const { id } = useParams<{ id: string }>();
   const [cart, setCart] = useState<{[key: number]: number}>({});
-  const [isDarkMode, setIsDarkMode] = useState(false);
-
-  useEffect(() => {
+  const [isDarkMode, setIsDarkMode] = useState(() => {
     const savedTheme = localStorage.getItem('theme');
     if (savedTheme === 'dark') {
-      setIsDarkMode(true);
       document.documentElement.classList.add('dark');
+      return true;
     }
-  }, []);
+    return false;
+  });
 
   const toggleTheme = () => {
     setIsDarkMode(!isDarkMode);
@@ -31,406 +30,26 @@ const Restaurant = () => {
     }
   };
 
-  // Updated restaurant data with higher prices
+  // Restaurant data with proper Indian pricing
   const getRestaurantData = (restaurantId: number) => {
     const restaurants = {
-      1: {
-        id: 1,
-        name: "Pizza Hut",
-        cuisine: "Pizza",
-        rating: 4.3,
-        deliveryTime: "30-45 min",
-        deliveryFee: "₹60",
-        image: "https://images.unsplash.com/photo-1513104890138-7c749659a591?w=800&h=400&fit=crop",
-        description: "World's favorite pizza place with authentic Italian taste and fresh ingredients.",
-        isOpen: true
-      },
-      2: {
-        id: 2,
-        name: "McDonald's",
-        cuisine: "Fast Food",
-        rating: 4.1,
-        deliveryTime: "20-35 min",
-        deliveryFee: "₹50",
-        image: "https://images.unsplash.com/photo-1571091718767-18b5b1457add?w=800&h=400&fit=crop",
-        description: "I'm Lovin' It! The world's leading fast-food chain with burgers, fries, and more.",
-        isOpen: true
-      },
-      3: {
-        id: 3,
-        name: "Domino's Pizza",
-        cuisine: "Pizza",
-        rating: 4.4,
-        deliveryTime: "25-40 min",
-        deliveryFee: "₹55",
-        image: "https://images.unsplash.com/photo-1565299624946-b28f40a0ca4b?w=800&h=400&fit=crop",
-        description: "OH YES WE DID! Fresh pizza delivered hot in 30 minutes or less.",
-        isOpen: true
-      },
-      4: {
-        id: 4,
-        name: "KFC",
-        cuisine: "Fried Chicken",
-        rating: 4.2,
-        deliveryTime: "25-40 min",
-        deliveryFee: "₹70",
-        image: "https://images.unsplash.com/photo-1626645738196-c2a7c87a8f58?w=800&h=400&fit=crop",
-        description: "Finger Lickin' Good! Original Recipe chicken and more delicious meals.",
-        isOpen: true
-      },
-      5: {
-        id: 5,
-        name: "Subway",
-        cuisine: "Sandwiches",
-        rating: 4.0,
-        deliveryTime: "20-30 min",
-        deliveryFee: "₹45",
-        image: "https://images.unsplash.com/photo-1539252554453-80ab65ce3586?w=800&h=400&fit=crop",
-        description: "Eat Fresh! Freshly made sandwiches with your choice of ingredients.",
-        isOpen: true
-      },
-      6: {
-        id: 6,
-        name: "Burger King",
-        cuisine: "Burgers",
-        rating: 4.1,
-        deliveryTime: "25-35 min",
-        deliveryFee: "₹55",
-        image: "https://images.unsplash.com/photo-1586190848861-99aa4a171e90?w=800&h=400&fit=crop",
-        description: "Have It Your Way! Flame-grilled burgers made just how you like them.",
-        isOpen: true
-      },
-      7: {
-        id: 7,
-        name: "Taco Bell",
-        cuisine: "Mexican",
-        rating: 3.9,
-        deliveryTime: "30-45 min",
-        deliveryFee: "₹65",
-        image: "https://images.unsplash.com/photo-1565299585323-38174c4a6779?w=800&h=400&fit=crop",
-        description: "Live Más! Experience bold Mexican flavors with our tacos, burritos, and more.",
-        isOpen: true
-      },
-      8: {
-        id: 8,
-        name: "Starbucks",
-        cuisine: "Coffee & Snacks",
-        rating: 4.5,
-        deliveryTime: "15-25 min",
-        deliveryFee: "₹80",
-        image: "https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?w=800&h=400&fit=crop",
-        description: "Premium coffee, handcrafted beverages, and delicious pastries.",
-        isOpen: true
-      }
+      1: { id: 1, name: "Pizza Hut", cuisine: "Pizza", rating: 4.3, deliveryTime: "30-45 min", deliveryFee: "₹60", image: "https://images.unsplash.com/photo-1513104890138-7c749659a591?w=800&h=400&fit=crop", description: "World's favorite pizza place with authentic Italian taste and fresh ingredients.", isOpen: true },
+      2: { id: 2, name: "McDonald's", cuisine: "Fast Food", rating: 4.1, deliveryTime: "20-35 min", deliveryFee: "₹50", image: "https://images.unsplash.com/photo-1571091718767-18b5b1457add?w=800&h=400&fit=crop", description: "I'm Lovin' It! The world's leading fast-food chain with burgers, fries, and more.", isOpen: true },
+      3: { id: 3, name: "Domino's Pizza", cuisine: "Pizza", rating: 4.4, deliveryTime: "25-40 min", deliveryFee: "₹55", image: "https://images.unsplash.com/photo-1565299624946-b28f40a0ca4b?w=800&h=400&fit=crop", description: "OH YES WE DID! Fresh pizza delivered hot in 30 minutes or less.", isOpen: true },
+      6: { id: 6, name: "Burger King", cuisine: "Burgers", rating: 4.1, deliveryTime: "25-35 min", deliveryFee: "₹55", image: "https://images.unsplash.com/photo-1586190848861-99aa4a171e90?w=800&h=400&fit=crop", description: "Have It Your Way! Flame-grilled burgers made just how you like them.", isOpen: true },
+      7: { id: 7, name: "Taco Bell", cuisine: "Mexican", rating: 3.9, deliveryTime: "30-45 min", deliveryFee: "₹65", image: "https://images.unsplash.com/photo-1565299585323-38174c4a6779?w=800&h=400&fit=crop", description: "Live Más! Experience bold Mexican flavors with our tacos, burritos, and more.", isOpen: true },
+      8: { id: 8, name: "Starbucks", cuisine: "Coffee & Snacks", rating: 4.5, deliveryTime: "15-25 min", deliveryFee: "₹80", image: "https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?w=800&h=400&fit=crop", description: "Premium coffee, handcrafted beverages, and delicious pastries.", isOpen: true },
+      15: { id: 15, name: "Panda Express", cuisine: "Chinese", rating: 4.0, deliveryTime: "25-35 min", deliveryFee: "₹60", image: "https://images.unsplash.com/photo-1617196034796-73989e891b8e?w=800&h=400&fit=crop", description: "Fresh, fast Chinese food made with the highest quality ingredients.", isOpen: true },
+      16: { id: 16, name: "China Garden", cuisine: "Chinese", rating: 4.2, deliveryTime: "30-45 min", deliveryFee: "₹55", image: "https://images.unsplash.com/photo-1582878826629-29b7ad1cdc43?w=800&h=400&fit=crop", description: "Authentic Chinese cuisine with traditional flavors and modern presentation.", isOpen: true },
+      20: { id: 20, name: "Spice Route", cuisine: "Indian", rating: 4.4, deliveryTime: "35-50 min", deliveryFee: "₹60", image: "https://images.unsplash.com/photo-1565557623262-b51c2513a641?w=800&h=400&fit=crop", description: "Authentic Indian flavors with aromatic spices and traditional recipes.", isOpen: true },
+      24: { id: 24, name: "Biryani Paradise", cuisine: "Indian", rating: 4.5, deliveryTime: "25-40 min", deliveryFee: "₹60", image: "https://images.unsplash.com/photo-1563379091339-03246963d96c?w=800&h=400&fit=crop", description: "Home of the finest biryanis with authentic Hyderabadi flavors.", isOpen: true }
     };
     return restaurants[restaurantId as keyof typeof restaurants] || restaurants[1];
   };
 
   const restaurant = getRestaurantData(parseInt(id!));
-
-  const getMenuItems = (restaurantId: number) => {
-    const menus = {
-      1: [ // Pizza Hut - Pizzas
-        {
-          id: 1,
-          name: "Margherita Pizza",
-          description: "Classic pizza with tomato sauce, mozzarella cheese and fresh basil",
-          price: 499,
-          category: "Pizza",
-          image: "https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?w=300&h=200&fit=crop",
-          popular: true
-        },
-        {
-          id: 2,
-          name: "Pepperoni Pizza",
-          description: "Spicy pepperoni with mozzarella cheese and signature sauce",
-          price: 649,
-          category: "Pizza",
-          image: "https://images.unsplash.com/photo-1628840042765-356cda07504e?w=300&h=200&fit=crop",
-          popular: true
-        },
-        {
-          id: 3,
-          name: "Supreme Pizza",
-          description: "Loaded with pepperoni, sausage, bell peppers, onions and mushrooms",
-          price: 799,
-          category: "Pizza",
-          image: "https://images.unsplash.com/photo-1565299624946-b28f40a0ca4b?w=300&h=200&fit=crop"
-        },
-        {
-          id: 4,
-          name: "Garlic Bread",
-          description: "Freshly baked bread with garlic butter and herbs",
-          price: 229,
-          category: "Sides",
-          image: "https://images.unsplash.com/photo-1549300461-11c5b94839d3?w=300&h=200&fit=crop"
-        },
-        {
-          id: 5,
-          name: "Coca Cola",
-          description: "Refreshing cold beverage",
-          price: 119,
-          category: "Drinks",
-          image: "https://images.unsplash.com/photo-1629203851122-3726ecdf080e?w=300&h=200&fit=crop"
-        }
-      ],
-      2: [ // McDonald's - Burgers & Fast Food
-        {
-          id: 6,
-          name: "Big Mac",
-          description: "Two all-beef patties, special sauce, lettuce, cheese, pickles, onions on a sesame seed bun",
-          price: 389,
-          category: "Burgers",
-          image: "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=300&h=200&fit=crop",
-          popular: true
-        },
-        {
-          id: 7,
-          name: "Quarter Pounder",
-          description: "Fresh beef burger with cheese, onions, pickles, ketchup and mustard",
-          price: 429,
-          category: "Burgers",
-          image: "https://images.unsplash.com/photo-1550547660-d9450f859349?w=300&h=200&fit=crop",
-          popular: true
-        },
-        {
-          id: 8,
-          name: "McFries Large",
-          description: "Golden crispy french fries with the perfect amount of salt",
-          price: 169,
-          category: "Sides",
-          image: "https://images.unsplash.com/photo-1576107232684-1279f390b3d6?w=300&h=200&fit=crop"
-        },
-        {
-          id: 9,
-          name: "McFlurry Oreo",
-          description: "Vanilla soft serve with Oreo cookie pieces",
-          price: 199,
-          category: "Desserts",
-          image: "https://images.unsplash.com/photo-1488900128323-21503983a07e?w=300&h=200&fit=crop"
-        }
-      ],
-      3: [ // Domino's Pizza - Different Pizzas
-        {
-          id: 10,
-          name: "Farmhouse Pizza",
-          description: "Fresh vegetables with cheese and signature sauce",
-          price: 549,
-          category: "Pizza",
-          image: "https://images.unsplash.com/photo-1565299624946-b28f40a0ca4b?w=300&h=200&fit=crop",
-          popular: true
-        },
-        {
-          id: 11,
-          name: "Chicken Dominator",
-          description: "Loaded with grilled chicken and exotic toppings",
-          price: 749,
-          category: "Pizza",
-          image: "https://images.unsplash.com/photo-1594007654729-407eedc4be65?w=300&h=200&fit=crop",
-          popular: true
-        },
-        {
-          id: 12,
-          name: "Veg Extravaganza",
-          description: "Black olives, capsicum, onions, grilled mushrooms, corn, tomatoes, jalapeno",
-          price: 629,
-          category: "Pizza",
-          image: "https://images.unsplash.com/photo-1513104890138-7c749659a591?w=300&h=200&fit=crop"
-        },
-        {
-          id: 13,
-          name: "Garlic Breadsticks",
-          description: "Soft breadsticks with garlic seasoning",
-          price: 199,
-          category: "Sides",
-          image: "https://images.unsplash.com/photo-1549300461-11c5b94839d3?w=300&h=200&fit=crop"
-        }
-      ],
-      4: [ // KFC - Chicken Items
-        {
-          id: 14,
-          name: "Original Recipe Chicken",
-          description: "Crispy fried chicken with 11 herbs and spices",
-          price: 349,
-          category: "Chicken",
-          image: "https://images.unsplash.com/photo-1626645738196-c2a7c87a8f58?w=300&h=200&fit=crop",
-          popular: true
-        },
-        {
-          id: 15,
-          name: "Hot & Crispy Chicken",
-          description: "Spicy and crispy fried chicken pieces",
-          price: 379,
-          category: "Chicken",
-          image: "https://images.unsplash.com/photo-1598103442097-8b74394b95c6?w=300&h=200&fit=crop",
-          popular: true
-        },
-        {
-          id: 16,
-          name: "Chicken Popcorn",
-          description: "Bite-sized chicken pieces, crispy and delicious",
-          price: 249,
-          category: "Chicken",
-          image: "https://images.unsplash.com/photo-1562967914-608f82629710?w=300&h=200&fit=crop"
-        },
-        {
-          id: 17,
-          name: "Coleslaw",
-          description: "Fresh cabbage and carrot salad with creamy dressing",
-          price: 129,
-          category: "Sides",
-          image: "https://images.unsplash.com/photo-1570197788417-0e82375c9371?w=300&h=200&fit=crop"
-        }
-      ],
-      5: [ // Subway - Sandwiches
-        {
-          id: 18,
-          name: "Italian B.M.T.",
-          description: "Genoa salami, spiced pepperoni, and ham with your choice of veggies",
-          price: 329,
-          category: "Sandwiches",
-          image: "https://images.unsplash.com/photo-1539252554453-80ab65ce3586?w=300&h=200&fit=crop",
-          popular: true
-        },
-        {
-          id: 19,
-          name: "Chicken Teriyaki",
-          description: "Tender chicken strips with teriyaki sauce and vegetables",
-          price: 359,
-          category: "Sandwiches",
-          image: "https://images.unsplash.com/photo-1585238342024-78d387f4a707?w=300&h=200&fit=crop",
-          popular: true
-        },
-        {
-          id: 20,
-          name: "Veggie Delite",
-          description: "All your favorite veggies on freshly baked bread",
-          price: 249,
-          category: "Sandwiches",
-          image: "https://images.unsplash.com/photo-1509722747041-616f39b57569?w=300&h=200&fit=crop"
-        },
-        {
-          id: 21,
-          name: "Cookies",
-          description: "Freshly baked chocolate chip cookies",
-          price: 89,
-          category: "Desserts",
-          image: "https://images.unsplash.com/photo-1499636136210-6f4ee915583e?w=300&h=200&fit=crop"
-        }
-      ],
-      6: [ // Burger King - Burgers
-        {
-          id: 22,
-          name: "Whopper",
-          description: "Flame-grilled beef patty with tomatoes, lettuce, mayo, ketchup, pickles, onions",
-          price: 399,
-          category: "Burgers",
-          image: "https://images.unsplash.com/photo-1586190848861-99aa4a171e90?w=300&h=200&fit=crop",
-          popular: true
-        },
-        {
-          id: 23,
-          name: "Chicken Royale",
-          description: "Crispy chicken fillet with lettuce and mayo",
-          price: 349,
-          category: "Burgers",
-          image: "https://images.unsplash.com/photo-1571091718767-18b5b1457add?w=300&h=200&fit=crop",
-          popular: true
-        },
-        {
-          id: 24,
-          name: "Veg Whopper",
-          description: "Plant-based patty with all the classic Whopper toppings",
-          price: 329,
-          category: "Burgers",
-          image: "https://images.unsplash.com/photo-1520072959219-c595dc870360?w=300&h=200&fit=crop"
-        },
-        {
-          id: 25,
-          name: "Onion Rings",
-          description: "Crispy golden onion rings",
-          price: 149,
-          category: "Sides",
-          image: "https://images.unsplash.com/photo-1639024471283-03418e777bb1?w=300&h=200&fit=crop"
-        }
-      ],
-      7: [ // Taco Bell - Mexican Food
-        {
-          id: 26,
-          name: "Crunchy Taco Supreme",
-          description: "Seasoned beef, lettuce, tomatoes, cheese, and sour cream in a crunchy shell",
-          price: 219,
-          category: "Tacos",
-          image: "https://images.unsplash.com/photo-1565299585323-38174c4a6779?w=300&h=200&fit=crop",
-          popular: true
-        },
-        {
-          id: 27,
-          name: "Chicken Quesadilla",
-          description: "Grilled chicken with melted cheese in a flour tortilla",
-          price: 329,
-          category: "Mexican",
-          image: "https://images.unsplash.com/photo-1571197119282-7c4b999c2382?w=300&h=200&fit=crop",
-          popular: true
-        },
-        {
-          id: 28,
-          name: "Beef Burrito",
-          description: "Seasoned beef with rice, beans, and cheese wrapped in a flour tortilla",
-          price: 289,
-          category: "Mexican",
-          image: "https://images.unsplash.com/photo-1626700051175-6818013e1d4f?w=300&h=200&fit=crop"
-        },
-        {
-          id: 29,
-          name: "Nachos Supreme",
-          description: "Crispy nachos with cheese, beef, beans, tomatoes, and sour cream",
-          price: 279,
-          category: "Sides",
-          image: "https://images.unsplash.com/photo-1513456852971-30c0b8199d4d?w=300&h=200&fit=crop"
-        }
-      ],
-      8: [ // Starbucks - Coffee & Snacks
-        {
-          id: 30,
-          name: "Caffe Latte",
-          description: "Rich espresso with steamed milk and a light layer of foam",
-          price: 329,
-          category: "Coffee",
-          image: "https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?w=300&h=200&fit=crop",
-          popular: true
-        },
-        {
-          id: 31,
-          name: "Cappuccino",
-          description: "Espresso with steamed milk and thick foam",
-          price: 299,
-          category: "Coffee",
-          image: "https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=300&h=200&fit=crop",
-          popular: true
-        },
-        {
-          id: 32,
-          name: "Frappuccino",
-          description: "Blended coffee beverage with ice and whipped cream",
-          price: 399,
-          category: "Coffee",
-          image: "https://images.unsplash.com/photo-1461023058943-07fcbe16d735?w=300&h=200&fit=crop"
-        },
-        {
-          id: 33,
-          name: "Blueberry Muffin",
-          description: "Freshly baked muffin with blueberries",
-          price: 199,
-          category: "Snacks",
-          image: "https://images.unsplash.com/photo-1426869981800-95ebf51ce900?w=300&h=200&fit=crop"
-        }
-      ]
-    };
-    return menus[restaurantId as keyof typeof menus] || menus[1];
-  };
-
-  const menuItems = getMenuItems(parseInt(id!));
+  const restaurantMenu = getRestaurantMenu(parseInt(id!));
+  const menuItems = restaurantMenu.items;
   const categories = [...new Set(menuItems.map(item => item.category))];
 
   const addToCart = (itemId: number) => {
