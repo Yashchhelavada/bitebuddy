@@ -11,7 +11,7 @@ const Restaurant = () => {
   const { id } = useParams<{ id: string }>();
   const [cart, setCart] = useState<{[key: number]: number}>({});
 
-  // Updated restaurant data with real brands and Indian pricing
+  // Updated restaurant data with higher prices
   const getRestaurantData = (restaurantId: number) => {
     const restaurants = {
       1: {
@@ -20,7 +20,7 @@ const Restaurant = () => {
         cuisine: "Pizza",
         rating: 4.3,
         deliveryTime: "30-45 min",
-        deliveryFee: "₹40",
+        deliveryFee: "₹60",
         image: "https://images.unsplash.com/photo-1513104890138-7c749659a591?w=800&h=400&fit=crop",
         description: "World's favorite pizza place with authentic Italian taste and fresh ingredients.",
         isOpen: true
@@ -31,7 +31,7 @@ const Restaurant = () => {
         cuisine: "Fast Food",
         rating: 4.1,
         deliveryTime: "20-35 min",
-        deliveryFee: "₹30",
+        deliveryFee: "₹50",
         image: "https://images.unsplash.com/photo-1571091718767-18b5b1457add?w=800&h=400&fit=crop",
         description: "I'm Lovin' It! The world's leading fast-food chain with burgers, fries, and more.",
         isOpen: true
@@ -42,9 +42,20 @@ const Restaurant = () => {
         cuisine: "Pizza",
         rating: 4.4,
         deliveryTime: "25-40 min",
-        deliveryFee: "₹35",
+        deliveryFee: "₹55",
         image: "https://images.unsplash.com/photo-1565299624946-b28f40a0ca4b?w=800&h=400&fit=crop",
         description: "OH YES WE DID! Fresh pizza delivered hot in 30 minutes or less.",
+        isOpen: true
+      },
+      7: {
+        id: 7,
+        name: "Taco Bell",
+        cuisine: "Mexican",
+        rating: 3.9,
+        deliveryTime: "30-45 min",
+        deliveryFee: "₹65",
+        image: "https://images.unsplash.com/photo-1565299585323-38174c4a6779?w=800&h=400&fit=crop",
+        description: "Live Más! Experience bold Mexican flavors with our tacos, burritos, and more.",
         isOpen: true
       }
     };
@@ -60,7 +71,7 @@ const Restaurant = () => {
           id: 1,
           name: "Margherita Pizza",
           description: "Classic pizza with tomato sauce, mozzarella cheese and fresh basil",
-          price: 299,
+          price: 449,
           category: "Pizza",
           image: "https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?w=300&h=200&fit=crop",
           popular: true
@@ -69,7 +80,7 @@ const Restaurant = () => {
           id: 2,
           name: "Pepperoni Pizza",
           description: "Spicy pepperoni with mozzarella cheese and signature sauce",
-          price: 399,
+          price: 599,
           category: "Pizza",
           image: "https://images.unsplash.com/photo-1628840042765-356cda07504e?w=300&h=200&fit=crop",
           popular: true
@@ -78,9 +89,17 @@ const Restaurant = () => {
           id: 3,
           name: "Garlic Bread",
           description: "Freshly baked bread with garlic butter and herbs",
-          price: 149,
+          price: 199,
           category: "Sides",
           image: "https://images.unsplash.com/photo-1549300461-11c5b94839d3?w=300&h=200&fit=crop"
+        },
+        {
+          id: 4,
+          name: "Coca Cola",
+          description: "Refreshing cold beverage",
+          price: 89,
+          category: "Drinks",
+          image: "https://images.unsplash.com/photo-1629203851122-3726ecdf080e?w=300&h=200&fit=crop"
         }
       ],
       2: [ // McDonald's
@@ -88,7 +107,7 @@ const Restaurant = () => {
           id: 1,
           name: "Big Mac",
           description: "Two all-beef patties, special sauce, lettuce, cheese, pickles, onions on a sesame seed bun",
-          price: 199,
+          price: 349,
           category: "Burgers",
           image: "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=300&h=200&fit=crop",
           popular: true
@@ -97,9 +116,25 @@ const Restaurant = () => {
           id: 2,
           name: "McFries",
           description: "Golden crispy french fries with the perfect amount of salt",
-          price: 89,
+          price: 149,
           category: "Sides",
           image: "https://images.unsplash.com/photo-1576107232684-1279f390b3d6?w=300&h=200&fit=crop"
+        },
+        {
+          id: 3,
+          name: "McChicken",
+          description: "Crispy chicken patty with lettuce and mayo",
+          price: 299,
+          category: "Chicken",
+          image: "https://images.unsplash.com/photo-1626645738196-c2a7c87a8f58?w=300&h=200&fit=crop"
+        },
+        {
+          id: 4,
+          name: "McCafe Coffee",
+          description: "Premium arabica coffee blend",
+          price: 179,
+          category: "Drinks",
+          image: "https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=300&h=200&fit=crop"
         }
       ],
       3: [ // Domino's
@@ -107,10 +142,79 @@ const Restaurant = () => {
           id: 1,
           name: "Farmhouse Pizza",
           description: "Fresh vegetables with cheese and signature sauce",
-          price: 349,
+          price: 499,
           category: "Pizza",
           image: "https://images.unsplash.com/photo-1565299624946-b28f40a0ca4b?w=300&h=200&fit=crop",
           popular: true
+        },
+        {
+          id: 2,
+          name: "Chicken Dominator",
+          description: "Loaded with grilled chicken and exotic toppings",
+          price: 699,
+          category: "Pizza",
+          image: "https://images.unsplash.com/photo-1594007654729-407eedc4be65?w=300&h=200&fit=crop",
+          popular: true
+        },
+        {
+          id: 3,
+          name: "Garlic Breadsticks",
+          description: "Soft breadsticks with garlic seasoning",
+          price: 179,
+          category: "Sides",
+          image: "https://images.unsplash.com/photo-1549300461-11c5b94839d3?w=300&h=200&fit=crop"
+        },
+        {
+          id: 4,
+          name: "Pepsi",
+          description: "Chilled refreshing cola drink",
+          price: 89,
+          category: "Drinks",
+          image: "https://images.unsplash.com/photo-1629203851122-3726ecdf080e?w=300&h=200&fit=crop"
+        }
+      ],
+      7: [ // Taco Bell
+        {
+          id: 1,
+          name: "Crunchy Taco Supreme",
+          description: "Seasoned beef, lettuce, tomatoes, cheese, and sour cream in a crunchy shell",
+          price: 199,
+          category: "Tacos",
+          image: "https://images.unsplash.com/photo-1565299585323-38174c4a6779?w=300&h=200&fit=crop",
+          popular: true
+        },
+        {
+          id: 2,
+          name: "Chicken Quesadilla",
+          description: "Grilled chicken with melted cheese in a flour tortilla",
+          price: 299,
+          category: "Chicken",
+          image: "https://images.unsplash.com/photo-1571197119282-7c4b999c2382?w=300&h=200&fit=crop",
+          popular: true
+        },
+        {
+          id: 3,
+          name: "Nachos Supreme",
+          description: "Crispy nachos with cheese, beef, beans, tomatoes, and sour cream",
+          price: 249,
+          category: "Sides",
+          image: "https://images.unsplash.com/photo-1513456852971-30c0b8199d4d?w=300&h=200&fit=crop"
+        },
+        {
+          id: 4,
+          name: "Mountain Dew",
+          description: "Citrus flavored energizing drink",
+          price: 89,
+          category: "Drinks",
+          image: "https://images.unsplash.com/photo-1629203851122-3726ecdf080e?w=300&h=200&fit=crop"
+        },
+        {
+          id: 5,
+          name: "Bean Burrito",
+          description: "Seasoned beans wrapped in a warm flour tortilla",
+          price: 179,
+          category: "Tacos",
+          image: "https://images.unsplash.com/photo-1626700051175-6818013e1d4f?w=300&h=200&fit=crop"
         }
       ]
     };
@@ -150,25 +254,25 @@ const Restaurant = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors duration-300">
+    <div className="min-h-screen bg-gradient-to-br from-purple-50 via-white to-purple-100 dark:from-gray-900 dark:via-purple-950 dark:to-black transition-colors duration-300">
       {/* Header */}
-      <header className="bg-white dark:bg-gray-800 shadow-sm border-b dark:border-gray-700 sticky top-0 z-10 transition-colors duration-300">
+      <header className="bg-white/80 backdrop-blur-md dark:bg-black/80 shadow-lg border-b border-purple-200 dark:border-purple-800 sticky top-0 z-10 transition-colors duration-300">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             <div className="flex items-center space-x-4">
               <Link to="/">
-                <Button variant="ghost" size="sm" className="flex items-center space-x-2">
+                <Button variant="ghost" size="sm" className="flex items-center space-x-2 text-purple-600 hover:bg-purple-100 dark:hover:bg-purple-900">
                   <ArrowLeft className="h-4 w-4" />
                   <span>Back</span>
                 </Button>
               </Link>
               <div className="flex items-center space-x-2">
                 <div className="text-2xl">🍽️</div>
-                <span className="text-xl font-bold text-gray-900 dark:text-white">BiteBuddy</span>
+                <span className="text-xl font-bold bg-gradient-to-r from-purple-600 to-purple-800 bg-clip-text text-transparent">BiteBuddy</span>
               </div>
             </div>
             <Link to="/cart">
-              <Button className="flex items-center space-x-2 bg-orange-600 hover:bg-orange-700">
+              <Button className="flex items-center space-x-2 bg-gradient-to-r from-purple-600 to-purple-800 hover:from-purple-700 hover:to-purple-900">
                 <ShoppingCart className="h-4 w-4" />
                 <span>Cart ({getTotalItems()})</span>
               </Button>
@@ -184,25 +288,25 @@ const Restaurant = () => {
           alt={restaurant.name}
           className="w-full h-full object-cover"
         />
-        <div className="absolute inset-0 bg-black bg-opacity-40" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
         <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
           <div className="max-w-7xl mx-auto">
             <h1 className="text-3xl md:text-4xl font-bold mb-2">{restaurant.name}</h1>
             <p className="text-lg opacity-90 mb-4">{restaurant.description}</p>
             <div className="flex flex-wrap items-center gap-4">
-              <Badge className="bg-white bg-opacity-20 text-white">
+              <Badge className="bg-white/20 backdrop-blur-sm text-white border-white/30">
                 <Star className="h-3 w-3 mr-1 fill-yellow-400 text-yellow-400" />
                 {restaurant.rating}
               </Badge>
-              <Badge className="bg-white bg-opacity-20 text-white">
+              <Badge className="bg-white/20 backdrop-blur-sm text-white border-white/30">
                 <Clock className="h-3 w-3 mr-1" />
                 {restaurant.deliveryTime}
               </Badge>
-              <Badge className="bg-white bg-opacity-20 text-white">
+              <Badge className="bg-white/20 backdrop-blur-sm text-white border-white/30">
                 <Truck className="h-3 w-3 mr-1" />
                 {restaurant.deliveryFee}
               </Badge>
-              <Badge className="bg-white bg-opacity-20 text-white">
+              <Badge className="bg-purple-600/80 backdrop-blur-sm text-white border-purple-400/50">
                 {restaurant.cuisine}
               </Badge>
             </div>
@@ -222,7 +326,7 @@ const Restaurant = () => {
                   <Button
                     key={category}
                     variant="ghost"
-                    className="w-full justify-start hover:bg-orange-50 hover:text-orange-600 dark:hover:bg-gray-700"
+                    className="w-full justify-start hover:bg-purple-50 hover:text-purple-600 dark:hover:bg-purple-900 dark:text-gray-300"
                     onClick={() => {
                       const element = document.getElementById(category);
                       element?.scrollIntoView({ behavior: 'smooth' });
@@ -244,14 +348,14 @@ const Restaurant = () => {
                   {menuItems
                     .filter(item => item.category === category)
                     .map((item, index) => (
-                      <Card key={item.id} className="overflow-hidden hover:shadow-lg transition-all duration-300 animate-fade-in dark:bg-gray-800 dark:border-gray-700" style={{animationDelay: `${index * 100}ms`}}>
+                      <Card key={item.id} className="overflow-hidden hover:shadow-lg transition-all duration-300 animate-fade-in dark:bg-gray-800 dark:border-purple-800 border-purple-200 hover:border-purple-400 dark:hover:border-purple-600" style={{animationDelay: `${index * 100}ms`}}>
                         <div className="flex">
                           <div className="flex-1 p-4">
                             <div className="flex items-start justify-between mb-2">
                               <CardTitle className="text-lg font-semibold text-gray-900 dark:text-white">
                                 {item.name}
                                 {item.popular && (
-                                  <Badge className="ml-2 bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-200">
+                                  <Badge className="ml-2 bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200">
                                     🔥 Popular
                                   </Badge>
                                 )}
@@ -261,7 +365,7 @@ const Restaurant = () => {
                               {item.description}
                             </p>
                             <div className="flex items-center justify-between">
-                              <span className="text-xl font-bold text-gray-900 dark:text-white">
+                              <span className="text-xl font-bold text-purple-600 dark:text-purple-400">
                                 ₹{item.price}
                               </span>
                               <div className="flex items-center space-x-2">
@@ -271,11 +375,11 @@ const Restaurant = () => {
                                       size="sm"
                                       variant="outline"
                                       onClick={() => removeFromCart(item.id)}
-                                      className="h-8 w-8 p-0"
+                                      className="h-8 w-8 p-0 border-purple-300 text-purple-600 hover:bg-purple-50 dark:border-purple-600 dark:text-purple-400 dark:hover:bg-purple-900"
                                     >
                                       <Minus className="h-3 w-3" />
                                     </Button>
-                                    <span className="text-sm font-medium min-w-[20px] text-center">
+                                    <span className="text-sm font-medium min-w-[20px] text-center text-purple-600 dark:text-purple-400">
                                       {cart[item.id]}
                                     </span>
                                   </>
@@ -283,7 +387,7 @@ const Restaurant = () => {
                                 <Button
                                   size="sm"
                                   onClick={() => addToCart(item.id)}
-                                  className="h-8 w-8 p-0 bg-orange-600 hover:bg-orange-700"
+                                  className="h-8 w-8 p-0 bg-gradient-to-r from-purple-600 to-purple-800 hover:from-purple-700 hover:to-purple-900"
                                 >
                                   <Plus className="h-3 w-3" />
                                 </Button>
@@ -294,7 +398,7 @@ const Restaurant = () => {
                             <img
                               src={item.image}
                               alt={item.name}
-                              className="w-full h-full object-cover rounded-lg"
+                              className="w-full h-full object-cover rounded-lg border-2 border-purple-200 dark:border-purple-800"
                             />
                           </div>
                         </div>
