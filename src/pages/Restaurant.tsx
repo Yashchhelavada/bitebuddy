@@ -71,7 +71,7 @@ const Restaurant = () => {
           id: 1,
           name: "Margherita Pizza",
           description: "Classic pizza with tomato sauce, mozzarella cheese and fresh basil",
-          price: 449,
+          price: 499,
           category: "Pizza",
           image: "https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?w=300&h=200&fit=crop",
           popular: true
@@ -80,7 +80,7 @@ const Restaurant = () => {
           id: 2,
           name: "Pepperoni Pizza",
           description: "Spicy pepperoni with mozzarella cheese and signature sauce",
-          price: 599,
+          price: 649,
           category: "Pizza",
           image: "https://images.unsplash.com/photo-1628840042765-356cda07504e?w=300&h=200&fit=crop",
           popular: true
@@ -89,7 +89,7 @@ const Restaurant = () => {
           id: 3,
           name: "Garlic Bread",
           description: "Freshly baked bread with garlic butter and herbs",
-          price: 199,
+          price: 229,
           category: "Sides",
           image: "https://images.unsplash.com/photo-1549300461-11c5b94839d3?w=300&h=200&fit=crop"
         },
@@ -97,7 +97,7 @@ const Restaurant = () => {
           id: 4,
           name: "Coca Cola",
           description: "Refreshing cold beverage",
-          price: 89,
+          price: 119,
           category: "Drinks",
           image: "https://images.unsplash.com/photo-1629203851122-3726ecdf080e?w=300&h=200&fit=crop"
         }
@@ -107,7 +107,7 @@ const Restaurant = () => {
           id: 1,
           name: "Big Mac",
           description: "Two all-beef patties, special sauce, lettuce, cheese, pickles, onions on a sesame seed bun",
-          price: 349,
+          price: 389,
           category: "Burgers",
           image: "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=300&h=200&fit=crop",
           popular: true
@@ -116,7 +116,7 @@ const Restaurant = () => {
           id: 2,
           name: "McFries",
           description: "Golden crispy french fries with the perfect amount of salt",
-          price: 149,
+          price: 169,
           category: "Sides",
           image: "https://images.unsplash.com/photo-1576107232684-1279f390b3d6?w=300&h=200&fit=crop"
         },
@@ -124,7 +124,7 @@ const Restaurant = () => {
           id: 3,
           name: "McChicken",
           description: "Crispy chicken patty with lettuce and mayo",
-          price: 299,
+          price: 329,
           category: "Chicken",
           image: "https://images.unsplash.com/photo-1626645738196-c2a7c87a8f58?w=300&h=200&fit=crop"
         },
@@ -132,7 +132,7 @@ const Restaurant = () => {
           id: 4,
           name: "McCafe Coffee",
           description: "Premium arabica coffee blend",
-          price: 179,
+          price: 199,
           category: "Drinks",
           image: "https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=300&h=200&fit=crop"
         }
@@ -142,7 +142,7 @@ const Restaurant = () => {
           id: 1,
           name: "Farmhouse Pizza",
           description: "Fresh vegetables with cheese and signature sauce",
-          price: 499,
+          price: 549,
           category: "Pizza",
           image: "https://images.unsplash.com/photo-1565299624946-b28f40a0ca4b?w=300&h=200&fit=crop",
           popular: true
@@ -151,7 +151,7 @@ const Restaurant = () => {
           id: 2,
           name: "Chicken Dominator",
           description: "Loaded with grilled chicken and exotic toppings",
-          price: 699,
+          price: 749,
           category: "Pizza",
           image: "https://images.unsplash.com/photo-1594007654729-407eedc4be65?w=300&h=200&fit=crop",
           popular: true
@@ -160,7 +160,7 @@ const Restaurant = () => {
           id: 3,
           name: "Garlic Breadsticks",
           description: "Soft breadsticks with garlic seasoning",
-          price: 179,
+          price: 199,
           category: "Sides",
           image: "https://images.unsplash.com/photo-1549300461-11c5b94839d3?w=300&h=200&fit=crop"
         },
@@ -168,7 +168,7 @@ const Restaurant = () => {
           id: 4,
           name: "Pepsi",
           description: "Chilled refreshing cola drink",
-          price: 89,
+          price: 109,
           category: "Drinks",
           image: "https://images.unsplash.com/photo-1629203851122-3726ecdf080e?w=300&h=200&fit=crop"
         }
@@ -178,7 +178,7 @@ const Restaurant = () => {
           id: 1,
           name: "Crunchy Taco Supreme",
           description: "Seasoned beef, lettuce, tomatoes, cheese, and sour cream in a crunchy shell",
-          price: 199,
+          price: 219,
           category: "Tacos",
           image: "https://images.unsplash.com/photo-1565299585323-38174c4a6779?w=300&h=200&fit=crop",
           popular: true
@@ -187,8 +187,8 @@ const Restaurant = () => {
           id: 2,
           name: "Chicken Quesadilla",
           description: "Grilled chicken with melted cheese in a flour tortilla",
-          price: 299,
-          category: "Chicken",
+          price: 329,
+          category: "Mexican",
           image: "https://images.unsplash.com/photo-1571197119282-7c4b999c2382?w=300&h=200&fit=crop",
           popular: true
         },
@@ -196,7 +196,7 @@ const Restaurant = () => {
           id: 3,
           name: "Nachos Supreme",
           description: "Crispy nachos with cheese, beef, beans, tomatoes, and sour cream",
-          price: 249,
+          price: 279,
           category: "Sides",
           image: "https://images.unsplash.com/photo-1513456852971-30c0b8199d4d?w=300&h=200&fit=crop"
         },
@@ -204,7 +204,7 @@ const Restaurant = () => {
           id: 4,
           name: "Mountain Dew",
           description: "Citrus flavored energizing drink",
-          price: 89,
+          price: 109,
           category: "Drinks",
           image: "https://images.unsplash.com/photo-1629203851122-3726ecdf080e?w=300&h=200&fit=crop"
         },
@@ -212,7 +212,7 @@ const Restaurant = () => {
           id: 5,
           name: "Bean Burrito",
           description: "Seasoned beans wrapped in a warm flour tortilla",
-          price: 179,
+          price: 199,
           category: "Tacos",
           image: "https://images.unsplash.com/photo-1626700051175-6818013e1d4f?w=300&h=200&fit=crop"
         }
@@ -254,25 +254,27 @@ const Restaurant = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-50 via-white to-purple-100 dark:from-gray-900 dark:via-purple-950 dark:to-black transition-colors duration-300">
+    <div className="min-h-screen bg-gradient-to-br from-[rgb(249,243,239)] via-[rgb(210,193,182)] to-[rgb(249,243,239)] dark:from-[rgb(27,60,83)] dark:via-[rgb(69,104,130)] dark:to-[rgb(27,60,83)] transition-colors duration-300">
       {/* Header */}
-      <header className="bg-white/80 backdrop-blur-md dark:bg-black/80 shadow-lg border-b border-purple-200 dark:border-purple-800 sticky top-0 z-10 transition-colors duration-300">
+      <header className="bg-[rgb(249,243,239)]/80 backdrop-blur-md dark:bg-[rgb(27,60,83)]/80 shadow-lg border-b border-[rgb(210,193,182)] dark:border-[rgb(69,104,130)] sticky top-0 z-10 transition-colors duration-300">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             <div className="flex items-center space-x-4">
               <Link to="/">
-                <Button variant="ghost" size="sm" className="flex items-center space-x-2 text-purple-600 hover:bg-purple-100 dark:hover:bg-purple-900">
+                <Button variant="ghost" size="sm" className="flex items-center space-x-2 text-[rgb(69,104,130)] hover:bg-[rgb(210,193,182)] dark:text-[rgb(210,193,182)] dark:hover:bg-[rgb(69,104,130)]">
                   <ArrowLeft className="h-4 w-4" />
                   <span>Back</span>
                 </Button>
               </Link>
               <div className="flex items-center space-x-2">
-                <div className="text-2xl">🍽️</div>
-                <span className="text-xl font-bold bg-gradient-to-r from-purple-600 to-purple-800 bg-clip-text text-transparent">BiteBuddy</span>
+                <div className="bg-gradient-to-r from-[rgb(27,60,83)] to-[rgb(69,104,130)] p-2 rounded-full">
+                  <span className="text-lg font-bold text-white">🍽️</span>
+                </div>
+                <span className="text-xl font-bold bg-gradient-to-r from-[rgb(27,60,83)] to-[rgb(69,104,130)] bg-clip-text text-transparent">BiteBuddy</span>
               </div>
             </div>
             <Link to="/cart">
-              <Button className="flex items-center space-x-2 bg-gradient-to-r from-purple-600 to-purple-800 hover:from-purple-700 hover:to-purple-900">
+              <Button className="flex items-center space-x-2 bg-gradient-to-r from-[rgb(27,60,83)] to-[rgb(69,104,130)] hover:from-[rgb(69,104,130)] hover:to-[rgb(27,60,83)]">
                 <ShoppingCart className="h-4 w-4" />
                 <span>Cart ({getTotalItems()})</span>
               </Button>

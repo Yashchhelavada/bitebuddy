@@ -31,18 +31,18 @@ const Category = () => {
   const getRestaurantsByCategory = (categoryName: string) => {
     const restaurantData = {
       pizza: [
-        { id: 1, name: "Pizza Hut", cuisine: "Pizza", rating: 4.3, deliveryTime: "30-45 min", deliveryFee: "₹60", image: "https://images.unsplash.com/photo-1513104890138-7c749659a591?w=400&h=300&fit=crop", isOpen: true },
-        { id: 3, name: "Domino's Pizza", cuisine: "Pizza", rating: 4.4, deliveryTime: "25-40 min", deliveryFee: "₹55", image: "https://images.unsplash.com/photo-1565299624946-b28f40a0ca4b?w=400&h=300&fit=crop", isOpen: true },
-        { id: 9, name: "Papa John's", cuisine: "Pizza", rating: 4.2, deliveryTime: "35-50 min", deliveryFee: "₹65", image: "https://images.unsplash.com/photo-1590947132387-155cc02f3212?w=400&h=300&fit=crop", isOpen: true },
+        { id: 1, name: "Pizza Hut", cuisine: "Pizza", rating: 4.3, deliveryTime: "30-45 min", deliveryFee: "₹60", image: "https://images.unsplash.com/photo-1565299624946-b28f40a0ca4b?w=400&h=300&fit=crop", isOpen: true },
+        { id: 3, name: "Domino's Pizza", cuisine: "Pizza", rating: 4.4, deliveryTime: "25-40 min", deliveryFee: "₹55", image: "https://images.unsplash.com/photo-1513104890138-7c749659a591?w=400&h=300&fit=crop", isOpen: true },
+        { id: 9, name: "Papa John's", cuisine: "Pizza", rating: 4.2, deliveryTime: "35-50 min", deliveryFee: "₹65", image: "https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?w=400&h=300&fit=crop", isOpen: true },
         { id: 10, name: "Chicago Pizza", cuisine: "Pizza", rating: 4.1, deliveryTime: "30-40 min", deliveryFee: "₹70", image: "https://images.unsplash.com/photo-1571407970349-bc81e7e96d47?w=400&h=300&fit=crop", isOpen: true },
         { id: 11, name: "Fire Stone Pizza", cuisine: "Pizza", rating: 4.0, deliveryTime: "25-35 min", deliveryFee: "₹55", image: "https://images.unsplash.com/photo-1593560708920-61dd98c46a4e?w=400&h=300&fit=crop", isOpen: true }
       ],
       burgers: [
-        { id: 2, name: "McDonald's", cuisine: "Fast Food", rating: 4.1, deliveryTime: "20-35 min", deliveryFee: "₹50", image: "https://images.unsplash.com/photo-1571091718767-18b5b1457add?w=400&h=300&fit=crop", isOpen: true },
-        { id: 6, name: "Burger King", cuisine: "Burgers", rating: 4.1, deliveryTime: "25-35 min", deliveryFee: "₹55", image: "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=400&h=300&fit=crop", isOpen: true },
-        { id: 12, name: "Hardee's", cuisine: "Burgers", rating: 4.0, deliveryTime: "30-40 min", deliveryFee: "₹60", image: "https://images.unsplash.com/photo-1586190848861-99aa4a171e90?w=400&h=300&fit=crop", isOpen: true },
-        { id: 13, name: "Carl's Jr", cuisine: "Burgers", rating: 3.9, deliveryTime: "25-40 min", deliveryFee: "₹65", image: "https://images.unsplash.com/photo-1550547660-d9450f859349?w=400&h=300&fit=crop", isOpen: true },
-        { id: 14, name: "Wendy's", cuisine: "Burgers", rating: 4.2, deliveryTime: "20-30 min", deliveryFee: "₹55", image: "https://images.unsplash.com/photo-1572802419224-296b0aeee0d9?w=400&h=300&fit=crop", isOpen: true }
+        { id: 2, name: "McDonald's", cuisine: "Fast Food", rating: 4.1, deliveryTime: "20-35 min", deliveryFee: "₹50", image: "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=400&h=300&fit=crop", isOpen: true },
+        { id: 6, name: "Burger King", cuisine: "Burgers", rating: 4.1, deliveryTime: "25-35 min", deliveryFee: "₹55", image: "https://images.unsplash.com/photo-1586190848861-99aa4a171e90?w=400&h=300&fit=crop", isOpen: true },
+        { id: 12, name: "Hardee's", cuisine: "Burgers", rating: 4.0, deliveryTime: "30-40 min", deliveryFee: "₹60", image: "https://images.unsplash.com/photo-1550547660-d9450f859349?w=400&h=300&fit=crop", isOpen: true },
+        { id: 13, name: "Carl's Jr", cuisine: "Burgers", rating: 3.9, deliveryTime: "25-40 min", deliveryFee: "₹65", image: "https://images.unsplash.com/photo-1572802419224-296b0aeee0d9?w=400&h=300&fit=crop", isOpen: true },
+        { id: 14, name: "Wendy's", cuisine: "Burgers", rating: 4.2, deliveryTime: "20-30 min", deliveryFee: "₹55", image: "https://images.unsplash.com/photo-1551782450-17144efb9c50?w=400&h=300&fit=crop", isOpen: true }
       ],
       chinese: [
         { id: 15, name: "Panda Express", cuisine: "Chinese", rating: 4.0, deliveryTime: "25-35 min", deliveryFee: "₹60", image: "https://images.unsplash.com/photo-1617196034796-73989e891b8e?w=400&h=300&fit=crop", isOpen: true },
@@ -81,21 +81,23 @@ const Category = () => {
   const categoryTitle = category ? category.charAt(0).toUpperCase() + category.slice(1) : "Category";
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-50 via-white to-purple-100 dark:from-gray-900 dark:via-purple-950 dark:to-black transition-colors duration-300">
+    <div className="min-h-screen bg-gradient-to-br from-[rgb(249,243,239)] via-[rgb(210,193,182)] to-[rgb(249,243,239)] dark:from-[rgb(27,60,83)] dark:via-[rgb(69,104,130)] dark:to-[rgb(27,60,83)] transition-colors duration-300">
       {/* Header */}
-      <header className="bg-white/80 backdrop-blur-md dark:bg-black/80 shadow-lg border-b border-purple-200 dark:border-purple-800 transition-colors duration-300">
+      <header className="bg-[rgb(249,243,239)]/80 backdrop-blur-md dark:bg-[rgb(27,60,83)]/80 shadow-lg border-b border-[rgb(210,193,182)] dark:border-[rgb(69,104,130)] transition-colors duration-300">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             <div className="flex items-center space-x-4">
               <Link to="/">
-                <Button variant="ghost" size="sm" className="flex items-center space-x-2 text-purple-600 hover:bg-purple-100 dark:hover:bg-purple-900">
+                <Button variant="ghost" size="sm" className="flex items-center space-x-2 text-[rgb(69,104,130)] hover:bg-[rgb(210,193,182)] dark:text-[rgb(210,193,182)] dark:hover:bg-[rgb(69,104,130)]">
                   <ArrowLeft className="h-4 w-4" />
                   <span>Back</span>
                 </Button>
               </Link>
               <div className="flex items-center space-x-2">
-                <div className="text-2xl">🍽️</div>
-                <span className="text-xl font-bold bg-gradient-to-r from-purple-600 to-purple-800 bg-clip-text text-transparent">BiteBuddy</span>
+                <div className="bg-gradient-to-r from-[rgb(27,60,83)] to-[rgb(69,104,130)] p-2 rounded-full">
+                  <span className="text-lg font-bold text-white">🍽️</span>
+                </div>
+                <span className="text-xl font-bold bg-gradient-to-r from-[rgb(27,60,83)] to-[rgb(69,104,130)] bg-clip-text text-transparent">BiteBuddy</span>
               </div>
             </div>
             <div className="flex items-center space-x-4">
@@ -103,12 +105,12 @@ const Category = () => {
                 variant="ghost"
                 size="sm"
                 onClick={toggleTheme}
-                className="h-8 w-8 p-0 hover:bg-purple-100 dark:hover:bg-purple-900"
+                className="h-8 w-8 p-0 hover:bg-[rgb(210,193,182)] dark:hover:bg-[rgb(69,104,130)]"
               >
-                {isDarkMode ? <Sun className="h-4 w-4 text-purple-600" /> : <Moon className="h-4 w-4 text-purple-600" />}
+                {isDarkMode ? <Sun className="h-4 w-4 text-[rgb(210,193,182)]" /> : <Moon className="h-4 w-4 text-[rgb(69,104,130)]" />}
               </Button>
               <Link to="/cart">
-                <Button variant="outline" size="sm" className="border-purple-300 text-purple-600 hover:bg-purple-50 dark:border-purple-600 dark:text-purple-400 dark:hover:bg-purple-900">
+                <Button variant="outline" size="sm" className="border-[rgb(69,104,130)] text-[rgb(69,104,130)] hover:bg-[rgb(210,193,182)] dark:border-[rgb(210,193,182)] dark:text-[rgb(210,193,182)] dark:hover:bg-[rgb(69,104,130)]">
                   Cart (0)
                 </Button>
               </Link>
@@ -120,10 +122,10 @@ const Category = () => {
       {/* Category Content */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="text-center mb-8">
-          <h1 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
+          <h1 className="text-3xl md:text-4xl font-bold text-[rgb(27,60,83)] dark:text-white mb-4">
             {categoryTitle} Restaurants
           </h1>
-          <p className="text-lg text-gray-600 dark:text-gray-300">
+          <p className="text-lg text-[rgb(69,104,130)] dark:text-[rgb(210,193,182)]">
             Discover the best {categoryTitle.toLowerCase()} places in Ahmedabad
           </p>
         </div>
@@ -140,7 +142,7 @@ const Category = () => {
 
         {restaurants.length === 0 && (
           <div className="text-center py-12">
-            <p className="text-xl text-gray-500 dark:text-gray-400">
+            <p className="text-xl text-[rgb(69,104,130)] dark:text-[rgb(210,193,182)]">
               No restaurants found for this category.
             </p>
           </div>
