@@ -1,6 +1,6 @@
 
-import { useState } from "react";
-import { ArrowLeft, Mail, Lock, Eye, EyeOff } from "lucide-react";
+import { useState, useEffect } from "react";
+import { ArrowLeft, Mail, Lock, Eye, EyeOff, Sun, Moon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -10,11 +10,31 @@ import { toast } from "@/hooks/use-toast";
 
 const SignUp = () => {
   const [showPassword, setShowPassword] = useState(false);
+  const [isDarkMode, setIsDarkMode] = useState(false);
   const [formData, setFormData] = useState({
     email: "",
     password: "",
     confirmPassword: "",
   });
+
+  useEffect(() => {
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'dark') {
+      setIsDarkMode(true);
+      document.documentElement.classList.add('dark');
+    }
+  }, []);
+
+  const toggleTheme = () => {
+    setIsDarkMode(!isDarkMode);
+    if (!isDarkMode) {
+      document.documentElement.classList.add('dark');
+      localStorage.setItem('theme', 'dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+      localStorage.setItem('theme', 'light');
+    }
+  };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({
@@ -49,27 +69,37 @@ const SignUp = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-orange-50 via-white to-red-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 flex items-center justify-center p-4">
+    <div className={`min-h-screen flex items-center justify-center p-4 transition-colors duration-300 ${isDarkMode ? 'bg-black' : 'bg-gradient-to-br from-[rgb(249,243,239)] via-[rgb(210,193,182)] to-[rgb(249,243,239)]'}`}>
       <div className="w-full max-w-md">
-        <Card className="shadow-2xl border-0 dark:bg-gray-800">
+        <Card className={`shadow-2xl border-0 ${isDarkMode ? 'bg-gray-900' : 'bg-white'}`}>
           <CardHeader className="space-y-4">
             <div className="flex items-center justify-between">
               <Link to="/">
-                <Button variant="ghost" size="sm" className="flex items-center space-x-2">
+                <Button variant="ghost" size="sm" className={`flex items-center space-x-2 ${isDarkMode ? 'text-white hover:bg-gray-800' : 'text-[rgb(69,104,130)] hover:bg-[rgb(210,193,182)]'}`}>
                   <ArrowLeft className="h-4 w-4" />
                   <span>Back</span>
                 </Button>
               </Link>
               <div className="flex items-center space-x-2">
-                <div className="text-xl">🍽️</div>
-                <span className="text-lg font-bold text-gray-900 dark:text-white">BiteBuddy</span>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={toggleTheme}
+                  className={`h-8 w-8 p-0 ${isDarkMode ? 'hover:bg-gray-800' : 'hover:bg-[rgb(210,193,182)]'}`}
+                >
+                  {isDarkMode ? <Sun className="h-4 w-4 text-white" /> : <Moon className="h-4 w-4 text-[rgb(69,104,130)]" />}
+                </Button>
+                <div className="flex items-center space-x-2">
+                  <div className="text-xl">🍽️</div>
+                  <span className={`text-lg font-bold ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>BiteBuddy</span>
+                </div>
               </div>
             </div>
             <div className="text-center">
-              <CardTitle className="text-2xl font-bold text-gray-900 dark:text-white">
+              <CardTitle className={`text-2xl font-bold ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
                 Join BiteBuddy
               </CardTitle>
-              <p className="text-gray-600 dark:text-gray-300 mt-2">
+              <p className={`mt-2 ${isDarkMode ? 'text-gray-300' : 'text-gray-600'}`}>
                 Create your account and start your food journey
               </p>
             </div>
@@ -78,7 +108,7 @@ const SignUp = () => {
           <CardContent className="space-y-6">
             <form onSubmit={handleSubmit} className="space-y-4">
               <div className="space-y-2">
-                <Label htmlFor="email" className="text-sm font-medium text-gray-700 dark:text-gray-300">
+                <Label htmlFor="email" className={`text-sm font-medium ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>
                   Email Address
                 </Label>
                 <div className="relative">
@@ -91,13 +121,13 @@ const SignUp = () => {
                     placeholder="your@email.com"
                     value={formData.email}
                     onChange={handleInputChange}
-                    className="pl-10"
+                    className={`pl-10 ${isDarkMode ? 'bg-gray-800 border-gray-700 text-white' : 'bg-white border-gray-300'}`}
                   />
                 </div>
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="password" className="text-sm font-medium text-gray-700 dark:text-gray-300">
+                <Label htmlFor="password" className={`text-sm font-medium ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>
                   Password
                 </Label>
                 <div className="relative">
@@ -110,7 +140,7 @@ const SignUp = () => {
                     placeholder="Create a strong password"
                     value={formData.password}
                     onChange={handleInputChange}
-                    className="pl-10 pr-10"
+                    className={`pl-10 pr-10 ${isDarkMode ? 'bg-gray-800 border-gray-700 text-white' : 'bg-white border-gray-300'}`}
                   />
                   <Button
                     type="button"
@@ -129,7 +159,7 @@ const SignUp = () => {
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="confirmPassword" className="text-sm font-medium text-gray-700 dark:text-gray-300">
+                <Label htmlFor="confirmPassword" className={`text-sm font-medium ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>
                   Confirm Password
                 </Label>
                 <div className="relative">
@@ -142,14 +172,14 @@ const SignUp = () => {
                     placeholder="Confirm your password"
                     value={formData.confirmPassword}
                     onChange={handleInputChange}
-                    className="pl-10"
+                    className={`pl-10 ${isDarkMode ? 'bg-gray-800 border-gray-700 text-white' : 'bg-white border-gray-300'}`}
                   />
                 </div>
               </div>
 
               <Button
                 type="submit"
-                className="w-full bg-orange-600 hover:bg-orange-700 text-white font-semibold py-3"
+                className={`w-full font-semibold py-3 ${isDarkMode ? 'bg-white text-black hover:bg-gray-200' : 'bg-[rgb(69,104,130)] text-white hover:bg-[rgb(27,60,83)]'}`}
               >
                 Create Account
               </Button>
@@ -157,17 +187,17 @@ const SignUp = () => {
 
             <div className="relative">
               <div className="absolute inset-0 flex items-center">
-                <span className="w-full border-t border-gray-300 dark:border-gray-600" />
+                <span className={`w-full border-t ${isDarkMode ? 'border-gray-600' : 'border-gray-300'}`} />
               </div>
               <div className="relative flex justify-center text-xs uppercase">
-                <span className="bg-white dark:bg-gray-800 px-2 text-gray-500">Or continue with</span>
+                <span className={`px-2 text-gray-500 ${isDarkMode ? 'bg-gray-900' : 'bg-white'}`}>Or continue with</span>
               </div>
             </div>
 
             <Button
               type="button"
               variant="outline"
-              className="w-full py-3 flex items-center justify-center space-x-2"
+              className={`w-full py-3 flex items-center justify-center space-x-2 ${isDarkMode ? 'border-gray-600 text-white hover:bg-gray-800' : 'border-gray-300 text-gray-700 hover:bg-gray-50'}`}
               onClick={handleGoogleSignUp}
             >
               <svg className="h-5 w-5" viewBox="0 0 24 24">
@@ -191,20 +221,20 @@ const SignUp = () => {
               <span>Sign up with Google</span>
             </Button>
 
-            <div className="text-center text-sm text-gray-600 dark:text-gray-400">
+            <div className={`text-center text-sm ${isDarkMode ? 'text-gray-400' : 'text-gray-600'}`}>
               Already have an account?{" "}
-              <Link to="/login" className="text-orange-600 hover:text-orange-700 font-medium">
+              <Link to="/login" className={`font-medium ${isDarkMode ? 'text-white hover:text-gray-300' : 'text-[rgb(69,104,130)] hover:text-[rgb(27,60,83)]'}`}>
                 Sign in here
               </Link>
             </div>
 
-            <div className="text-xs text-gray-500 dark:text-gray-400 text-center">
+            <div className={`text-xs text-center ${isDarkMode ? 'text-gray-400' : 'text-gray-500'}`}>
               By creating an account, you agree to our{" "}
-              <a href="#" className="text-orange-600 hover:underline">
+              <a href="#" className={`${isDarkMode ? 'text-white hover:underline' : 'text-[rgb(69,104,130)] hover:underline'}`}>
                 Terms of Service
               </a>{" "}
               and{" "}
-              <a href="#" className="text-orange-600 hover:underline">
+              <a href="#" className={`${isDarkMode ? 'text-white hover:underline' : 'text-[rgb(69,104,130)] hover:underline'}`}>
                 Privacy Policy
               </a>
             </div>

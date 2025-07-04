@@ -81,14 +81,14 @@ const Category = () => {
   const categoryTitle = category ? category.charAt(0).toUpperCase() + category.slice(1) : "Category";
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[rgb(249,243,239)] via-[rgb(210,193,182)] to-[rgb(249,243,239)] dark:from-[rgb(27,60,83)] dark:via-[rgb(69,104,130)] dark:to-[rgb(27,60,83)] transition-colors duration-300">
+    <div className={`min-h-screen transition-colors duration-300 ${isDarkMode ? 'bg-black text-white' : 'bg-gradient-to-br from-[rgb(249,243,239)] via-[rgb(210,193,182)] to-[rgb(249,243,239)] text-[rgb(27,60,83)]'}`}>
       {/* Header */}
-      <header className="bg-[rgb(249,243,239)]/80 backdrop-blur-md dark:bg-[rgb(27,60,83)]/80 shadow-lg border-b border-[rgb(210,193,182)] dark:border-[rgb(69,104,130)] transition-colors duration-300">
+      <header className={`backdrop-blur-md shadow-lg border-b sticky top-0 z-10 transition-colors duration-300 ${isDarkMode ? 'bg-black/80 border-gray-800' : 'bg-[rgb(249,243,239)]/80 border-[rgb(210,193,182)]'}`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             <div className="flex items-center space-x-4">
               <Link to="/">
-                <Button variant="ghost" size="sm" className="flex items-center space-x-2 text-[rgb(69,104,130)] hover:bg-[rgb(210,193,182)] dark:text-[rgb(210,193,182)] dark:hover:bg-[rgb(69,104,130)]">
+                <Button variant="ghost" size="sm" className={`flex items-center space-x-2 ${isDarkMode ? 'text-white hover:bg-gray-800' : 'text-[rgb(69,104,130)] hover:bg-[rgb(210,193,182)]'}`}>
                   <ArrowLeft className="h-4 w-4" />
                   <span>Back</span>
                 </Button>
@@ -97,7 +97,7 @@ const Category = () => {
                 <div className="bg-gradient-to-r from-[rgb(27,60,83)] to-[rgb(69,104,130)] p-2 rounded-full">
                   <span className="text-lg font-bold text-white">🍽️</span>
                 </div>
-                <span className="text-xl font-bold bg-gradient-to-r from-[rgb(27,60,83)] to-[rgb(69,104,130)] bg-clip-text text-transparent">BiteBuddy</span>
+                <span className={`text-xl font-bold bg-gradient-to-r from-[rgb(27,60,83)] to-[rgb(69,104,130)] bg-clip-text text-transparent ${isDarkMode ? 'text-white' : ''}`}>BiteBuddy</span>
               </div>
             </div>
             <div className="flex items-center space-x-4">
@@ -105,12 +105,12 @@ const Category = () => {
                 variant="ghost"
                 size="sm"
                 onClick={toggleTheme}
-                className="h-8 w-8 p-0 hover:bg-[rgb(210,193,182)] dark:hover:bg-[rgb(69,104,130)]"
+                className={`h-8 w-8 p-0 ${isDarkMode ? 'hover:bg-gray-800' : 'hover:bg-[rgb(210,193,182)]'}`}
               >
-                {isDarkMode ? <Sun className="h-4 w-4 text-[rgb(210,193,182)]" /> : <Moon className="h-4 w-4 text-[rgb(69,104,130)]" />}
+                {isDarkMode ? <Sun className="h-4 w-4 text-white" /> : <Moon className="h-4 w-4 text-[rgb(69,104,130)]" />}
               </Button>
               <Link to="/cart">
-                <Button variant="outline" size="sm" className="border-[rgb(69,104,130)] text-[rgb(69,104,130)] hover:bg-[rgb(210,193,182)] dark:border-[rgb(210,193,182)] dark:text-[rgb(210,193,182)] dark:hover:bg-[rgb(69,104,130)]">
+                <Button className={`${isDarkMode ? 'bg-white text-black hover:bg-gray-200' : 'bg-[rgb(69,104,130)] text-white hover:bg-[rgb(27,60,83)]'}`} size="sm">
                   Cart (0)
                 </Button>
               </Link>
@@ -122,10 +122,10 @@ const Category = () => {
       {/* Category Content */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="text-center mb-8">
-          <h1 className="text-3xl md:text-4xl font-bold text-[rgb(27,60,83)] dark:text-white mb-4">
+          <h1 className={`text-3xl md:text-4xl font-bold mb-4 ${isDarkMode ? 'text-white' : 'text-[rgb(27,60,83)]'}`}>
             {categoryTitle} Restaurants
           </h1>
-          <p className="text-lg text-[rgb(69,104,130)] dark:text-[rgb(210,193,182)]">
+          <p className={`text-lg ${isDarkMode ? 'text-gray-300' : 'text-[rgb(69,104,130)]'}`}>
             Discover the best {categoryTitle.toLowerCase()} places in Ahmedabad
           </p>
         </div>
@@ -142,7 +142,7 @@ const Category = () => {
 
         {restaurants.length === 0 && (
           <div className="text-center py-12">
-            <p className="text-xl text-[rgb(69,104,130)] dark:text-[rgb(210,193,182)]">
+            <p className={`text-xl ${isDarkMode ? 'text-gray-300' : 'text-[rgb(69,104,130)]'}`}>
               No restaurants found for this category.
             </p>
           </div>
