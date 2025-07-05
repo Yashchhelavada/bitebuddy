@@ -1,6 +1,6 @@
 
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { ArrowLeft, Plus, Minus, Trash2, ShoppingBag, Sun, Moon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -10,6 +10,7 @@ import { Input } from "@/components/ui/input";
 import { toast } from "@/hooks/use-toast";
 
 const Cart = () => {
+  const navigate = useNavigate();
   const [isDarkMode, setIsDarkMode] = useState(() => {
     const savedTheme = localStorage.getItem('theme');
     if (savedTheme === 'dark') {
@@ -23,24 +24,8 @@ const Cart = () => {
   const [appliedPromo, setAppliedPromo] = useState("");
   const [discount, setDiscount] = useState(0);
 
-  const [cartItems, setCartItems] = useState([
-    {
-      id: 1,
-      name: "Veg Biryani",
-      price: 299,
-      quantity: 2,
-      restaurant: "Biryani Paradise",
-      image: "https://images.unsplash.com/photo-1563379091339-03246963d96c?w=300&h=200&fit=crop"
-    },
-    {
-      id: 2,
-      name: "Paneer Butter Masala",
-      price: 249,
-      quantity: 1,
-      restaurant: "Spice Route",
-      image: "https://images.unsplash.com/photo-1631452180519-c014fe946bc7?w=300&h=200&fit=crop"
-    }
-  ]);
+  // Empty cart initially - items should only appear when added by user
+  const [cartItems, setCartItems] = useState<any[]>([]);
 
   const toggleTheme = () => {
     setIsDarkMode(!isDarkMode);
@@ -101,16 +86,20 @@ const Cart = () => {
   };
 
   const subtotal = cartItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-  const deliveryFee = 49;
+  const deliveryFee = cartItems.length > 0 ? 49 : 0;
   const tax = Math.round(subtotal * 0.08);
   const total = subtotal + deliveryFee + tax - discount;
 
-  const handleCheckout = () => {
-    toast({
-      title: "Order placed! 🎉",
-      description: "Your feast is on its way! We'll track every step.",
-      duration: 4000,
-    });
+  const handlePay = () => {
+    if (cartItems.length === 0) {
+      toast({
+        title: "Cart is empty",
+        description: "Please add items to your cart first",
+        duration: 2000,
+      });
+      return;
+    }
+    navigate('/payment');
   };
 
   return (
@@ -249,10 +238,12 @@ const Cart = () => {
                     <span>Subtotal</span>
                     <span>₹{subtotal}</span>
                   </div>
-                  <div className={`flex justify-between text-sm ${isDarkMode ? 'text-gray-300' : 'text-gray-600'}`}>
-                    <span>Delivery Fee</span>
-                    <span>₹{deliveryFee}</span>
-                  </div>
+                  {deliveryFee > 0 && (
+                    <div className={`flex justify-between text-sm ${isDarkMode ? 'text-gray-300' : 'text-gray-600'}`}>
+                      <span>Delivery Fee</span>
+                      <span>₹{deliveryFee}</span>
+                    </div>
+                  )}
                   <div className={`flex justify-between text-sm ${isDarkMode ? 'text-gray-300' : 'text-gray-600'}`}>
                     <span>Tax</span>
                     <span>₹{tax}</span>
@@ -270,12 +261,12 @@ const Cart = () => {
                   </div>
                   <Button 
                     className="w-full bg-gradient-to-r from-[rgb(27,60,83)] to-[rgb(69,104,130)] hover:from-[rgb(69,104,130)] hover:to-[rgb(27,60,83)] text-white py-6 text-lg"
-                    onClick={handleCheckout}
+                    onClick={handlePay}
                   >
-                    Your feast is just a click away! 🛒❤️
+                    Pay Now
                   </Button>
                   <p className={`text-xs text-center ${isDarkMode ? 'text-gray-400' : 'text-gray-500'}`}>
-                    We'll track every step — from kitchen to doorstep. 🍱🚗
+                    Secure payment with multiple options available
                   </p>
                 </CardContent>
               </Card>

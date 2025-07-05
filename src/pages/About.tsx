@@ -1,112 +1,144 @@
 
+import { useState } from "react";
 import { Link } from "react-router-dom";
-import { ArrowLeft, Heart, Users, Clock, Shield } from "lucide-react";
+import { ArrowLeft, Sun, Moon, Users, Target, Award, Heart } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 const About = () => {
+  const [isDarkMode, setIsDarkMode] = useState(() => {
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'dark') {
+      document.documentElement.classList.add('dark');
+      return true;
+    }
+    return false;
+  });
+
+  const toggleTheme = () => {
+    setIsDarkMode(!isDarkMode);
+    if (!isDarkMode) {
+      document.documentElement.classList.add('dark');
+      localStorage.setItem('theme', 'dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+      localStorage.setItem('theme', 'light');
+    }
+  };
+
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-50 via-white to-purple-100 dark:from-gray-900 dark:via-purple-950 dark:to-black transition-colors duration-300">
+    <div className={`min-h-screen transition-colors duration-300 ${isDarkMode ? 'bg-black text-white' : 'bg-gradient-to-br from-[rgb(249,243,239)] via-[rgb(210,193,182)] to-[rgb(249,243,239)] text-[rgb(27,60,83)]'}`}>
       {/* Header */}
-      <header className="bg-white/80 backdrop-blur-md dark:bg-black/80 shadow-lg border-b border-purple-200 dark:border-purple-800 transition-colors duration-300">
+      <header className={`backdrop-blur-md shadow-lg border-b sticky top-0 z-10 transition-colors duration-300 ${isDarkMode ? 'bg-black/80 border-gray-800' : 'bg-[rgb(249,243,239)]/80 border-[rgb(210,193,182)]'}`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             <div className="flex items-center space-x-4">
               <Link to="/">
-                <Button variant="ghost" size="sm" className="flex items-center space-x-2 text-purple-600 hover:bg-purple-100 dark:hover:bg-purple-900">
+                <Button variant="ghost" size="sm" className={`flex items-center space-x-2 ${isDarkMode ? 'text-white hover:bg-gray-800' : 'text-[rgb(69,104,130)] hover:bg-[rgb(210,193,182)]'}`}>
                   <ArrowLeft className="h-4 w-4" />
                   <span>Back</span>
                 </Button>
               </Link>
               <div className="flex items-center space-x-2">
-                <div className="text-2xl">🍽️</div>
-                <span className="text-xl font-bold bg-gradient-to-r from-purple-600 to-purple-800 bg-clip-text text-transparent">BiteBuddy</span>
+                <div className="bg-gradient-to-r from-[rgb(27,60,83)] to-[rgb(69,104,130)] p-2 rounded-full">
+                  <span className="text-lg font-bold text-white">🍽️</span>
+                </div>
+                <span className={`text-xl font-bold bg-gradient-to-r from-[rgb(27,60,83)] to-[rgb(69,104,130)] bg-clip-text text-transparent ${isDarkMode ? 'text-white' : ''}`}>BiteBuddy</span>
               </div>
             </div>
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={toggleTheme}
+              className={`h-8 w-8 p-0 ${isDarkMode ? 'hover:bg-gray-800' : 'hover:bg-[rgb(210,193,182)]'}`}
+            >
+              {isDarkMode ? <Sun className="h-4 w-4 text-white" /> : <Moon className="h-4 w-4 text-[rgb(69,104,130)]" />}
+            </Button>
           </div>
         </div>
       </header>
 
-      {/* Hero Section */}
-      <section className="bg-gradient-to-r from-purple-600 via-purple-700 to-black text-white py-16">
-        <div className="max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8">
-          <h1 className="text-4xl md:text-5xl font-bold mb-4">About BiteBuddy</h1>
-          <p className="text-xl opacity-90">
-            Connecting food lovers with their favorite meals since 2024
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div className="text-center mb-12">
+          <h1 className={`text-4xl font-bold mb-4 ${isDarkMode ? 'text-white' : 'text-[rgb(27,60,83)]'}`}>
+            About BiteBuddy
+          </h1>
+          <p className={`text-lg ${isDarkMode ? 'text-gray-300' : 'text-[rgb(69,104,130)]'}`}>
+            Your trusted companion for delicious food delivery
           </p>
         </div>
-      </section>
 
-      {/* Main Content */}
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        {/* Our Story */}
-        <section className="mb-16">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">Our Story</h2>
-            <p className="text-lg text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
-              BiteBuddy was born from a simple idea: food ordering should be as delightful as the food itself. 
-              We believe that great meals bring people together, and technology should make that connection seamless.
-            </p>
-          </div>
-        </section>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+          <Card className={`transition-colors duration-300 ${isDarkMode ? 'bg-gray-900 border-gray-700' : 'bg-white border-[rgb(210,193,182)]'}`}>
+            <CardHeader>
+              <CardTitle className={`flex items-center space-x-2 ${isDarkMode ? 'text-white' : 'text-[rgb(27,60,83)]'}`}>
+                <Target className="h-5 w-5" />
+                <span>Our Mission</span>
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <p className={isDarkMode ? 'text-gray-300' : 'text-[rgb(69,104,130)]'}>
+                To connect food lovers with their favorite restaurants, making delicious meals just a click away. We believe everyone deserves great food delivered fresh and fast.
+              </p>
+            </CardContent>
+          </Card>
 
-        {/* Features */}
-        <section className="mb-16">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">Why Choose BiteBuddy?</h2>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            <Card className="text-center p-6 border-purple-200 dark:border-purple-800 hover:border-purple-400 dark:hover:border-purple-600 transition-colors duration-300">
-              <CardContent className="p-0">
-                <div className="bg-purple-100 dark:bg-purple-900 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <Clock className="h-6 w-6 text-purple-600 dark:text-purple-400" />
-                </div>
-                <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">Fast Delivery</h3>
-                <p className="text-gray-600 dark:text-gray-300">Quick and reliable delivery to your doorstep</p>
-              </CardContent>
-            </Card>
+          <Card className={`transition-colors duration-300 ${isDarkMode ? 'bg-gray-900 border-gray-700' : 'bg-white border-[rgb(210,193,182)]'}`}>
+            <CardHeader>
+              <CardTitle className={`flex items-center space-x-2 ${isDarkMode ? 'text-white' : 'text-[rgb(27,60,83)]'}`}>
+                <Users className="h-5 w-5" />
+                <span>Our Team</span>
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <p className={isDarkMode ? 'text-gray-300' : 'text-[rgb(69,104,130)]'}>
+                We're a passionate team of food enthusiasts and tech experts working together to revolutionize food delivery in your city.
+              </p>
+            </CardContent>
+          </Card>
 
-            <Card className="text-center p-6 border-purple-200 dark:border-purple-800 hover:border-purple-400 dark:hover:border-purple-600 transition-colors duration-300">
-              <CardContent className="p-0">
-                <div className="bg-purple-100 dark:bg-purple-900 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <Users className="h-6 w-6 text-purple-600 dark:text-purple-400" />
-                </div>
-                <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">Wide Selection</h3>
-                <p className="text-gray-600 dark:text-gray-300">Hundreds of restaurants and cuisines to choose from</p>
-              </CardContent>
-            </Card>
+          <Card className={`transition-colors duration-300 ${isDarkMode ? 'bg-gray-900 border-gray-700' : 'bg-white border-[rgb(210,193,182)]'}`}>
+            <CardHeader>
+              <CardTitle className={`flex items-center space-x-2 ${isDarkMode ? 'text-white' : 'text-[rgb(27,60,83)]'}`}>
+                <Award className="h-5 w-5" />
+                <span>Quality Promise</span>
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <p className={isDarkMode ? 'text-gray-300' : 'text-[rgb(69,104,130)]'}>
+                We partner only with trusted restaurants and ensure every order meets our high standards for quality, freshness, and taste.
+              </p>
+            </CardContent>
+          </Card>
 
-            <Card className="text-center p-6 border-purple-200 dark:border-purple-800 hover:border-purple-400 dark:hover:border-purple-600 transition-colors duration-300">
-              <CardContent className="p-0">
-                <div className="bg-purple-100 dark:bg-purple-900 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <Shield className="h-6 w-6 text-purple-600 dark:text-purple-400" />
-                </div>
-                <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">Secure Payments</h3>
-                <p className="text-gray-600 dark:text-gray-300">Safe and secure payment processing</p>
-              </CardContent>
-            </Card>
+          <Card className={`transition-colors duration-300 ${isDarkMode ? 'bg-gray-900 border-gray-700' : 'bg-white border-[rgb(210,193,182)]'}`}>
+            <CardHeader>
+              <CardTitle className={`flex items-center space-x-2 ${isDarkMode ? 'text-white' : 'text-[rgb(27,60,83)]'}`}>
+                <Heart className="h-5 w-5" />
+                <span>Community First</span>
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <p className={isDarkMode ? 'text-gray-300' : 'text-[rgb(69,104,130)]'}>
+                Supporting local restaurants and creating jobs in our community while bringing people together through great food experiences.
+              </p>
+            </CardContent>
+          </Card>
+        </div>
 
-            <Card className="text-center p-6 border-purple-200 dark:border-purple-800 hover:border-purple-400 dark:hover:border-purple-600 transition-colors duration-300">
-              <CardContent className="p-0">
-                <div className="bg-purple-100 dark:bg-purple-900 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <Heart className="h-6 w-6 text-purple-600 dark:text-purple-400" />
-                </div>
-                <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">Made with Love</h3>
-                <p className="text-gray-600 dark:text-gray-300">Every order is handled with care and attention</p>
-              </CardContent>
-            </Card>
-          </div>
-        </section>
-
-        {/* Mission */}
-        <section className="text-center bg-white/50 dark:bg-black/20 rounded-lg p-8 backdrop-blur-sm">
-          <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-6">Our Mission</h2>
-          <p className="text-lg text-gray-600 dark:text-gray-300 max-w-4xl mx-auto leading-relaxed">
-            To revolutionize food delivery by creating meaningful connections between restaurants, delivery partners, 
-            and customers. We're committed to supporting local businesses while providing exceptional service that 
-            brings joy to every meal.
+        <div className="text-center">
+          <h2 className={`text-2xl font-bold mb-4 ${isDarkMode ? 'text-white' : 'text-[rgb(27,60,83)]'}`}>
+            Join the BiteBuddy Family
+          </h2>
+          <p className={`text-lg mb-6 ${isDarkMode ? 'text-gray-300' : 'text-[rgb(69,104,130)]'}`}>
+            Ready to discover amazing food from the best restaurants in your area?
           </p>
-        </section>
+          <Link to="/signup">
+            <Button className="bg-gradient-to-r from-[rgb(27,60,83)] to-[rgb(69,104,130)] hover:from-[rgb(69,104,130)] hover:to-[rgb(27,60,83)] text-white px-8 py-3 text-lg">
+              Get Started Today
+            </Button>
+          </Link>
+        </div>
       </div>
     </div>
   );
