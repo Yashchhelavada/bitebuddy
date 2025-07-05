@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import { ArrowLeft, Star, Clock, Truck, Plus, Minus, ShoppingCart, Sun, Moon } from "lucide-react";
@@ -6,10 +7,12 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { toast } from "@/hooks/use-toast";
 import { getRestaurantMenu } from "@/data/restaurantMenus";
+import { useCart } from "@/contexts/CartContext";
 
 const Restaurant = () => {
   const { id } = useParams<{ id: string }>();
   const [cart, setCart] = useState<{[key: number]: number}>({});
+  const { addToCart, getTotalItems } = useCart();
   const [isDarkMode, setIsDarkMode] = useState(() => {
     const savedTheme = localStorage.getItem('theme');
     if (savedTheme === 'dark') {
@@ -30,19 +33,19 @@ const Restaurant = () => {
     }
   };
 
-  // Restaurant data with proper Indian pricing
+  // Restaurant data with high-quality images
   const getRestaurantData = (restaurantId: number) => {
     const restaurants = {
-      1: { id: 1, name: "Pizza Hut", cuisine: "Pizza", rating: 4.3, deliveryTime: "30-45 min", deliveryFee: "₹60", image: "https://images.unsplash.com/photo-1513104890138-7c749659a591?w=800&h=400&fit=crop", description: "World's favorite pizza place with authentic Italian taste and fresh ingredients.", isOpen: true },
-      2: { id: 2, name: "McDonald's", cuisine: "Fast Food", rating: 4.1, deliveryTime: "20-35 min", deliveryFee: "₹50", image: "https://images.unsplash.com/photo-1571091718767-18b5b1457add?w=800&h=400&fit=crop", description: "I'm Lovin' It! The world's leading fast-food chain with burgers, fries, and more.", isOpen: true },
-      3: { id: 3, name: "Domino's Pizza", cuisine: "Pizza", rating: 4.4, deliveryTime: "25-40 min", deliveryFee: "₹55", image: "https://images.unsplash.com/photo-1565299624946-b28f40a0ca4b?w=800&h=400&fit=crop", description: "OH YES WE DID! Fresh pizza delivered hot in 30 minutes or less.", isOpen: true },
-      6: { id: 6, name: "Burger King", cuisine: "Burgers", rating: 4.1, deliveryTime: "25-35 min", deliveryFee: "₹55", image: "https://images.unsplash.com/photo-1586190848861-99aa4a171e90?w=800&h=400&fit=crop", description: "Have It Your Way! Flame-grilled burgers made just how you like them.", isOpen: true },
-      7: { id: 7, name: "Taco Bell", cuisine: "Mexican", rating: 3.9, deliveryTime: "30-45 min", deliveryFee: "₹65", image: "https://images.unsplash.com/photo-1565299585323-38174c4a6779?w=800&h=400&fit=crop", description: "Live Más! Experience bold Mexican flavors with our tacos, burritos, and more.", isOpen: true },
-      8: { id: 8, name: "Starbucks", cuisine: "Coffee & Snacks", rating: 4.5, deliveryTime: "15-25 min", deliveryFee: "₹80", image: "https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?w=800&h=400&fit=crop", description: "Premium coffee, handcrafted beverages, and delicious pastries.", isOpen: true },
-      15: { id: 15, name: "Panda Express", cuisine: "Chinese", rating: 4.0, deliveryTime: "25-35 min", deliveryFee: "₹60", image: "https://images.unsplash.com/photo-1617196034796-73989e891b8e?w=800&h=400&fit=crop", description: "Fresh, fast Chinese food made with the highest quality ingredients.", isOpen: true },
-      16: { id: 16, name: "China Garden", cuisine: "Chinese", rating: 4.2, deliveryTime: "30-45 min", deliveryFee: "₹55", image: "https://images.unsplash.com/photo-1582878826629-29b7ad1cdc43?w=800&h=400&fit=crop", description: "Authentic Chinese cuisine with traditional flavors and modern presentation.", isOpen: true },
-      20: { id: 20, name: "Spice Route", cuisine: "Indian", rating: 4.4, deliveryTime: "35-50 min", deliveryFee: "₹60", image: "https://images.unsplash.com/photo-1565557623262-b51c2513a641?w=800&h=400&fit=crop", description: "Authentic Indian flavors with aromatic spices and traditional recipes.", isOpen: true },
-      24: { id: 24, name: "Biryani Paradise", cuisine: "Indian", rating: 4.5, deliveryTime: "25-40 min", deliveryFee: "₹60", image: "https://images.unsplash.com/photo-1563379091339-03246963d96c?w=800&h=400&fit=crop", description: "Home of the finest biryanis with authentic Hyderabadi flavors.", isOpen: true }
+      1: { id: 1, name: "Pizza Hut", cuisine: "Pizza", rating: 4.3, deliveryTime: "30-45 min", deliveryFee: "₹60", image: "https://images.unsplash.com/photo-1513104890138-7c749659a591?w=800&h=400&fit=crop&q=80", description: "World's favorite pizza place with authentic Italian taste and fresh ingredients.", isOpen: true },
+      2: { id: 2, name: "McDonald's", cuisine: "Fast Food", rating: 4.1, deliveryTime: "20-35 min", deliveryFee: "₹50", image: "https://images.unsplash.com/photo-1571091718767-18b5b1457add?w=800&h=400&fit=crop&q=80", description: "I'm Lovin' It! The world's leading fast-food chain with burgers, fries, and more.", isOpen: true },
+      3: { id: 3, name: "Domino's Pizza", cuisine: "Pizza", rating: 4.4, deliveryTime: "25-40 min", deliveryFee: "₹55", image: "https://images.unsplash.com/photo-1565299624946-b28f40a0ca4b?w=800&h=400&fit=crop&q=80", description: "OH YES WE DID! Fresh pizza delivered hot in 30 minutes or less.", isOpen: true },
+      6: { id: 6, name: "Burger King", cuisine: "Burgers", rating: 4.1, deliveryTime: "25-35 min", deliveryFee: "₹55", image: "https://images.unsplash.com/photo-1586190848861-99aa4a171e90?w=800&h=400&fit=crop&q=80", description: "Have It Your Way! Flame-grilled burgers made just how you like them.", isOpen: true },
+      7: { id: 7, name: "Taco Bell", cuisine: "Mexican", rating: 3.9, deliveryTime: "30-45 min", deliveryFee: "₹65", image: "https://images.unsplash.com/photo-1565299585323-38174c4a6779?w=800&h=400&fit=crop&q=80", description: "Live Más! Experience bold Mexican flavors with our tacos, burritos, and more.", isOpen: true },
+      8: { id: 8, name: "Starbucks", cuisine: "Coffee & Snacks", rating: 4.5, deliveryTime: "15-25 min", deliveryFee: "₹80", image: "https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?w=800&h=400&fit=crop&q=80", description: "Premium coffee, handcrafted beverages, and delicious pastries.", isOpen: true },
+      15: { id: 15, name: "Panda Express", cuisine: "Chinese", rating: 4.0, deliveryTime: "25-35 min", deliveryFee: "₹60", image: "https://images.unsplash.com/photo-1617196034796-73989e891b8e?w=800&h=400&fit=crop&q=80", description: "Fresh, fast Chinese food made with the highest quality ingredients.", isOpen: true },
+      16: { id: 16, name: "China Garden", cuisine: "Chinese", rating: 4.2, deliveryTime: "30-45 min", deliveryFee: "₹55", image: "https://images.unsplash.com/photo-1582878826629-29b7ad1cdc43?w=800&h=400&fit=crop&q=80", description: "Authentic Chinese cuisine with traditional flavors and modern presentation.", isOpen: true },
+      20: { id: 20, name: "Spice Route", cuisine: "Indian", rating: 4.4, deliveryTime: "35-50 min", deliveryFee: "₹60", image: "https://images.unsplash.com/photo-1565557623262-b51c2513a641?w=800&h=400&fit=crop&q=80", description: "Authentic Indian flavors with aromatic spices and traditional recipes.", isOpen: true },
+      24: { id: 24, name: "Biryani Paradise", cuisine: "Indian", rating: 4.5, deliveryTime: "25-40 min", deliveryFee: "₹60", image: "https://images.unsplash.com/photo-1563379091339-03246963d96c?w=800&h=400&fit=crop&q=80", description: "Home of the finest biryanis with authentic Hyderabadi flavors.", isOpen: true }
     };
     return restaurants[restaurantId as keyof typeof restaurants] || restaurants[1];
   };
@@ -52,17 +55,29 @@ const Restaurant = () => {
   const menuItems = restaurantMenu.items;
   const categories = [...new Set(menuItems.map(item => item.category))];
 
-  const addToCart = (itemId: number) => {
-    setCart(prev => ({
-      ...prev,
-      [itemId]: (prev[itemId] || 0) + 1
-    }));
+  const handleAddToCart = (itemId: number) => {
     const item = menuItems.find(i => i.id === itemId);
-    toast({
-      title: "Added to cart! 🛒",
-      description: `${item?.name} added to your cart`,
-      duration: 2000,
-    });
+    if (item) {
+      addToCart({
+        id: item.id,
+        name: item.name,
+        price: item.price,
+        image: item.image,
+        restaurant: restaurant.name,
+        restaurantId: restaurant.id
+      });
+      
+      setCart(prev => ({
+        ...prev,
+        [itemId]: (prev[itemId] || 0) + 1
+      }));
+      
+      toast({
+        title: "Added to cart! 🛒",
+        description: `${item.name} added to your cart`,
+        duration: 2000,
+      });
+    }
   };
 
   const removeFromCart = (itemId: number) => {
@@ -75,10 +90,6 @@ const Restaurant = () => {
       }
       return newCart;
     });
-  };
-
-  const getTotalItems = () => {
-    return Object.values(cart).reduce((sum, count) => sum + count, 0);
   };
 
   return (
@@ -127,6 +138,10 @@ const Restaurant = () => {
           src={restaurant.image}
           alt={restaurant.name}
           className="w-full h-full object-cover"
+          onError={(e) => {
+            // Fallback image if the main image fails to load
+            e.currentTarget.src = "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=800&h=400&fit=crop&q=80";
+          }}
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
         <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
@@ -226,7 +241,7 @@ const Restaurant = () => {
                                 )}
                                 <Button
                                   size="sm"
-                                  onClick={() => addToCart(item.id)}
+                                  onClick={() => handleAddToCart(item.id)}
                                   className="h-8 w-8 p-0 bg-gradient-to-r from-purple-600 to-purple-800 hover:from-purple-700 hover:to-purple-900"
                                 >
                                   <Plus className="h-3 w-3" />
@@ -239,6 +254,18 @@ const Restaurant = () => {
                               src={item.image}
                               alt={item.name}
                               className={`w-full h-full object-cover rounded-lg border-2 ${isDarkMode ? 'border-purple-800' : 'border-purple-200'}`}
+                              onError={(e) => {
+                                // Fallback image based on category
+                                const fallbackImages = {
+                                  'Pizza': 'https://images.unsplash.com/photo-1513104890138-7c749659a591?w=300&h=200&fit=crop&q=80',
+                                  'Chinese': 'https://images.unsplash.com/photo-1617196034796-73989e891b8e?w=300&h=200&fit=crop&q=80',
+                                  'Indian': 'https://images.unsplash.com/photo-1565557623262-b51c2513a641?w=300&h=200&fit=crop&q=80',
+                                  'Burgers': 'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=300&h=200&fit=crop&q=80',
+                                  'Coffee': 'https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?w=300&h=200&fit=crop&q=80',
+                                  'Desserts': 'https://images.unsplash.com/photo-1488900128323-21503983a07e?w=300&h=200&fit=crop&q=80'
+                                };
+                                e.currentTarget.src = fallbackImages[item.category as keyof typeof fallbackImages] || 'https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=300&h=200&fit=crop&q=80';
+                              }}
                             />
                           </div>
                         </div>

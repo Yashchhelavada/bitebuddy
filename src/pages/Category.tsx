@@ -7,9 +7,11 @@ import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
+import { useCart } from "@/contexts/CartContext";
 
 const Category = () => {
   const { category } = useParams<{ category: string }>();
+  const { getTotalItems } = useCart();
   const [isDarkMode, setIsDarkMode] = useState(() => {
     const savedTheme = localStorage.getItem('theme');
     if (savedTheme === 'dark') {
@@ -38,52 +40,40 @@ const Category = () => {
   const getRestaurantsByCategory = (categoryName: string) => {
     const restaurantData = {
       pizza: [
-        { id: 1, name: "Pizza Hut", cuisine: "Pizza", rating: 4.3, deliveryTime: "30-45 min", deliveryFee: "₹60", image: "https://images.unsplash.com/photo-1565299624946-b28f40a0ca4b?w=400&h=300&fit=crop", isOpen: true, dietary: ["vegetarian", "non-vegetarian"] },
-        { id: 3, name: "Domino's Pizza", cuisine: "Pizza", rating: 4.4, deliveryTime: "25-40 min", deliveryFee: "₹55", image: "https://images.unsplash.com/photo-1513104890138-7c749659a591?w=400&h=300&fit=crop", isOpen: true, dietary: ["vegetarian", "non-vegetarian"] },
-        { id: 9, name: "Papa John's", cuisine: "Pizza", rating: 4.2, deliveryTime: "35-50 min", deliveryFee: "₹65", image: "https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?w=400&h=300&fit=crop", isOpen: true, dietary: ["vegetarian", "non-vegetarian"] },
-        { id: 10, name: "Chicago Pizza", cuisine: "Pizza", rating: 4.1, deliveryTime: "30-40 min", deliveryFee: "₹70", image: "https://images.unsplash.com/photo-1571407970349-bc81e7e96d47?w=400&h=300&fit=crop", isOpen: true, dietary: ["vegetarian", "non-vegetarian"] },
-        { id: 11, name: "Fire Stone Pizza", cuisine: "Pizza", rating: 4.0, deliveryTime: "25-35 min", deliveryFee: "₹55", image: "https://images.unsplash.com/photo-1593560708920-61dd98c46a4e?w=400&h=300&fit=crop", isOpen: true, dietary: ["vegetarian", "non-vegetarian"] },
-        { id: 34, name: "Neapolitan Pizzeria", cuisine: "Pizza", rating: 4.5, deliveryTime: "40-55 min", deliveryFee: "₹80", image: "https://images.unsplash.com/photo-1541745537411-b8046dc6d66c?w=400&h=300&fit=crop", isOpen: true, dietary: ["vegetarian", "non-vegetarian"] }
+        { id: 1, name: "Pizza Hut", cuisine: "Pizza", rating: 4.3, deliveryTime: "30-45 min", deliveryFee: "₹60", image: "https://images.unsplash.com/photo-1513104890138-7c749659a591?w=400&h=300&fit=crop&q=80", isOpen: true, dietary: ["vegetarian", "non-vegetarian"] },
+        { id: 3, name: "Domino's Pizza", cuisine: "Pizza", rating: 4.4, deliveryTime: "25-40 min", deliveryFee: "₹55", image: "https://images.unsplash.com/photo-1565299624946-b28f40a0ca4b?w=400&h=300&fit=crop&q=80", isOpen: true, dietary: ["vegetarian", "non-vegetarian"] },
+        { id: 9, name: "Papa John's", cuisine: "Pizza", rating: 4.2, deliveryTime: "35-50 min", deliveryFee: "₹65", image: "https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?w=400&h=300&fit=crop&q=80", isOpen: true, dietary: ["vegetarian", "non-vegetarian"] },
+        { id: 10, name: "Chicago Pizza", cuisine: "Pizza", rating: 4.1, deliveryTime: "30-40 min", deliveryFee: "₹70", image: "https://images.unsplash.com/photo-1571407970349-bc81e7e96d47?w=400&h=300&fit=crop&q=80", isOpen: true, dietary: ["vegetarian", "non-vegetarian"] }
       ],
       burgers: [
-        { id: 2, name: "McDonald's", cuisine: "Fast Food", rating: 4.1, deliveryTime: "20-35 min", deliveryFee: "₹50", image: "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=400&h=300&fit=crop", isOpen: true, dietary: ["vegetarian", "non-vegetarian"] },
-        { id: 6, name: "Burger King", cuisine: "Burgers", rating: 4.1, deliveryTime: "25-35 min", deliveryFee: "₹55", image: "https://images.unsplash.com/photo-1586190848861-99aa4a171e90?w=400&h=300&fit=crop", isOpen: true, dietary: ["vegetarian", "non-vegetarian"] },
-        { id: 12, name: "Hardee's", cuisine: "Burgers", rating: 4.0, deliveryTime: "30-40 min", deliveryFee: "₹60", image: "https://images.unsplash.com/photo-1550547660-d9450f859349?w=400&h=300&fit=crop", isOpen: true, dietary: ["vegetarian", "non-vegetarian"] },
-        { id: 13, name: "Carl's Jr", cuisine: "Burgers", rating: 3.9, deliveryTime: "25-40 min", deliveryFee: "₹65", image: "https://images.unsplash.com/photo-1572802419224-296b0aeee0d9?w=400&h=300&fit=crop", isOpen: true, dietary: ["vegetarian", "non-vegetarian"] },
-        { id: 14, name: "Wendy's", cuisine: "Burgers", rating: 4.2, deliveryTime: "20-30 min", deliveryFee: "₹55", image: "https://images.unsplash.com/photo-1551782450-17144efb9c50?w=400&h=300&fit=crop", isOpen: true, dietary: ["vegetarian", "non-vegetarian"] },
-        { id: 35, name: "Five Guys", cuisine: "Burgers", rating: 4.4, deliveryTime: "30-45 min", deliveryFee: "₹75", image: "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=400&h=300&fit=crop", isOpen: true, dietary: ["vegetarian", "non-vegetarian"] }
+        { id: 2, name: "McDonald's", cuisine: "Fast Food", rating: 4.1, deliveryTime: "20-35 min", deliveryFee: "₹50", image: "https://images.unsplash.com/photo-1571091718767-18b5b1457add?w=400&h=300&fit=crop&q=80", isOpen: true, dietary: ["vegetarian", "non-vegetarian"] },
+        { id: 6, name: "Burger King", cuisine: "Burgers", rating: 4.1, deliveryTime: "25-35 min", deliveryFee: "₹55", image: "https://images.unsplash.com/photo-1586190848861-99aa4a171e90?w=400&h=300&fit=crop&q=80", isOpen: true, dietary: ["vegetarian", "non-vegetarian"] },
+        { id: 12, name: "Hardee's", cuisine: "Burgers", rating: 4.0, deliveryTime: "30-40 min", deliveryFee: "₹60", image: "https://images.unsplash.com/photo-1550547660-d9450f859349?w=400&h=300&fit=crop&q=80", isOpen: true, dietary: ["vegetarian", "non-vegetarian"] },
+        { id: 13, name: "Carl's Jr", cuisine: "Burgers", rating: 3.9, deliveryTime: "25-40 min", deliveryFee: "₹65", image: "https://images.unsplash.com/photo-1572802419224-296b0aeee0d9?w=400&h=300&fit=crop&q=80", isOpen: true, dietary: ["vegetarian", "non-vegetarian"] }
       ],
       chinese: [
-        { id: 15, name: "Panda Express", cuisine: "Chinese", rating: 4.0, deliveryTime: "25-35 min", deliveryFee: "₹60", image: "https://images.unsplash.com/photo-1617196034796-73989e891b8e?w=400&h=300&fit=crop", isOpen: true, dietary: ["vegetarian", "non-vegetarian"] },
-        { id: 16, name: "China Garden", cuisine: "Chinese", rating: 4.2, deliveryTime: "30-45 min", deliveryFee: "₹55", image: "https://images.unsplash.com/photo-1582878826629-29b7ad1cdc43?w=400&h=300&fit=crop", isOpen: true, dietary: ["vegetarian", "non-vegetarian"] },
-        { id: 17, name: "Golden Dragon", cuisine: "Chinese", rating: 4.1, deliveryTime: "35-50 min", deliveryFee: "₹70", image: "https://images.unsplash.com/photo-1617093727343-374698b1b08d?w=400&h=300&fit=crop", isOpen: true, dietary: ["vegetarian", "non-vegetarian"] },
-        { id: 18, name: "Wok Express", cuisine: "Chinese", rating: 3.9, deliveryTime: "20-30 min", deliveryFee: "₹50", image: "https://images.unsplash.com/photo-1603133872878-684f208fb84b?w=400&h=300&fit=crop", isOpen: true, dietary: ["vegetarian", "non-vegetarian"] },
-        { id: 19, name: "Szechuan Palace", cuisine: "Chinese", rating: 4.3, deliveryTime: "30-40 min", deliveryFee: "₹65", image: "https://images.unsplash.com/photo-1536304447766-da0ed4ce1b73?w=400&h=300&fit=crop", isOpen: true, dietary: ["vegetarian", "non-vegetarian"] },
-        { id: 36, name: "Mandarin House", cuisine: "Chinese", rating: 4.2, deliveryTime: "25-40 min", deliveryFee: "₹60", image: "https://images.unsplash.com/photo-1498654896293-37aacf113fd9?w=400&h=300&fit=crop", isOpen: true, dietary: ["vegetarian", "non-vegetarian"] }
+        { id: 15, name: "Panda Express", cuisine: "Chinese", rating: 4.0, deliveryTime: "25-35 min", deliveryFee: "₹60", image: "https://images.unsplash.com/photo-1617196034796-73989e891b8e?w=400&h=300&fit=crop&q=80", isOpen: true, dietary: ["vegetarian", "non-vegetarian"] },
+        { id: 16, name: "China Garden", cuisine: "Chinese", rating: 4.2, deliveryTime: "30-45 min", deliveryFee: "₹55", image: "https://images.unsplash.com/photo-1582878826629-29b7ad1cdc43?w=400&h=300&fit=crop&q=80", isOpen: true, dietary: ["vegetarian", "non-vegetarian"] },
+        { id: 17, name: "Golden Dragon", cuisine: "Chinese", rating: 4.1, deliveryTime: "35-50 min", deliveryFee: "₹70", image: "https://images.unsplash.com/photo-1617093727343-374698b1b08d?w=400&h=300&fit=crop&q=80", isOpen: true, dietary: ["vegetarian", "non-vegetarian"] },
+        { id: 18, name: "Wok Express", cuisine: "Chinese", rating: 3.9, deliveryTime: "20-30 min", deliveryFee: "₹50", image: "https://images.unsplash.com/photo-1603133872878-684f208fb84b?w=400&h=300&fit=crop&q=80", isOpen: true, dietary: ["vegetarian", "non-vegetarian"] }
       ],
       indian: [
-        { id: 20, name: "Spice Route", cuisine: "Indian", rating: 4.4, deliveryTime: "35-50 min", deliveryFee: "₹60", image: "https://images.unsplash.com/photo-1565557623262-b51c2513a641?w=400&h=300&fit=crop", isOpen: true, dietary: ["vegetarian", "non-vegetarian"] },
-        { id: 21, name: "Mughal Darbar", cuisine: "Indian", rating: 4.2, deliveryTime: "40-55 min", deliveryFee: "₹70", image: "https://images.unsplash.com/photo-1631452180519-c014fe946bc7?w=400&h=300&fit=crop", isOpen: true, dietary: ["vegetarian", "non-vegetarian"] },
-        { id: 22, name: "Tandoor Express", cuisine: "Indian", rating: 4.1, deliveryTime: "30-45 min", deliveryFee: "₹55", image: "https://images.unsplash.com/photo-1606491956689-2ea866880c84?w=400&h=300&fit=crop", isOpen: true, dietary: ["vegetarian", "non-vegetarian"] },
-        { id: 23, name: "Curry House", cuisine: "Indian", rating: 4.0, deliveryTime: "35-45 min", deliveryFee: "₹65", image: "https://images.unsplash.com/photo-1574484284002-952d92456975?w=400&h=300&fit=crop", isOpen: true, dietary: ["vegetarian", "non-vegetarian"] },
-        { id: 24, name: "Biryani Paradise", cuisine: "Indian", rating: 4.5, deliveryTime: "25-40 min", deliveryFee: "₹60", image: "https://images.unsplash.com/photo-1563379091339-03246963d96c?w=400&h=300&fit=crop", isOpen: true, dietary: ["vegetarian", "non-vegetarian"] },
-        { id: 37, name: "Royal Kitchen", cuisine: "Indian", rating: 4.3, deliveryTime: "30-45 min", deliveryFee: "₹65", image: "https://images.unsplash.com/photo-1596797038530-2c107229654b?w=400&h=300&fit=crop", isOpen: true, dietary: ["vegetarian", "non-vegetarian"] }
+        { id: 20, name: "Spice Route", cuisine: "Indian", rating: 4.4, deliveryTime: "35-50 min", deliveryFee: "₹60", image: "https://images.unsplash.com/photo-1565557623262-b51c2513a641?w=400&h=300&fit=crop&q=80", isOpen: true, dietary: ["vegetarian", "non-vegetarian"] },
+        { id: 21, name: "Mughal Darbar", cuisine: "Indian", rating: 4.2, deliveryTime: "40-55 min", deliveryFee: "₹70", image: "https://images.unsplash.com/photo-1631452180519-c014fe946bc7?w=400&h=300&fit=crop&q=80", isOpen: true, dietary: ["vegetarian", "non-vegetarian"] },
+        { id: 22, name: "Tandoor Express", cuisine: "Indian", rating: 4.1, deliveryTime: "30-45 min", deliveryFee: "₹55", image: "https://images.unsplash.com/photo-1606491956689-2ea866880c84?w=400&h=300&fit=crop&q=80", isOpen: true, dietary: ["vegetarian", "non-vegetarian"] },
+        { id: 24, name: "Biryani Paradise", cuisine: "Indian", rating: 4.5, deliveryTime: "25-40 min", deliveryFee: "₹60", image: "https://images.unsplash.com/photo-1563379091339-03246963d96c?w=400&h=300&fit=crop&q=80", isOpen: true, dietary: ["vegetarian", "non-vegetarian"] }
       ],
       coffee: [
-        { id: 8, name: "Starbucks", cuisine: "Coffee & Snacks", rating: 4.5, deliveryTime: "15-25 min", deliveryFee: "₹80", image: "https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?w=400&h=300&fit=crop", isOpen: true, dietary: ["vegetarian", "vegan"] },
-        { id: 25, name: "Costa Coffee", cuisine: "Coffee", rating: 4.3, deliveryTime: "20-30 min", deliveryFee: "₹75", image: "https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=400&h=300&fit=crop", isOpen: true, dietary: ["vegetarian", "vegan"] },
-        { id: 26, name: "Cafe Coffee Day", cuisine: "Coffee", rating: 4.0, deliveryTime: "15-25 min", deliveryFee: "₹60", image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=300&fit=crop", isOpen: true, dietary: ["vegetarian", "vegan"] },
-        { id: 27, name: "Blue Tokai", cuisine: "Coffee", rating: 4.4, deliveryTime: "20-35 min", deliveryFee: "₹85", image: "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=400&h=300&fit=crop", isOpen: true, dietary: ["vegetarian", "vegan"] },
-        { id: 28, name: "Third Wave Coffee", cuisine: "Coffee", rating: 4.2, deliveryTime: "25-35 min", deliveryFee: "₹70", image: "https://images.unsplash.com/photo-1498804103079-a6351b050096?w=400&h=300&fit=crop", isOpen: true, dietary: ["vegetarian", "vegan"] },
-        { id: 38, name: "Brew & Beans", cuisine: "Coffee", rating: 4.1, deliveryTime: "18-28 min", deliveryFee: "₹65", image: "https://images.unsplash.com/photo-1447933601403-0c6688de566e?w=400&h=300&fit=crop", isOpen: true, dietary: ["vegetarian", "vegan"] }
+        { id: 8, name: "Starbucks", cuisine: "Coffee & Snacks", rating: 4.5, deliveryTime: "15-25 min", deliveryFee: "₹80", image: "https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?w=400&h=300&fit=crop&q=80", isOpen: true, dietary: ["vegetarian", "vegan"] },
+        { id: 25, name: "Costa Coffee", cuisine: "Coffee", rating: 4.3, deliveryTime: "20-30 min", deliveryFee: "₹75", image: "https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=400&h=300&fit=crop&q=80", isOpen: true, dietary: ["vegetarian", "vegan"] },
+        { id: 26, name: "Cafe Coffee Day", cuisine: "Coffee", rating: 4.0, deliveryTime: "15-25 min", deliveryFee: "₹60", image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=300&fit=crop&q=80", isOpen: true, dietary: ["vegetarian", "vegan"] },
+        { id: 27, name: "Blue Tokai", cuisine: "Coffee", rating: 4.4, deliveryTime: "20-35 min", deliveryFee: "₹85", image: "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=400&h=300&fit=crop&q=80", isOpen: true, dietary: ["vegetarian", "vegan"] }
       ],
       desserts: [
-        { id: 29, name: "Baskin Robbins", cuisine: "Ice Cream", rating: 4.3, deliveryTime: "20-30 min", deliveryFee: "₹60", image: "https://images.unsplash.com/photo-1488900128323-21503983a07e?w=400&h=300&fit=crop", isOpen: true, dietary: ["vegetarian"] },
-        { id: 30, name: "Cake Studio", cuisine: "Desserts", rating: 4.2, deliveryTime: "30-45 min", deliveryFee: "₹70", image: "https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=400&h=300&fit=crop", isOpen: true, dietary: ["vegetarian"] },
-        { id: 31, name: "Sweet Treats", cuisine: "Desserts", rating: 4.1, deliveryTime: "25-40 min", deliveryFee: "₹55", image: "https://images.unsplash.com/photo-1551024506-0bccd828d307?w=400&h=300&fit=crop", isOpen: true, dietary: ["vegetarian"] },
-        { id: 32, name: "Gelato Junction", cuisine: "Ice Cream", rating: 4.4, deliveryTime: "15-25 min", deliveryFee: "₹65", image: "https://images.unsplash.com/photo-1567206563064-6f60f40a2b57?w=400&h=300&fit=crop", isOpen: true, dietary: ["vegetarian"] },
-        { id: 33, name: "Donut Delight", cuisine: "Desserts", rating: 4.0, deliveryTime: "20-35 min", deliveryFee: "₹50", image: "https://images.unsplash.com/photo-1551024601-bec78aea704b?w=400&h=300&fit=crop", isOpen: true, dietary: ["vegetarian"] },
-        { id: 39, name: "Chocolate Factory", cuisine: "Desserts", rating: 4.3, deliveryTime: "25-40 min", deliveryFee: "₹65", image: "https://images.unsplash.com/photo-1606313564200-e75d5e30476c?w=400&h=300&fit=crop", isOpen: true, dietary: ["vegetarian"] }
+        { id: 29, name: "Baskin Robbins", cuisine: "Ice Cream", rating: 4.3, deliveryTime: "20-30 min", deliveryFee: "₹60", image: "https://images.unsplash.com/photo-1488900128323-21503983a07e?w=400&h=300&fit=crop&q=80", isOpen: true, dietary: ["vegetarian"] },
+        { id: 30, name: "Cake Studio", cuisine: "Desserts", rating: 4.2, deliveryTime: "30-45 min", deliveryFee: "₹70", image: "https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=400&h=300&fit=crop&q=80", isOpen: true, dietary: ["vegetarian"] },
+        { id: 31, name: "Sweet Treats", cuisine: "Desserts", rating: 4.1, deliveryTime: "25-40 min", deliveryFee: "₹55", image: "https://images.unsplash.com/photo-1551024506-0bccd828d307?w=400&h=300&fit=crop&q=80", isOpen: true, dietary: ["vegetarian"] },
+        { id: 32, name: "Gelato Junction", cuisine: "Ice Cream", rating: 4.4, deliveryTime: "15-25 min", deliveryFee: "₹65", image: "https://images.unsplash.com/photo-1567206563064-6f60f40a2b57?w=400&h=300&fit=crop&q=80", isOpen: true, dietary: ["vegetarian"] }
       ]
     };
     
@@ -148,7 +138,7 @@ const Category = () => {
               </Button>
               <Link to="/cart">
                 <Button className={`${isDarkMode ? 'bg-white text-black hover:bg-gray-200' : 'bg-[rgb(69,104,130)] text-white hover:bg-[rgb(27,60,83)]'}`} size="sm">
-                  Cart (0)
+                  Cart ({getTotalItems()})
                 </Button>
               </Link>
             </div>
@@ -231,6 +221,17 @@ const Category = () => {
                     src={restaurant.image}
                     alt={restaurant.name}
                     className="w-full h-48 object-cover"
+                    onError={(e) => {
+                      const fallbackImages = {
+                        'pizza': 'https://images.unsplash.com/photo-1513104890138-7c749659a591?w=400&h=300&fit=crop&q=80',
+                        'chinese': 'https://images.unsplash.com/photo-1617196034796-73989e891b8e?w=400&h=300&fit=crop&q=80',
+                        'indian': 'https://images.unsplash.com/photo-1565557623262-b51c2513a641?w=400&h=300&fit=crop&q=80',
+                        'burgers': 'https://images.unsplash.com/photo-1571091718767-18b5b1457add?w=400&h=300&fit=crop&q=80',
+                        'coffee': 'https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?w=400&h=300&fit=crop&q=80',
+                        'desserts': 'https://images.unsplash.com/photo-1488900128323-21503983a07e?w=400&h=300&fit=crop&q=80'
+                      };
+                      e.currentTarget.src = fallbackImages[category as keyof typeof fallbackImages] || 'https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=400&h=300&fit=crop&q=80';
+                    }}
                   />
                   <div className="absolute top-2 right-2">
                     <Badge className={`${restaurant.isOpen ? 'bg-green-500' : 'bg-red-500'} text-white`}>

@@ -8,9 +8,11 @@ import { Separator } from "@/components/ui/separator";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { toast } from "@/hooks/use-toast";
+import { useCart } from "@/contexts/CartContext";
 
 const Cart = () => {
   const navigate = useNavigate();
+  const { cartItems, updateQuantity, removeFromCart, getTotalPrice } = useCart();
   const [isDarkMode, setIsDarkMode] = useState(() => {
     const savedTheme = localStorage.getItem('theme');
     if (savedTheme === 'dark') {
@@ -23,9 +25,6 @@ const Cart = () => {
   const [promoCode, setPromoCode] = useState("");
   const [appliedPromo, setAppliedPromo] = useState("");
   const [discount, setDiscount] = useState(0);
-
-  // Empty cart initially - items should only appear when added by user
-  const [cartItems, setCartItems] = useState<any[]>([]);
 
   const toggleTheme = () => {
     setIsDarkMode(!isDarkMode);
@@ -63,21 +62,13 @@ const Cart = () => {
     }
   };
 
-  const updateQuantity = (id: number, newQuantity: number) => {
-    if (newQuantity === 0) {
-      removeItem(id);
-      return;
-    }
-    setCartItems(prev => 
-      prev.map(item => 
-        item.id === id ? { ...item, quantity: newQuantity } : item
-      )
-    );
+  const handleUpdateQuantity = (id: number, newQuantity: number) => {
+    updateQuantity(id, newQuantity);
   };
 
-  const removeItem = (id: number) => {
+  const handleRemoveItem = (id: number) => {
     const item = cartItems.find(item => item.id === id);
-    setCartItems(prev => prev.filter(item => item.id !== id));
+    removeFromCart(id);
     toast({
       title: "Item removed",
       description: `${item?.name} removed from cart`,
@@ -85,7 +76,7 @@ const Cart = () => {
     });
   };
 
-  const subtotal = cartItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+  const subtotal = getTotalPrice();
   const deliveryFee = cartItems.length > 0 ? 49 : 0;
   const tax = Math.round(subtotal * 0.08);
   const total = subtotal + deliveryFee + tax - discount;
@@ -160,6 +151,9 @@ const Cart = () => {
                           src={item.image}
                           alt={item.name}
                           className="w-16 h-16 object-cover rounded-lg"
+                          onError={(e) => {
+                            e.currentTarget.src = "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=100&h=100&fit=crop&q=80";
+                          }}
                         />
                         <div className="flex-1">
                           <h3 className={`font-semibold ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>{item.name}</h3>
@@ -170,7 +164,7 @@ const Cart = () => {
                           <Button
                             size="sm"
                             variant="outline"
-                            onClick={() => updateQuantity(item.id, item.quantity - 1)}
+                            onClick={() => handleUpdateQuantity(item.id, item.quantity - 1)}
                             className={`h-8 w-8 p-0 ${isDarkMode ? 'border-gray-600 text-gray-300 hover:bg-gray-800' : 'border-[rgb(210,193,182)] hover:bg-[rgb(210,193,182)]'}`}
                           >
                             <Minus className="h-3 w-3" />
@@ -181,7 +175,7 @@ const Cart = () => {
                           <Button
                             size="sm"
                             variant="outline"
-                            onClick={() => updateQuantity(item.id, item.quantity + 1)}
+                            onClick={() => handleUpdateQuantity(item.id, item.quantity + 1)}
                             className={`h-8 w-8 p-0 ${isDarkMode ? 'border-gray-600 text-gray-300 hover:bg-gray-800' : 'border-[rgb(210,193,182)] hover:bg-[rgb(210,193,182)]'}`}
                           >
                             <Plus className="h-3 w-3" />
@@ -189,7 +183,7 @@ const Cart = () => {
                           <Button
                             size="sm"
                             variant="outline"
-                            onClick={() => removeItem(item.id)}
+                            onClick={() => handleRemoveItem(item.id)}
                             className="h-8 w-8 p-0 text-red-500 hover:text-red-700 hover:bg-red-50"
                           >
                             <Trash2 className="h-3 w-3" />
