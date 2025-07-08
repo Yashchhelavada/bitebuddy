@@ -21,6 +21,11 @@ interface RestaurantCardProps {
 }
 
 const RestaurantCard = ({ restaurant, animationDelay = 0 }: RestaurantCardProps) => {
+  const handleImageError = (e: React.SyntheticEvent<HTMLImageElement, Event>) => {
+    const target = e.target as HTMLImageElement;
+    target.src = 'https://images.unsplash.com/photo-1514933651103-005eec06c04b?w=400&h=300&fit=crop'; // Restaurant placeholder
+  };
+
   return (
     <Link to={`/restaurant/${restaurant.id}`}>
       <Card 
@@ -31,7 +36,8 @@ const RestaurantCard = ({ restaurant, animationDelay = 0 }: RestaurantCardProps)
           <img
             src={restaurant.image}
             alt={restaurant.name}
-            className="w-full h-48 object-cover"
+            className="w-full h-36 sm:h-40 md:h-48 object-cover"
+            onError={handleImageError}
           />
           {!restaurant.isOpen && (
             <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center">
@@ -48,23 +54,23 @@ const RestaurantCard = ({ restaurant, animationDelay = 0 }: RestaurantCardProps)
           </div>
         </div>
         
-        <CardContent className="p-4">
-          <div className="flex justify-between items-start mb-2">
-            <h3 className="font-semibold text-lg text-gray-900 dark:text-white truncate">
+        <CardContent className="p-3 sm:p-4">
+          <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start mb-2 space-y-1 sm:space-y-0">
+            <h3 className="font-semibold text-base sm:text-lg text-gray-900 dark:text-white truncate">
               {restaurant.name}
             </h3>
-            <Badge variant="outline" className="text-xs dark:border-gray-600 dark:text-gray-300">
+            <Badge variant="outline" className="text-xs dark:border-gray-600 dark:text-gray-300 self-start sm:self-auto">
               {restaurant.cuisine}
             </Badge>
           </div>
           
-          <div className="flex items-center justify-between text-sm text-gray-600 dark:text-gray-400">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between text-xs sm:text-sm text-gray-600 dark:text-gray-400 space-y-1 sm:space-y-0">
             <div className="flex items-center space-x-1">
-              <Clock className="h-4 w-4" />
+              <Clock className="h-3 w-3 sm:h-4 sm:w-4" />
               <span>{restaurant.deliveryTime}</span>
             </div>
             <div className="flex items-center space-x-1">
-              <Truck className="h-4 w-4" />
+              <Truck className="h-3 w-3 sm:h-4 sm:w-4" />
               <span>{restaurant.deliveryFee}</span>
             </div>
           </div>

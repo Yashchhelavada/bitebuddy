@@ -194,19 +194,19 @@ const Index = () => {
         <div className="absolute inset-0 bg-black/70"></div>
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
-            <h1 className="text-4xl md:text-6xl font-bold mb-4 animate-fade-in">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 animate-fade-in">
               Welcome, hungry soul! 🍜
             </h1>
-            <p className="text-xl md:text-2xl mb-8 opacity-90 animate-fade-in">
+            <p className="text-lg sm:text-xl md:text-2xl mb-8 opacity-90 animate-fade-in px-4">
               Let's get you something delicious — real-time, hot, and just a few taps away.
             </p>
-            <div className="max-w-md mx-auto relative animate-scale-in">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-5 w-5" />
+            <div className="max-w-xs sm:max-w-md mx-auto relative animate-scale-in px-4 sm:px-0">
+              <Search className="absolute left-6 sm:left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4 sm:h-5 sm:w-5" />
               <Input
                 placeholder="Tell us your cravings — spicy, sweet, or something in between? 🌶️🍩"
                 value={searchQuery}
                 onChange={handleSearchChange}
-                className="pl-10 py-6 text-lg bg-white text-gray-900 border-0 shadow-lg"
+                className="pl-12 sm:pl-10 py-4 sm:py-6 text-base sm:text-lg bg-white text-gray-900 border-0 shadow-lg"
               />
               {showSearchResults && (
                 <div className="absolute top-full mt-2 w-full bg-white rounded-lg shadow-lg z-10 max-h-60 overflow-y-auto">
@@ -241,14 +241,14 @@ const Index = () => {
       <section className="py-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className={`text-2xl font-bold mb-8 ${isDarkMode ? 'text-white' : 'text-[rgb(27,60,83)]'}`}>Browse by Category</h2>
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3 sm:gap-4">
             {categories.map((category, index) => (
               <Link key={category.name} to={`/category/${category.name.toLowerCase()}`}>
                 <Card className={`hover:shadow-lg transition-all duration-300 cursor-pointer hover:scale-105 animate-fade-in border-[rgb(210,193,182)] hover:border-[rgb(69,104,130)] ${isDarkMode ? 'bg-gray-900 border-gray-700 hover:border-white' : 'bg-[rgb(249,243,239)]'}`} style={{animationDelay: `${index * 100}ms`}}>
-                  <CardContent className="p-6 text-center">
-                    <div className="text-4xl mb-2">{category.icon}</div>
-                    <h3 className={`font-semibold ${isDarkMode ? 'text-white' : 'text-[rgb(27,60,83)]'}`}>{category.name}</h3>
-                    <p className={`text-sm ${isDarkMode ? 'text-gray-400' : 'text-[rgb(69,104,130)]'}`}>{category.count} places</p>
+                  <CardContent className="p-3 sm:p-4 md:p-6 text-center">
+                    <div className="text-2xl sm:text-3xl md:text-4xl mb-1 sm:mb-2">{category.icon}</div>
+                    <h3 className={`font-semibold text-sm sm:text-base ${isDarkMode ? 'text-white' : 'text-[rgb(27,60,83)]'}`}>{category.name}</h3>
+                    <p className={`text-xs sm:text-sm ${isDarkMode ? 'text-gray-400' : 'text-[rgb(69,104,130)]'}`}>{category.count} places</p>
                   </CardContent>
                 </Card>
               </Link>
@@ -267,7 +267,7 @@ const Index = () => {
               <span>Filter</span>
             </Button>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6">
             {featuredRestaurants.map((restaurant, index) => (
               <RestaurantCard 
                 key={restaurant.id} 
@@ -291,11 +291,11 @@ const Index = () => {
           <p className={`text-xl mb-8 ${isDarkMode ? 'text-gray-300' : 'text-[rgb(69,104,130)]'}`}>
             Pay with confidence using our secure payment gateway. Multiple payment options available.
           </p>
-          <div className="flex flex-wrap justify-center gap-4 mb-8">
-            <Badge variant="outline" className={`text-lg py-2 px-4 ${isDarkMode ? 'border-white text-white' : 'border-[rgb(69,104,130)] text-[rgb(69,104,130)]'}`}>💳 Credit/Debit Cards</Badge>
-            <Badge variant="outline" className={`text-lg py-2 px-4 ${isDarkMode ? 'border-white text-white' : 'border-[rgb(69,104,130)] text-[rgb(69,104,130)]'}`}>📱 UPI</Badge>
-            <Badge variant="outline" className={`text-lg py-2 px-4 ${isDarkMode ? 'border-white text-white' : 'border-[rgb(69,104,130)] text-[rgb(69,104,130)]'}`}>💰 Net Banking</Badge>
-            <Badge variant="outline" className={`text-lg py-2 px-4 ${isDarkMode ? 'border-white text-white' : 'border-[rgb(69,104,130)] text-[rgb(69,104,130)]'}`}>🏦 Wallets</Badge>
+          <div className="flex flex-wrap justify-center gap-2 sm:gap-4 mb-8 px-4">
+            <Badge variant="outline" className={`text-sm sm:text-lg py-1 sm:py-2 px-2 sm:px-4 ${isDarkMode ? 'border-white text-white' : 'border-[rgb(69,104,130)] text-[rgb(69,104,130)]'}`}>💳 Credit/Debit Cards</Badge>
+            <Badge variant="outline" className={`text-sm sm:text-lg py-1 sm:py-2 px-2 sm:px-4 ${isDarkMode ? 'border-white text-white' : 'border-[rgb(69,104,130)] text-[rgb(69,104,130)]'}`}>📱 UPI</Badge>
+            <Badge variant="outline" className={`text-sm sm:text-lg py-1 sm:py-2 px-2 sm:px-4 ${isDarkMode ? 'border-white text-white' : 'border-[rgb(69,104,130)] text-[rgb(69,104,130)]'}`}>💰 Net Banking</Badge>
+            <Badge variant="outline" className={`text-sm sm:text-lg py-1 sm:py-2 px-2 sm:px-4 ${isDarkMode ? 'border-white text-white' : 'border-[rgb(69,104,130)] text-[rgb(69,104,130)]'}`}>🏦 Wallets</Badge>
           </div>
         </div>
       </section>
