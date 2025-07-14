@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { ArrowLeft, Sun, Moon, CreditCard, Smartphone, Banknote, MapPin, User, Phone, Mail } from "lucide-react";
@@ -13,7 +12,7 @@ import { useCart } from "@/contexts/CartContext";
 
 const Payment = () => {
   const navigate = useNavigate();
-  const { items, getTotalPrice, getTotalItems } = useCart();
+  const { cartItems, getTotalPrice, getTotalItems } = useCart();
   const [isDarkMode, setIsDarkMode] = useState(() => {
     const savedTheme = localStorage.getItem('theme');
     if (savedTheme === 'dark') {
@@ -246,9 +245,9 @@ const Payment = () => {
                 <h3 className={`font-semibold mb-3 ${isDarkMode ? 'text-white' : 'text-[rgb(27,60,83)]'}`}>Order Summary</h3>
                 
                 {/* Cart Items */}
-                {items.length > 0 && (
+                {cartItems.length > 0 && (
                   <div className="mb-4 space-y-2">
-                    {items.map((item) => (
+                    {cartItems.map((item) => (
                       <div key={item.id} className={`flex justify-between items-center text-sm ${isDarkMode ? 'text-gray-300' : 'text-[rgb(69,104,130)]'}`}>
                         <div className="flex-1">
                           <span className="font-medium">{item.name}</span>
