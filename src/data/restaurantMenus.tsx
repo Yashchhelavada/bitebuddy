@@ -21,6 +21,26 @@ export const restaurantMenus = {
       { id: 14, name: "Pepsi", description: "Chilled cola drink", price: 129, category: "Drinks", image: "https://images.unsplash.com/photo-1629203851122-3726ecdf080e?w=300&h=200&fit=crop" }
     ]
   },
+  4: { // Papa John's - NEW
+    name: "Papa John's",
+    items: [
+      { id: 60, name: "The Works Pizza", description: "Pepperoni, Canadian bacon, spicy Italian sausage, onions, green peppers, mushrooms", price: 879, category: "Pizza", image: "https://images.unsplash.com/photo-1513104890138-7c749659a591?w=300&h=200&fit=crop", popular: true },
+      { id: 61, name: "BBQ Chicken & Bacon", description: "Grilled chicken, bacon, onions and tangy BBQ sauce", price: 799, category: "Pizza", image: "https://images.unsplash.com/photo-1594007654729-407eedc4be65?w=300&h=200&fit=crop", popular: true },
+      { id: 62, name: "Garden Fresh", description: "Green peppers, onions, mushrooms, black olives, Roma tomatoes", price: 699, category: "Pizza", image: "https://images.unsplash.com/photo-1565299624946-b28f40a0ca4b?w=300&h=200&fit=crop" },
+      { id: 63, name: "Cheesesticks", description: "Fresh dough covered with garlic sauce and cheese", price: 299, category: "Sides", image: "https://images.unsplash.com/photo-1549300461-11c5b94839d3?w=300&h=200&fit=crop" },
+      { id: 64, name: "Pepsi Max", description: "Zero sugar cola", price: 139, category: "Drinks", image: "https://images.unsplash.com/photo-1629203851122-3726ecdf080e?w=300&h=200&fit=crop" }
+    ]
+  },
+  5: { // Chicago Pizza - NEW
+    name: "Chicago Pizza",
+    items: [
+      { id: 65, name: "Deep Dish Supreme", description: "Thick crust pizza with sausage, pepperoni, green peppers, onions, mushrooms", price: 949, category: "Pizza", image: "https://images.unsplash.com/photo-1513104890138-7c749659a591?w=300&h=200&fit=crop", popular: true },
+      { id: 66, name: "Chicago Special", description: "Deep dish with Italian beef, hot giardiniera, and mozzarella", price: 899, category: "Pizza", image: "https://images.unsplash.com/photo-1565299624946-b28f40a0ca4b?w=300&h=200&fit=crop", popular: true },
+      { id: 67, name: "Stuffed Spinach Pizza", description: "Two layers of dough stuffed with spinach, ricotta, and mozzarella", price: 829, category: "Pizza", image: "https://images.unsplash.com/photo-1628840042765-356cda07504e?w=300&h=200&fit=crop" },
+      { id: 68, name: "Chicago Wings", description: "Buffalo wings with celery and blue cheese", price: 349, category: "Sides", image: "https://images.unsplash.com/photo-1608039829572-78524f79c4c7?w=300&h=200&fit=crop" },
+      { id: 69, name: "Italian Beef Sandwich", description: "Thinly sliced beef with hot peppers on Italian bread", price: 429, category: "Sandwiches", image: "https://images.unsplash.com/photo-1553909489-cd47e0ef937f?w=300&h=200&fit=crop" }
+    ]
+  },
   // Burger Restaurants
   2: { // McDonald's
     name: "McDonald's",
@@ -50,7 +70,6 @@ export const restaurantMenus = {
       { id: 29, name: "Nachos Supreme", description: "Crispy nachos with cheese, beef, beans, tomatoes, and sour cream", price: 319, category: "Sides", image: "https://images.unsplash.com/photo-1513456852971-30c0b8199d4d?w=300&h=200&fit=crop" }
     ]
   },
-  // Chinese Restaurants
   15: { // Panda Express
     name: "Panda Express",
     items: [
@@ -70,7 +89,6 @@ export const restaurantMenus = {
       { id: 48, name: "Jasmine Tea", description: "Fragrant jasmine tea", price: 89, category: "Drinks", image: "https://images.unsplash.com/photo-1597318181469-1d4a2e6a451b?w=300&h=200&fit=crop" }
     ]
   },
-  // Indian Restaurants
   20: { // Spice Route
     name: "Spice Route",
     items: [
@@ -91,7 +109,6 @@ export const restaurantMenus = {
       { id: 59, name: "Chai", description: "Traditional Indian spiced tea", price: 59, category: "Drinks", image: "https://images.unsplash.com/photo-1597318181469-1d4a2e6a451b?w=300&h=200&fit=crop" }
     ]
   },
-  // Coffee Shops
   8: { // Starbucks
     name: "Starbucks",
     items: [
