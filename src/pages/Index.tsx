@@ -1,13 +1,15 @@
 
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { Search, ShoppingCart, Menu, X, Sun, Moon, Star, Clock, Truck } from "lucide-react";
+import { Search, ShoppingCart, Menu, X, Sun, Moon, Star, Clock, Truck, User } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { useCart } from "@/contexts/CartContext";
 import RestaurantCard from "@/components/RestaurantCard";
+import FoodCollage from "@/components/FoodCollage";
+import LoginModal from "@/components/LoginModal";
 
 interface Restaurant {
   id: number;
@@ -24,6 +26,7 @@ const Index = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isLoginOpen, setIsLoginOpen] = useState(false);
   const [isDarkMode, setIsDarkMode] = useState(() => {
     const savedTheme = localStorage.getItem('theme');
     if (savedTheme === 'dark') {
@@ -46,18 +49,37 @@ const Index = () => {
   };
 
   const restaurants: Restaurant[] = [
+    // Pizza
     { id: 1, name: "Pizza Hut", cuisine: "Pizza", rating: 4.3, deliveryTime: "30-45 min", deliveryFee: "₹60", image: "https://images.unsplash.com/photo-1513104890138-7c749659a591?w=400&h=300&fit=crop&q=80", isOpen: true },
-    { id: 2, name: "McDonald's", cuisine: "Fast Food", rating: 4.1, deliveryTime: "20-35 min", deliveryFee: "₹50", image: "https://images.unsplash.com/photo-1571091718767-18b5b1457add?w=400&h=300&fit=crop&q=80", isOpen: true },
     { id: 3, name: "Domino's Pizza", cuisine: "Pizza", rating: 4.4, deliveryTime: "25-40 min", deliveryFee: "₹55", image: "https://images.unsplash.com/photo-1565299624946-b28f40a0ca4b?w=400&h=300&fit=crop&q=80", isOpen: true },
     { id: 4, name: "Papa John's", cuisine: "Pizza", rating: 4.2, deliveryTime: "30-45 min", deliveryFee: "₹65", image: "https://images.unsplash.com/photo-1513104890138-7c749659a591?w=400&h=300&fit=crop&q=80", isOpen: true },
     { id: 5, name: "Chicago Pizza", cuisine: "Pizza", rating: 4.5, deliveryTime: "35-50 min", deliveryFee: "₹70", image: "https://images.unsplash.com/photo-1565299624946-b28f40a0ca4b?w=400&h=300&fit=crop&q=80", isOpen: true },
+    // Burgers
+    { id: 2, name: "McDonald's", cuisine: "Fast Food", rating: 4.1, deliveryTime: "20-35 min", deliveryFee: "₹50", image: "https://images.unsplash.com/photo-1571091718767-18b5b1457add?w=400&h=300&fit=crop&q=80", isOpen: true },
     { id: 6, name: "Burger King", cuisine: "Burgers", rating: 4.1, deliveryTime: "25-35 min", deliveryFee: "₹55", image: "https://images.unsplash.com/photo-1586190848861-99aa4a171e90?w=400&h=300&fit=crop&q=80", isOpen: true },
+    { id: 9, name: "Five Guys", cuisine: "Burgers", rating: 4.3, deliveryTime: "25-40 min", deliveryFee: "₹70", image: "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=400&h=300&fit=crop&q=80", isOpen: true },
+    { id: 10, name: "Shake Shack", cuisine: "Burgers", rating: 4.4, deliveryTime: "30-45 min", deliveryFee: "₹75", image: "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=400&h=300&fit=crop&q=80", isOpen: true },
+    // Mexican
     { id: 7, name: "Taco Bell", cuisine: "Mexican", rating: 3.9, deliveryTime: "30-45 min", deliveryFee: "₹65", image: "https://images.unsplash.com/photo-1565299585323-38174c4a6779?w=400&h=300&fit=crop&q=80", isOpen: true },
-    { id: 8, name: "Starbucks", cuisine: "Coffee & Snacks", rating: 4.5, deliveryTime: "15-25 min", deliveryFee: "₹80", image: "https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?w=400&h=300&fit=crop&q=80", isOpen: true },
+    { id: 11, name: "Chipotle", cuisine: "Mexican", rating: 4.2, deliveryTime: "25-40 min", deliveryFee: "₹70", image: "https://images.unsplash.com/photo-1626700051175-6818013e1d4f?w=400&h=300&fit=crop&q=80", isOpen: true },
+    { id: 12, name: "Qdoba", cuisine: "Mexican", rating: 4.0, deliveryTime: "30-45 min", deliveryFee: "₹65", image: "https://images.unsplash.com/photo-1571197119282-7c4b999c2382?w=400&h=300&fit=crop&q=80", isOpen: true },
+    // Chinese
     { id: 15, name: "Panda Express", cuisine: "Chinese", rating: 4.0, deliveryTime: "25-35 min", deliveryFee: "₹60", image: "https://images.unsplash.com/photo-1617196034796-73989e891b8e?w=400&h=300&fit=crop&q=80", isOpen: true },
     { id: 16, name: "China Garden", cuisine: "Chinese", rating: 4.2, deliveryTime: "30-45 min", deliveryFee: "₹55", image: "https://images.unsplash.com/photo-1582878826629-29b7ad1cdc43?w=400&h=300&fit=crop&q=80", isOpen: true },
+    { id: 13, name: "P.F. Chang's", cuisine: "Chinese", rating: 4.3, deliveryTime: "35-50 min", deliveryFee: "₹80", image: "https://images.unsplash.com/photo-1582878826629-29b7ad1cdc43?w=400&h=300&fit=crop&q=80", isOpen: true },
+    { id: 14, name: "Pick Up Stix", cuisine: "Chinese", rating: 3.9, deliveryTime: "25-40 min", deliveryFee: "₹60", image: "https://images.unsplash.com/photo-1617196034796-73989e891b8e?w=400&h=300&fit=crop&q=80", isOpen: true },
+    // Indian
     { id: 20, name: "Spice Route", cuisine: "Indian", rating: 4.4, deliveryTime: "35-50 min", deliveryFee: "₹60", image: "https://images.unsplash.com/photo-1565557623262-b51c2513a641?w=400&h=300&fit=crop&q=80", isOpen: true },
-    { id: 24, name: "Biryani Paradise", cuisine: "Indian", rating: 4.5, deliveryTime: "25-40 min", deliveryFee: "₹60", image: "https://images.unsplash.com/photo-1563379091339-03246963d96c?w=400&h=300&fit=crop&q=80", isOpen: true }
+    { id: 24, name: "Biryani Paradise", cuisine: "Indian", rating: 4.5, deliveryTime: "25-40 min", deliveryFee: "₹60", image: "https://images.unsplash.com/photo-1563379091339-03246963d96c?w=400&h=300&fit=crop&q=80", isOpen: true },
+    { id: 17, name: "Tandoor Palace", cuisine: "Indian", rating: 4.3, deliveryTime: "30-45 min", deliveryFee: "₹65", image: "https://images.unsplash.com/photo-1631452180519-c014fe946bc7?w=400&h=300&fit=crop&q=80", isOpen: true },
+    { id: 18, name: "Curry Express", cuisine: "Indian", rating: 4.1, deliveryTime: "25-40 min", deliveryFee: "₹55", image: "https://images.unsplash.com/photo-1574484284002-952d92456975?w=400&h=300&fit=crop&q=80", isOpen: true },
+    // Coffee & Snacks
+    { id: 8, name: "Starbucks", cuisine: "Coffee & Snacks", rating: 4.5, deliveryTime: "15-25 min", deliveryFee: "₹80", image: "https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?w=400&h=300&fit=crop&q=80", isOpen: true },
+    { id: 19, name: "Dunkin'", cuisine: "Coffee & Snacks", rating: 4.1, deliveryTime: "20-30 min", deliveryFee: "₹60", image: "https://images.unsplash.com/photo-1551024506-0bccd828d307?w=400&h=300&fit=crop&q=80", isOpen: true },
+    { id: 21, name: "Tim Hortons", cuisine: "Coffee & Snacks", rating: 4.2, deliveryTime: "15-25 min", deliveryFee: "₹70", image: "https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?w=400&h=300&fit=crop&q=80", isOpen: true },
+    // Fast Food
+    { id: 22, name: "KFC", cuisine: "Fast Food", rating: 4.2, deliveryTime: "25-40 min", deliveryFee: "₹65", image: "https://images.unsplash.com/photo-1626645738196-c2a7c87a8f58?w=400&h=300&fit=crop&q=80", isOpen: true },
+    { id: 23, name: "Subway", cuisine: "Fast Food", rating: 4.0, deliveryTime: "20-35 min", deliveryFee: "₹50", image: "https://images.unsplash.com/photo-1553909489-cd47e0ef937f?w=400&h=300&fit=crop&q=80", isOpen: true }
   ];
 
   const categories = ["All", "Pizza", "Burgers", "Chinese", "Indian", "Mexican", "Coffee & Snacks", "Fast Food"];
@@ -90,6 +112,16 @@ const Index = () => {
                 className={`h-7 w-7 sm:h-8 sm:w-8 p-0 ${isDarkMode ? 'hover:bg-gray-800' : 'hover:bg-[rgb(210,193,182)]'}`}
               >
                 {isDarkMode ? <Sun className="h-4 w-4 text-white" /> : <Moon className="h-4 w-4 text-[rgb(69,104,130)]" />}
+              </Button>
+              
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => setIsLoginOpen(true)}
+                className={`flex items-center space-x-1 px-2 sm:px-3 py-1 sm:py-2 text-xs sm:text-sm ${isDarkMode ? 'text-white hover:bg-gray-800' : 'text-[rgb(69,104,130)] hover:bg-[rgb(210,193,182)]'}`}
+              >
+                <User className="h-3 w-3 sm:h-4 sm:w-4" />
+                <span>Sign In</span>
               </Button>
               
               <Link to="/cart">
@@ -125,8 +157,12 @@ const Index = () => {
         </div>
       )}
 
-      {/* Search and Categories */}
+      {/* Main Content */}
       <div className="max-w-7xl mx-auto px-3 sm:px-4 lg:px-6 py-4 sm:py-6 lg:py-8">
+        {/* Food Collage */}
+        <FoodCollage isDarkMode={isDarkMode} />
+
+        {/* Search and Categories */}
         <div className="mb-4 sm:mb-6 lg:mb-8">
           <div className="relative mb-4 sm:mb-6">
             <Search className={`absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 ${isDarkMode ? 'text-gray-400' : 'text-gray-500'}`} />
@@ -228,6 +264,13 @@ const Index = () => {
           </div>
         </div>
       </footer>
+
+      {/* Login Modal */}
+      <LoginModal 
+        isOpen={isLoginOpen} 
+        onClose={() => setIsLoginOpen(false)} 
+        isDarkMode={isDarkMode}
+      />
     </div>
   );
 };

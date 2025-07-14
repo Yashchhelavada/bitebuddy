@@ -9,9 +9,11 @@ import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Textarea } from "@/components/ui/textarea";
 import { toast } from "@/hooks/use-toast";
+import { useCart } from "@/contexts/CartContext";
 
 const Payment = () => {
   const navigate = useNavigate();
+  const { items, getTotalPrice, getTotalItems } = useCart();
   const [isDarkMode, setIsDarkMode] = useState(() => {
     const savedTheme = localStorage.getItem('theme');
     if (savedTheme === 'dark') {
@@ -41,11 +43,25 @@ const Payment = () => {
     }
   };
 
+  const subtotal = getTotalPrice();
+  const deliveryFee = subtotal > 0 ? 50 : 0;
+  const tax = Math.round(subtotal * 0.08);
+  const total = subtotal + deliveryFee + tax;
+
   const handlePayment = () => {
     if (!deliveryInfo.name || !deliveryInfo.phone || !deliveryInfo.address) {
       toast({
         title: "Missing information",
         description: "Please fill in all required delivery details",
+        duration: 3000,
+      });
+      return;
+    }
+
+    if (getTotalItems() === 0) {
+      toast({
+        title: "Empty cart",
+        description: "Please add items to your cart before placing an order",
         duration: 3000,
       });
       return;
@@ -228,22 +244,39 @@ const Payment = () => {
               {/* Order Summary */}
               <div className="mt-6 p-4 rounded-lg bg-gray-50 dark:bg-gray-800">
                 <h3 className={`font-semibold mb-3 ${isDarkMode ? 'text-white' : 'text-[rgb(27,60,83)]'}`}>Order Summary</h3>
+                
+                {/* Cart Items */}
+                {items.length > 0 && (
+                  <div className="mb-4 space-y-2">
+                    {items.map((item) => (
+                      <div key={item.id} className={`flex justify-between items-center text-sm ${isDarkMode ? 'text-gray-300' : 'text-[rgb(69,104,130)]'}`}>
+                        <div className="flex-1">
+                          <span className="font-medium">{item.name}</span>
+                          <span className="text-xs text-gray-500 ml-2">x{item.quantity}</span>
+                        </div>
+                        <span>₹{item.price * item.quantity}</span>
+                      </div>
+                    ))}
+                    <div className={`border-t pt-2 mt-2 ${isDarkMode ? 'border-gray-600' : 'border-[rgb(210,193,182)]'}`} />
+                  </div>
+                )}
+                
                 <div className={`space-y-2 text-sm ${isDarkMode ? 'text-gray-300' : 'text-[rgb(69,104,130)]'}`}>
                   <div className="flex justify-between">
                     <span>Subtotal</span>
-                    <span>₹0</span>
+                    <span>₹{subtotal}</span>
                   </div>
                   <div className="flex justify-between">
                     <span>Delivery Fee</span>
-                    <span>₹0</span>
+                    <span>₹{deliveryFee}</span>
                   </div>
                   <div className="flex justify-between">
                     <span>Tax</span>
-                    <span>₹0</span>
+                    <span>₹{tax}</span>
                   </div>
                   <div className={`flex justify-between font-bold text-lg border-t pt-2 ${isDarkMode ? 'text-white border-gray-600' : 'text-[rgb(27,60,83)] border-[rgb(210,193,182)]'}`}>
                     <span>Total</span>
-                    <span>₹0</span>
+                    <span>₹{total}</span>
                   </div>
                 </div>
               </div>
@@ -252,7 +285,7 @@ const Payment = () => {
                 onClick={handlePayment}
                 className="w-full mt-6 bg-gradient-to-r from-[rgb(27,60,83)] to-[rgb(69,104,130)] hover:from-[rgb(69,104,130)] hover:to-[rgb(27,60,83)] text-white py-6 text-lg"
               >
-                Place Order
+                Place Order - ₹{total}
               </Button>
             </CardContent>
           </Card>

@@ -21,7 +21,7 @@ export const restaurantMenus = {
       { id: 14, name: "Pepsi", description: "Chilled cola drink", price: 129, category: "Drinks", image: "https://images.unsplash.com/photo-1629203851122-3726ecdf080e?w=300&h=200&fit=crop" }
     ]
   },
-  4: { // Papa John's - NEW
+  4: { // Papa John's
     name: "Papa John's",
     items: [
       { id: 60, name: "The Works Pizza", description: "Pepperoni, Canadian bacon, spicy Italian sausage, onions, green peppers, mushrooms", price: 879, category: "Pizza", image: "https://images.unsplash.com/photo-1513104890138-7c749659a591?w=300&h=200&fit=crop", popular: true },
@@ -31,7 +31,7 @@ export const restaurantMenus = {
       { id: 64, name: "Pepsi Max", description: "Zero sugar cola", price: 139, category: "Drinks", image: "https://images.unsplash.com/photo-1629203851122-3726ecdf080e?w=300&h=200&fit=crop" }
     ]
   },
-  5: { // Chicago Pizza - NEW
+  5: { // Chicago Pizza
     name: "Chicago Pizza",
     items: [
       { id: 65, name: "Deep Dish Supreme", description: "Thick crust pizza with sausage, pepperoni, green peppers, onions, mushrooms", price: 949, category: "Pizza", image: "https://images.unsplash.com/photo-1513104890138-7c749659a591?w=300&h=200&fit=crop", popular: true },
@@ -60,7 +60,25 @@ export const restaurantMenus = {
       { id: 25, name: "Onion Rings", description: "Crispy golden onion rings", price: 179, category: "Sides", image: "https://images.unsplash.com/photo-1639024471283-03418e777bb1?w=300&h=200&fit=crop" }
     ]
   },
-  // Taco Bell
+  9: { // Five Guys - NEW
+    name: "Five Guys",
+    items: [
+      { id: 70, name: "Five Guys Burger", description: "Fresh ground beef patty with lettuce, tomato, pickles, onions", price: 549, category: "Burgers", image: "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=300&h=200&fit=crop", popular: true },
+      { id: 71, name: "Bacon Cheeseburger", description: "Beef patty with bacon, cheese, and fresh toppings", price: 649, category: "Burgers", image: "https://images.unsplash.com/photo-1550547660-d9450f859349?w=300&h=200&fit=crop", popular: true },
+      { id: 72, name: "Cajun Fries", description: "Hand-cut fries with Cajun seasoning", price: 279, category: "Sides", image: "https://images.unsplash.com/photo-1576107232684-1279f390b3d6?w=300&h=200&fit=crop" },
+      { id: 73, name: "Milkshake", description: "Hand-spun vanilla milkshake", price: 329, category: "Drinks", image: "https://images.unsplash.com/photo-1572490122747-3968b75cc699?w=300&h=200&fit=crop" }
+    ]
+  },
+  10: { // Shake Shack - NEW
+    name: "Shake Shack",
+    items: [
+      { id: 74, name: "ShackBurger", description: "Cheeseburger with lettuce, tomato, ShackSauce", price: 579, category: "Burgers", image: "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=300&h=200&fit=crop", popular: true },
+      { id: 75, name: "SmokeShack", description: "Cheeseburger with applewood smoked bacon, cherry peppers", price: 679, category: "Burgers", image: "https://images.unsplash.com/photo-1550547660-d9450f859349?w=300&h=200&fit=crop", popular: true },
+      { id: 76, name: "Shack-cago Dog", description: "Vienna beef hot dog with Rick's Picks relish", price: 429, category: "Hot Dogs", image: "https://images.unsplash.com/photo-1612392061787-2d078b3e573a?w=300&h=200&fit=crop" },
+      { id: 77, name: "Cookies & Cream Shake", description: "Vanilla custard with chocolate cookies", price: 379, category: "Drinks", image: "https://images.unsplash.com/photo-1572490122747-3968b75cc699?w=300&h=200&fit=crop" }
+    ]
+  },
+  // Mexican Restaurants
   7: { // Taco Bell
     name: "Taco Bell",
     items: [
@@ -70,6 +88,25 @@ export const restaurantMenus = {
       { id: 29, name: "Nachos Supreme", description: "Crispy nachos with cheese, beef, beans, tomatoes, and sour cream", price: 319, category: "Sides", image: "https://images.unsplash.com/photo-1513456852971-30c0b8199d4d?w=300&h=200&fit=crop" }
     ]
   },
+  11: { // Chipotle - NEW
+    name: "Chipotle",
+    items: [
+      { id: 78, name: "Chicken Burrito Bowl", description: "Cilantro-lime rice, black beans, chicken, salsa, cheese, lettuce", price: 849, category: "Bowls", image: "https://images.unsplash.com/photo-1626700051175-6818013e1d4f?w=300&h=200&fit=crop", popular: true },
+      { id: 79, name: "Barbacoa Burrito", description: "Slow-cooked barbacoa beef with rice, beans, salsa", price: 899, category: "Mexican", image: "https://images.unsplash.com/photo-1626700051175-6818013e1d4f?w=300&h=200&fit=crop", popular: true },
+      { id: 80, name: "Chicken Tacos", description: "Three soft tacos with grilled chicken and fresh toppings", price: 679, category: "Tacos", image: "https://images.unsplash.com/photo-1565299585323-38174c4a6779?w=300&h=200&fit=crop" },
+      { id: 81, name: "Guacamole & Chips", description: "Fresh guacamole with crispy tortilla chips", price: 399, category: "Sides", image: "https://images.unsplash.com/photo-1513456852971-30c0b8199d4d?w=300&h=200&fit=crop" }
+    ]
+  },
+  12: { // Qdoba - NEW
+    name: "Qdoba",
+    items: [
+      { id: 82, name: "Loaded Tortilla Soup", description: "Hearty soup with chicken, beans, cheese, tortilla strips", price: 549, category: "Soups", image: "https://images.unsplash.com/photo-1547592180-85f173990554?w=300&h=200&fit=crop", popular: true },
+      { id: 83, name: "Steak Fajita Quesadilla", description: "Grilled steak with peppers, onions, melted cheese", price: 799, category: "Mexican", image: "https://images.unsplash.com/photo-1571197119282-7c4b999c2382?w=300&h=200&fit=crop", popular: true },
+      { id: 84, name: "Street Style Tacos", description: "Corn tortillas with carnitas, onions, cilantro", price: 629, category: "Tacos", image: "https://images.unsplash.com/photo-1565299585323-38174c4a6779?w=300&h=200&fit=crop" },
+      { id: 85, name: "Queso Blanco", description: "Creamy white queso with tortilla chips", price: 349, category: "Sides", image: "https://images.unsplash.com/photo-1513456852971-30c0b8199d4d?w=300&h=200&fit=crop" }
+    ]
+  },
+  // Chinese Restaurants
   15: { // Panda Express
     name: "Panda Express",
     items: [
@@ -89,6 +126,25 @@ export const restaurantMenus = {
       { id: 48, name: "Jasmine Tea", description: "Fragrant jasmine tea", price: 89, category: "Drinks", image: "https://images.unsplash.com/photo-1597318181469-1d4a2e6a451b?w=300&h=200&fit=crop" }
     ]
   },
+  13: { // P.F. Chang's - NEW
+    name: "P.F. Chang's",
+    items: [
+      { id: 86, name: "Mongolian Beef", description: "Tender beef with scallions and onions in savory sauce", price: 899, category: "Chinese", image: "https://images.unsplash.com/photo-1582878826629-29b7ad1cdc43?w=300&h=200&fit=crop", popular: true },
+      { id: 87, name: "Chang's Lettuce Wraps", description: "Wok-seared chicken with mushrooms, water chestnuts", price: 649, category: "Appetizers", image: "https://images.unsplash.com/photo-1536304447766-da0ed4ce1b73?w=300&h=200&fit=crop", popular: true },
+      { id: 88, name: "Honey Chicken", description: "Crispy chicken glazed with honey sauce", price: 749, category: "Chinese", image: "https://images.unsplash.com/photo-1617196034796-73989e891b8e?w=300&h=200&fit=crop" },
+      { id: 89, name: "Vegetable Fried Rice", description: "Wok-fried rice with mixed vegetables", price: 449, category: "Chinese", image: "https://images.unsplash.com/photo-1603133872878-684f208fb84b?w=300&h=200&fit=crop" }
+    ]
+  },
+  14: { // Pick Up Stix - NEW
+    name: "Pick Up Stix",
+    items: [
+      { id: 90, name: "House Special Chicken", description: "Crispy chicken with sweet and sour sauce", price: 579, category: "Chinese", image: "https://images.unsplash.com/photo-1617196034796-73989e891b8e?w=300&h=200&fit=crop", popular: true },
+      { id: 91, name: "Cream Cheese Wontons", description: "Crispy wontons filled with cream cheese", price: 349, category: "Appetizers", image: "https://images.unsplash.com/photo-1536304447766-da0ed4ce1b73?w=300&h=200&fit=crop", popular: true },
+      { id: 92, name: "Beef & Broccoli", description: "Tender beef with fresh broccoli in brown sauce", price: 649, category: "Chinese", image: "https://images.unsplash.com/photo-1582878826629-29b7ad1cdc43?w=300&h=200&fit=crop" },
+      { id: 93, name: "Pork Fried Rice", description: "Traditional fried rice with BBQ pork", price: 499, category: "Chinese", image: "https://images.unsplash.com/photo-1603133872878-684f208fb84b?w=300&h=200&fit=crop" }
+    ]
+  },
+  // Indian Restaurants
   20: { // Spice Route
     name: "Spice Route",
     items: [
@@ -109,6 +165,25 @@ export const restaurantMenus = {
       { id: 59, name: "Chai", description: "Traditional Indian spiced tea", price: 59, category: "Drinks", image: "https://images.unsplash.com/photo-1597318181469-1d4a2e6a451b?w=300&h=200&fit=crop" }
     ]
   },
+  17: { // Tandoor Palace - NEW
+    name: "Tandoor Palace",
+    items: [
+      { id: 94, name: "Tandoor Chicken", description: "Clay oven roasted chicken with authentic spices", price: 699, category: "Indian", image: "https://images.unsplash.com/photo-1631452180519-c014fe946bc7?w=300&h=200&fit=crop", popular: true },
+      { id: 95, name: "Lamb Curry", description: "Tender lamb in aromatic curry sauce", price: 799, category: "Indian", image: "https://images.unsplash.com/photo-1574484284002-952d92456975?w=300&h=200&fit=crop", popular: true },
+      { id: 96, name: "Garlic Naan", description: "Naan bread with fresh garlic and cilantro", price: 129, category: "Bread", image: "https://images.unsplash.com/photo-1606491956689-2ea866880c84?w=300&h=200&fit=crop" },
+      { id: 97, name: "Samosas", description: "Crispy pastries filled with spiced potatoes", price: 249, category: "Appetizers", image: "https://images.unsplash.com/photo-1601050690597-df0568f70950?w=300&h=200&fit=crop" }
+    ]
+  },
+  18: { // Curry Express - NEW
+    name: "Curry Express",
+    items: [
+      { id: 98, name: "Chicken Tikka Masala", description: "Grilled chicken in creamy tomato-based curry", price: 549, category: "Indian", image: "https://images.unsplash.com/photo-1631452180519-c014fe946bc7?w=300&h=200&fit=crop", popular: true },
+      { id: 99, name: "Dal Makhani", description: "Creamy black lentils slow-cooked with spices", price: 379, category: "Indian", image: "https://images.unsplash.com/photo-1574484284002-952d92456975?w=300&h=200&fit=crop", popular: true },
+      { id: 100, name: "Vegetable Pakoras", description: "Crispy vegetable fritters with mint chutney", price: 299, category: "Appetizers", image: "https://images.unsplash.com/photo-1601050690597-df0568f70950?w=300&h=200&fit=crop" },
+      { id: 101, name: "Kulfi", description: "Traditional Indian ice cream with pistachios", price: 199, category: "Desserts", image: "https://images.unsplash.com/photo-1488900128323-21503983a07e?w=300&h=200&fit=crop" }
+    ]
+  },
+  // Coffee & Snacks
   8: { // Starbucks
     name: "Starbucks",
     items: [
@@ -116,6 +191,43 @@ export const restaurantMenus = {
       { id: 31, name: "Cappuccino", description: "Espresso with steamed milk and thick foam", price: 349, category: "Coffee", image: "https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=300&h=200&fit=crop", popular: true },
       { id: 32, name: "Frappuccino", description: "Blended coffee beverage with ice and whipped cream", price: 449, category: "Coffee", image: "https://images.unsplash.com/photo-1461023058943-07fcbe16d735?w=300&h=200&fit=crop" },
       { id: 33, name: "Blueberry Muffin", description: "Freshly baked muffin with blueberries", price: 229, category: "Snacks", image: "https://images.unsplash.com/photo-1426869981800-95ebf51ce900?w=300&h=200&fit=crop" }
+    ]
+  },
+  19: { // Dunkin' - NEW
+    name: "Dunkin'",
+    items: [
+      { id: 102, name: "Original Glazed Donut", description: "Classic glazed donut, soft and sweet", price: 89, category: "Donuts", image: "https://images.unsplash.com/photo-1551024506-0bccd828d307?w=300&h=200&fit=crop", popular: true },
+      { id: 103, name: "Iced Coffee", description: "Freshly brewed coffee served over ice", price: 199, category: "Coffee", image: "https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?w=300&h=200&fit=crop", popular: true },
+      { id: 104, name: "Boston Kreme Donut", description: "Yeast donut filled with custard and topped with chocolate", price: 129, category: "Donuts", image: "https://images.unsplash.com/photo-1551024506-0bccd828d307?w=300&h=200&fit=crop" },
+      { id: 105, name: "Breakfast Sandwich", description: "Egg, cheese, and bacon on English muffin", price: 299, category: "Breakfast", image: "https://images.unsplash.com/photo-1525351326368-efbb5cb6814d?w=300&h=200&fit=crop" }
+    ]
+  },
+  21: { // Tim Hortons - NEW
+    name: "Tim Hortons",
+    items: [
+      { id: 106, name: "Double Double", description: "Coffee with two cream and two sugar", price: 159, category: "Coffee", image: "https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?w=300&h=200&fit=crop", popular: true },
+      { id: 107, name: "Honey Cruller", description: "Sweet honey-glazed twisted donut", price: 99, category: "Donuts", image: "https://images.unsplash.com/photo-1551024506-0bccd828d307?w=300&h=200&fit=crop", popular: true },
+      { id: 108, name: "Timbits", description: "Bite-sized donut holes, assorted flavors", price: 149, category: "Donuts", image: "https://images.unsplash.com/photo-1551024506-0bccd828d307?w=300&h=200&fit=crop" },
+      { id: 109, name: "Bagel with Cream Cheese", description: "Everything bagel with plain cream cheese", price: 219, category: "Breakfast", image: "https://images.unsplash.com/photo-1509440159596-0249088772ff?w=300&h=200&fit=crop" }
+    ]
+  },
+  // Fast Food
+  22: { // KFC - NEW
+    name: "KFC",
+    items: [
+      { id: 110, name: "Original Recipe Chicken", description: "Secret blend of 11 herbs and spices", price: 399, category: "Chicken", image: "https://images.unsplash.com/photo-1626645738196-c2a7c87a8f58?w=300&h=200&fit=crop", popular: true },
+      { id: 111, name: "Zinger Burger", description: "Spicy chicken fillet burger with lettuce and mayo", price: 349, category: "Burgers", image: "https://images.unsplash.com/photo-1571091718767-18b5b1457add?w=300&h=200&fit=crop", popular: true },
+      { id: 112, name: "Popcorn Chicken", description: "Bite-sized pieces of seasoned chicken", price: 279, category: "Chicken", image: "https://images.unsplash.com/photo-1626645738196-c2a7c87a8f58?w=300&h=200&fit=crop" },
+      { id: 113, name: "Coleslaw", description: "Fresh cabbage salad with creamy dressing", price: 149, category: "Sides", image: "https://images.unsplash.com/photo-1623428187969-5da2dcea5ebf?w=300&h=200&fit=crop" }
+    ]
+  },
+  23: { // Subway - NEW
+    name: "Subway",
+    items: [
+      { id: 114, name: "Italian BMT", description: "Pepperoni, salami, ham with cheese and veggies", price: 449, category: "Sandwiches", image: "https://images.unsplash.com/photo-1553909489-cd47e0ef937f?w=300&h=200&fit=crop", popular: true },
+      { id: 115, name: "Chicken Teriyaki", description: "Grilled chicken with teriyaki sauce and vegetables", price: 479, category: "Sandwiches", image: "https://images.unsplash.com/photo-1553909489-cd47e0ef937f?w=300&h=200&fit=crop", popular: true },
+      { id: 116, name: "Veggie Delite", description: "Fresh vegetables with choice of cheese", price: 329, category: "Sandwiches", image: "https://images.unsplash.com/photo-1553909489-cd47e0ef937f?w=300&h=200&fit=crop" },
+      { id: 117, name: "Cookies", description: "Freshly baked chocolate chip cookies", price: 89, category: "Desserts", image: "https://images.unsplash.com/photo-1499636136210-6f4ee915583e?w=300&h=200&fit=crop" }
     ]
   }
 };
