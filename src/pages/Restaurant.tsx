@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import { ArrowLeft, Star, Clock, Truck, Plus, Minus, ShoppingCart, Sun, Moon } from "lucide-react";
@@ -33,7 +32,7 @@ const Restaurant = () => {
     }
   };
 
-  // Restaurant data with high-quality images
+  // Restaurant data with high-quality images - Updated to include all restaurants
   const getRestaurantData = (restaurantId: number) => {
     const restaurants = {
       1: { id: 1, name: "Pizza Hut", cuisine: "Pizza", rating: 4.3, deliveryTime: "30-45 min", deliveryFee: "₹60", image: "https://images.unsplash.com/photo-1513104890138-7c749659a591?w=800&h=400&fit=crop&q=80", description: "World's favorite pizza place with authentic Italian taste and fresh ingredients.", isOpen: true },
@@ -44,9 +43,21 @@ const Restaurant = () => {
       6: { id: 6, name: "Burger King", cuisine: "Burgers", rating: 4.1, deliveryTime: "25-35 min", deliveryFee: "₹55", image: "https://images.unsplash.com/photo-1586190848861-99aa4a171e90?w=800&h=400&fit=crop&q=80", description: "Have It Your Way! Flame-grilled burgers made just how you like them.", isOpen: true },
       7: { id: 7, name: "Taco Bell", cuisine: "Mexican", rating: 3.9, deliveryTime: "30-45 min", deliveryFee: "₹65", image: "https://images.unsplash.com/photo-1565299585323-38174c4a6779?w=800&h=400&fit=crop&q=80", description: "Live Más! Experience bold Mexican flavors with our tacos, burritos, and more.", isOpen: true },
       8: { id: 8, name: "Starbucks", cuisine: "Coffee & Snacks", rating: 4.5, deliveryTime: "15-25 min", deliveryFee: "₹80", image: "https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?w=800&h=400&fit=crop&q=80", description: "Premium coffee, handcrafted beverages, and delicious pastries.", isOpen: true },
+      9: { id: 9, name: "Five Guys", cuisine: "Burgers", rating: 4.3, deliveryTime: "25-40 min", deliveryFee: "₹70", image: "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=800&h=400&fit=crop&q=80", description: "Fresh, never frozen beef burgers and hand-cut fries.", isOpen: true },
+      10: { id: 10, name: "Shake Shack", cuisine: "Burgers", rating: 4.4, deliveryTime: "30-45 min", deliveryFee: "₹75", image: "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=800&h=400&fit=crop&q=80", description: "Modern day 'roadside' burger stand serving delicious burgers and shakes.", isOpen: true },
+      11: { id: 11, name: "Chipotle", cuisine: "Mexican", rating: 4.2, deliveryTime: "25-40 min", deliveryFee: "₹70", image: "https://images.unsplash.com/photo-1626700051175-6818013e1d4f?w=800&h=400&fit=crop&q=80", description: "Food with integrity. Fresh Mexican grill with customizable bowls and burritos.", isOpen: true },
+      12: { id: 12, name: "Qdoba", cuisine: "Mexican", rating: 4.0, deliveryTime: "30-45 min", deliveryFee: "₹65", image: "https://images.unsplash.com/photo-1571197119282-7c4b999c2382?w=800&h=400&fit=crop&q=80", description: "Mexican eats made fresh in front of you with bold flavors.", isOpen: true },
+      13: { id: 13, name: "P.F. Chang's", cuisine: "Chinese", rating: 4.3, deliveryTime: "35-50 min", deliveryFee: "₹80", image: "https://images.unsplash.com/photo-1582878826629-29b7ad1cdc43?w=800&h=400&fit=crop&q=80", description: "Asian dining experience with handcrafted food and signature cocktails.", isOpen: true },
+      14: { id: 14, name: "Pick Up Stix", cuisine: "Chinese", rating: 3.9, deliveryTime: "25-40 min", deliveryFee: "₹60", image: "https://images.unsplash.com/photo-1617196034796-73989e891b8e?w=800&h=400&fit=crop&q=80", description: "Fresh Asian kitchen with wok-smart cooking and bold flavors.", isOpen: true },
       15: { id: 15, name: "Panda Express", cuisine: "Chinese", rating: 4.0, deliveryTime: "25-35 min", deliveryFee: "₹60", image: "https://images.unsplash.com/photo-1617196034796-73989e891b8e?w=800&h=400&fit=crop&q=80", description: "Fresh, fast Chinese food made with the highest quality ingredients.", isOpen: true },
       16: { id: 16, name: "China Garden", cuisine: "Chinese", rating: 4.2, deliveryTime: "30-45 min", deliveryFee: "₹55", image: "https://images.unsplash.com/photo-1582878826629-29b7ad1cdc43?w=800&h=400&fit=crop&q=80", description: "Authentic Chinese cuisine with traditional flavors and modern presentation.", isOpen: true },
+      17: { id: 17, name: "Tandoor Palace", cuisine: "Indian", rating: 4.3, deliveryTime: "30-45 min", deliveryFee: "₹65", image: "https://images.unsplash.com/photo-1631452180519-c014fe946bc7?w=800&h=400&fit=crop&q=80", description: "Royal Indian cuisine with authentic tandoor cooking and rich flavors.", isOpen: true },
+      18: { id: 18, name: "Curry Express", cuisine: "Indian", rating: 4.1, deliveryTime: "25-40 min", deliveryFee: "₹55", image: "https://images.unsplash.com/photo-1574484284002-952d92456975?w=800&h=400&fit=crop&q=80", description: "Quick and delicious Indian curries with traditional home-cooked taste.", isOpen: true },
+      19: { id: 19, name: "Dunkin'", cuisine: "Coffee & Snacks", rating: 4.1, deliveryTime: "20-30 min", deliveryFee: "₹60", image: "https://images.unsplash.com/photo-1551024506-0bccd828d307?w=800&h=400&fit=crop&q=80", description: "America runs on Dunkin'! Coffee, donuts, and breakfast favorites.", isOpen: true },
       20: { id: 20, name: "Spice Route", cuisine: "Indian", rating: 4.4, deliveryTime: "35-50 min", deliveryFee: "₹60", image: "https://images.unsplash.com/photo-1565557623262-b51c2513a641?w=800&h=400&fit=crop&q=80", description: "Authentic Indian flavors with aromatic spices and traditional recipes.", isOpen: true },
+      21: { id: 21, name: "Tim Hortons", cuisine: "Coffee & Snacks", rating: 4.2, deliveryTime: "15-25 min", deliveryFee: "₹70", image: "https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?w=800&h=400&fit=crop&q=80", description: "Canada's favorite coffee shop with freshly brewed coffee and baked goods.", isOpen: true },
+      22: { id: 22, name: "KFC", cuisine: "Fast Food", rating: 4.2, deliveryTime: "25-40 min", deliveryFee: "₹65", image: "https://images.unsplash.com/photo-1626645738196-c2a7c87a8f58?w=800&h=400&fit=crop&q=80", description: "Finger lickin' good! Original recipe fried chicken and sides.", isOpen: true },
+      23: { id: 23, name: "Subway", cuisine: "Fast Food", rating: 4.0, deliveryTime: "20-35 min", deliveryFee: "₹50", image: "https://images.unsplash.com/photo-1553909489-cd47e0ef937f?w=800&h=400&fit=crop&q=80", description: "Eat fresh! Made-to-order subs with fresh ingredients.", isOpen: true },
       24: { id: 24, name: "Biryani Paradise", cuisine: "Indian", rating: 4.5, deliveryTime: "25-40 min", deliveryFee: "₹60", image: "https://images.unsplash.com/photo-1563379091339-03246963d96c?w=800&h=400&fit=crop&q=80", description: "Home of the finest biryanis with authentic Hyderabadi flavors.", isOpen: true }
     };
     return restaurants[restaurantId as keyof typeof restaurants] || restaurants[1];
@@ -116,7 +127,7 @@ const Restaurant = () => {
                 <div className="bg-gradient-to-r from-[rgb(27,60,83)] to-[rgb(69,104,130)] p-1 sm:p-1.5 rounded-full">
                   <span className="text-sm sm:text-base font-bold text-white">🍽️</span>
                 </div>
-                <span className={`text-sm sm:text-lg md:text-xl font-bold bg-gradient-to-r from-[rgb(27,60,83)] to-[rgb(69,104,130)] bg-clip-text text-transparent ${isDarkMode ? 'text-white' : ''}`}>BiteBuddy</span>
+                <span className={`text-sm sm:text-lg md:text-xl font-bold bg-gradient-to-r from-[rgb(27,60,83)] to-[rgb(69,104,130)] bg-clip-text text-transparent ${isDarkMode ? 'text-white' : ''}`}>{restaurant.name}</span>
               </div>
             </div>
             <div className="flex items-center space-x-1 sm:space-x-3">
@@ -259,7 +270,6 @@ const Restaurant = () => {
                                alt={item.name}
                                className={`w-full h-full object-cover rounded-lg border-2 ${isDarkMode ? 'border-purple-800' : 'border-purple-200'}`}
                                onError={(e) => {
-                                 // Fallback image based on category
                                  const fallbackImages = {
                                    'Pizza': 'https://images.unsplash.com/photo-1513104890138-7c749659a591?w=300&h=200&fit=crop&q=80',
                                    'Chinese': 'https://images.unsplash.com/photo-1617196034796-73989e891b8e?w=300&h=200&fit=crop&q=80',
