@@ -8,18 +8,9 @@ interface FoodCollageProps {
 const FoodCollage = ({ isDarkMode }: FoodCollageProps) => {
   return (
     <div className="mb-8 sm:mb-12 lg:mb-16">
-      <div className="text-center mb-6 sm:mb-8">
-        <h2 className={`text-2xl sm:text-3xl lg:text-4xl font-bold mb-3 sm:mb-4 ${isDarkMode ? 'text-white' : 'text-[rgb(27,60,83)]'}`}>
-          Delicious Food Awaits
-        </h2>
-        <p className={`text-sm sm:text-base lg:text-lg ${isDarkMode ? 'text-gray-300' : 'text-[rgb(69,104,130)]'}`}>
-          Discover amazing flavors from your favorite restaurants
-        </p>
-      </div>
-      
-      {/* Food Collage Background */}
+      {/* Food Collage Background - Made bigger */}
       <div 
-        className="relative h-48 sm:h-64 lg:h-80 rounded-2xl overflow-hidden shadow-2xl"
+        className="relative h-64 sm:h-80 lg:h-96 rounded-2xl overflow-hidden shadow-2xl"
         style={{
           backgroundImage: `url('https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=1200&h=600&fit=crop&q=80')`,
           backgroundSize: 'cover',

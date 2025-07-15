@@ -1,293 +1,242 @@
+
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { ArrowLeft, Sun, Moon, CreditCard, Smartphone, Banknote, MapPin, User, Phone, Mail } from "lucide-react";
+import { ArrowLeft, CreditCard, Smartphone, Banknote, ShoppingCart } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { Textarea } from "@/components/ui/textarea";
-import { toast } from "@/hooks/use-toast";
+import { Separator } from "@/components/ui/separator";
 import { useCart } from "@/contexts/CartContext";
+import { toast } from "@/hooks/use-toast";
 
 const Payment = () => {
+  const { cartItems, getTotalPrice, clearCart } = useCart();
   const navigate = useNavigate();
-  const { cartItems, getTotalPrice, getTotalItems } = useCart();
-  const [isDarkMode, setIsDarkMode] = useState(() => {
-    const savedTheme = localStorage.getItem('theme');
-    if (savedTheme === 'dark') {
-      document.documentElement.classList.add('dark');
-      return true;
-    }
-    return false;
-  });
+  const [paymentMethod, setPaymentMethod] = useState("card");
+  const [isProcessing, setIsProcessing] = useState(false);
 
-  const [paymentMethod, setPaymentMethod] = useState("upi");
-  const [deliveryInfo, setDeliveryInfo] = useState({
-    name: "",
-    phone: "",
-    email: "",
-    address: "",
-    instructions: ""
-  });
+  const deliveryFee = 60;
+  const tax = Math.round(getTotalPrice() * 0.1);
+  const total = getTotalPrice() + deliveryFee + tax;
 
-  const toggleTheme = () => {
-    setIsDarkMode(!isDarkMode);
-    if (!isDarkMode) {
-      document.documentElement.classList.add('dark');
-      localStorage.setItem('theme', 'dark');
-    } else {
-      document.documentElement.classList.remove('dark');
-      localStorage.setItem('theme', 'light');
-    }
-  };
+  const handlePayment = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsProcessing(true);
 
-  const subtotal = getTotalPrice();
-  const deliveryFee = subtotal > 0 ? 50 : 0;
-  const tax = Math.round(subtotal * 0.08);
-  const total = subtotal + deliveryFee + tax;
-
-  const handlePayment = () => {
-    if (!deliveryInfo.name || !deliveryInfo.phone || !deliveryInfo.address) {
-      toast({
-        title: "Missing information",
-        description: "Please fill in all required delivery details",
-        duration: 3000,
-      });
-      return;
-    }
-
-    if (getTotalItems() === 0) {
-      toast({
-        title: "Empty cart",
-        description: "Please add items to your cart before placing an order",
-        duration: 3000,
-      });
-      return;
-    }
-
-    toast({
-      title: "Order placed successfully! 🎉",
-      description: "Your order has been confirmed and will be delivered soon.",
-      duration: 4000,
-    });
-    
+    // Simulate payment processing
     setTimeout(() => {
-      navigate('/tracking');
+      setIsProcessing(false);
+      toast({
+        title: "Order Placed Successfully! 🎉",
+        description: "Your delicious meal is being prepared",
+        duration: 3000,
+      });
+      clearCart();
+      navigate("/order-tracking");
     }, 2000);
   };
 
+  if (cartItems.length === 0) {
+    return (
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <div className="text-center">
+          <ShoppingCart className="h-16 w-16 mx-auto text-gray-400 mb-4" />
+          <h2 className="text-2xl font-bold text-gray-900 mb-2">Your cart is empty</h2>
+          <p className="text-gray-600 mb-6">Add some delicious items to your cart first!</p>
+          <Link to="/">
+            <Button>Browse Restaurants</Button>
+          </Link>
+        </div>
+      </div>
+    );
+  }
+
   return (
-    <div className={`min-h-screen transition-colors duration-300 ${isDarkMode ? 'bg-black text-white' : 'bg-gradient-to-br from-[rgb(249,243,239)] via-[rgb(210,193,182)] to-[rgb(249,243,239)] text-[rgb(27,60,83)]'}`}>
+    <div className="min-h-screen bg-gray-50">
       {/* Header */}
-      <header className={`backdrop-blur-md shadow-lg border-b sticky top-0 z-10 transition-colors duration-300 ${isDarkMode ? 'bg-black/80 border-gray-800' : 'bg-[rgb(249,243,239)]/80 border-[rgb(210,193,182)]'}`}>
+      <header className="bg-white shadow-sm border-b sticky top-0 z-10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             <div className="flex items-center space-x-4">
               <Link to="/cart">
-                <Button variant="ghost" size="sm" className={`flex items-center space-x-2 ${isDarkMode ? 'text-white hover:bg-gray-800' : 'text-[rgb(69,104,130)] hover:bg-[rgb(210,193,182)]'}`}>
+                <Button variant="ghost" size="sm" className="flex items-center space-x-2">
                   <ArrowLeft className="h-4 w-4" />
                   <span>Back to Cart</span>
                 </Button>
               </Link>
               <div className="flex items-center space-x-2">
-                <div className="bg-gradient-to-r from-[rgb(27,60,83)] to-[rgb(69,104,130)] p-2 rounded-full">
-                  <span className="text-lg font-bold text-white">🍽️</span>
-                </div>
-                <span className={`text-xl font-bold bg-gradient-to-r from-[rgb(27,60,83)] to-[rgb(69,104,130)] bg-clip-text text-transparent ${isDarkMode ? 'text-white' : ''}`}>BiteBuddy</span>
+                <div className="text-2xl">🍽️</div>
+                <span className="text-xl font-bold text-gray-900">Checkout</span>
               </div>
             </div>
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={toggleTheme}
-              className={`h-8 w-8 p-0 ${isDarkMode ? 'hover:bg-gray-800' : 'hover:bg-[rgb(210,193,182)]'}`}
-            >
-              {isDarkMode ? <Sun className="h-4 w-4 text-white" /> : <Moon className="h-4 w-4 text-[rgb(69,104,130)]" />}
-            </Button>
           </div>
         </div>
       </header>
 
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="text-center mb-8">
-          <h1 className={`text-3xl font-bold mb-2 ${isDarkMode ? 'text-white' : 'text-[rgb(27,60,83)]'}`}>
-            Complete Your Order
-          </h1>
-          <p className={isDarkMode ? 'text-gray-300' : 'text-[rgb(69,104,130)]'}>
-            Choose your payment method and delivery details
-          </p>
-        </div>
-
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-          {/* Delivery Information */}
-          <Card className={`transition-colors duration-300 ${isDarkMode ? 'bg-gray-900 border-gray-700' : 'bg-white border-[rgb(210,193,182)]'}`}>
-            <CardHeader>
-              <CardTitle className={`flex items-center space-x-2 ${isDarkMode ? 'text-white' : 'text-[rgb(27,60,83)]'}`}>
-                <MapPin className="h-5 w-5" />
-                <span>Delivery Information</span>
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div>
-                  <Label htmlFor="name" className={isDarkMode ? 'text-gray-300' : 'text-[rgb(69,104,130)]'}>
-                    Full Name *
-                  </Label>
-                  <Input
-                    id="name"
-                    value={deliveryInfo.name}
-                    onChange={(e) => setDeliveryInfo({...deliveryInfo, name: e.target.value})}
-                    className={isDarkMode ? 'bg-gray-800 border-gray-600 text-white' : 'border-[rgb(210,193,182)]'}
-                    placeholder="Enter your full name"
-                  />
-                </div>
-                <div>
-                  <Label htmlFor="phone" className={isDarkMode ? 'text-gray-300' : 'text-[rgb(69,104,130)]'}>
-                    Phone Number *
-                  </Label>
-                  <Input
-                    id="phone"
-                    value={deliveryInfo.phone}
-                    onChange={(e) => setDeliveryInfo({...deliveryInfo, phone: e.target.value})}
-                    className={isDarkMode ? 'bg-gray-800 border-gray-600 text-white' : 'border-[rgb(210,193,182)]'}
-                    placeholder="Enter your phone number"
-                  />
-                </div>
-              </div>
-              <div>
-                <Label htmlFor="email" className={isDarkMode ? 'text-gray-300' : 'text-[rgb(69,104,130)]'}>
-                  Email (Optional)
-                </Label>
-                <Input
-                  id="email"
-                  type="email"
-                  value={deliveryInfo.email}
-                  onChange={(e) => setDeliveryInfo({...deliveryInfo, email: e.target.value})}
-                  className={isDarkMode ? 'bg-gray-800 border-gray-600 text-white' : 'border-[rgb(210,193,182)]'}
-                  placeholder="Enter your email"
-                />
-              </div>
-              <div>
-                <Label htmlFor="address" className={isDarkMode ? 'text-gray-300' : 'text-[rgb(69,104,130)]'}>
-                  Delivery Address *
-                </Label>
-                <Textarea
-                  id="address"
-                  value={deliveryInfo.address}
-                  onChange={(e) => setDeliveryInfo({...deliveryInfo, address: e.target.value})}
-                  className={isDarkMode ? 'bg-gray-800 border-gray-600 text-white' : 'border-[rgb(210,193,182)]'}
-                  placeholder="Enter your complete delivery address"
-                  rows={3}
-                />
-              </div>
-              <div>
-                <Label htmlFor="instructions" className={isDarkMode ? 'text-gray-300' : 'text-[rgb(69,104,130)]'}>
-                  Delivery Instructions (Optional)
-                </Label>
-                <Textarea
-                  id="instructions"
-                  value={deliveryInfo.instructions}
-                  onChange={(e) => setDeliveryInfo({...deliveryInfo, instructions: e.target.value})}
-                  className={isDarkMode ? 'bg-gray-800 border-gray-600 text-white' : 'border-[rgb(210,193,182)]'}
-                  placeholder="Any special instructions for delivery"
-                  rows={2}
-                />
-              </div>
-            </CardContent>
-          </Card>
+          {/* Payment Form */}
+          <div className="space-y-6">
+            <Card>
+              <CardHeader>
+                <CardTitle>Payment Method</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <RadioGroup value={paymentMethod} onValueChange={setPaymentMethod} className="space-y-4">
+                  <div className="flex items-center space-x-3 p-4 border rounded-lg">
+                    <RadioGroupItem value="card" id="card" />
+                    <CreditCard className="h-5 w-5 text-gray-600" />
+                    <Label htmlFor="card" className="flex-1 cursor-pointer">Credit/Debit Card</Label>
+                  </div>
+                  <div className="flex items-center space-x-3 p-4 border rounded-lg">
+                    <RadioGroupItem value="upi" id="upi" />
+                    <Smartphone className="h-5 w-5 text-gray-600" />
+                    <Label htmlFor="upi" className="flex-1 cursor-pointer">UPI Payment</Label>
+                  </div>
+                  <div className="flex items-center space-x-3 p-4 border rounded-lg">
+                    <RadioGroupItem value="cod" id="cod" />
+                    <Banknote className="h-5 w-5 text-gray-600" />
+                    <Label htmlFor="cod" className="flex-1 cursor-pointer">Cash on Delivery</Label>
+                  </div>
+                </RadioGroup>
+              </CardContent>
+            </Card>
 
-          {/* Payment Methods */}
-          <Card className={`transition-colors duration-300 ${isDarkMode ? 'bg-gray-900 border-gray-700' : 'bg-white border-[rgb(210,193,182)]'}`}>
-            <CardHeader>
-              <CardTitle className={`flex items-center space-x-2 ${isDarkMode ? 'text-white' : 'text-[rgb(27,60,83)]'}`}>
-                <CreditCard className="h-5 w-5" />
-                <span>Payment Method</span>
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <RadioGroup value={paymentMethod} onValueChange={setPaymentMethod} className="space-y-4">
-                <div className={`flex items-center space-x-2 p-4 rounded-lg border ${paymentMethod === 'upi' ? (isDarkMode ? 'border-purple-600 bg-purple-900/20' : 'border-[rgb(69,104,130)] bg-[rgb(249,243,239)]') : (isDarkMode ? 'border-gray-600' : 'border-[rgb(210,193,182)]')}`}>
-                  <RadioGroupItem value="upi" id="upi" />
-                  <Label htmlFor="upi" className={`flex items-center space-x-2 cursor-pointer ${isDarkMode ? 'text-white' : 'text-[rgb(27,60,83)]'}`}>
-                    <Smartphone className="h-4 w-4" />
-                    <span>UPI Payment</span>
-                  </Label>
-                </div>
-
-                <div className={`flex items-center space-x-2 p-4 rounded-lg border ${paymentMethod === 'card' ? (isDarkMode ? 'border-purple-600 bg-purple-900/20' : 'border-[rgb(69,104,130)] bg-[rgb(249,243,239)]') : (isDarkMode ? 'border-gray-600' : 'border-[rgb(210,193,182)]')}`}>
-                  <RadioGroupItem value="card" id="card" />
-                  <Label htmlFor="card" className={`flex items-center space-x-2 cursor-pointer ${isDarkMode ? 'text-white' : 'text-[rgb(27,60,83)]'}`}>
-                    <CreditCard className="h-4 w-4" />
-                    <span>Credit/Debit Card</span>
-                  </Label>
-                </div>
-
-                <div className={`flex items-center space-x-2 p-4 rounded-lg border ${paymentMethod === 'netbanking' ? (isDarkMode ? 'border-purple-600 bg-purple-900/20' : 'border-[rgb(69,104,130)] bg-[rgb(249,243,239)]') : (isDarkMode ? 'border-gray-600' : 'border-[rgb(210,193,182)]')}`}>
-                  <RadioGroupItem value="netbanking" id="netbanking" />
-                  <Label htmlFor="netbanking" className={`flex items-center space-x-2 cursor-pointer ${isDarkMode ? 'text-white' : 'text-[rgb(27,60,83)]'}`}>
-                    <User className="h-4 w-4" />
-                    <span>Net Banking</span>
-                  </Label>
-                </div>
-
-                <div className={`flex items-center space-x-2 p-4 rounded-lg border ${paymentMethod === 'cod' ? (isDarkMode ? 'border-purple-600 bg-purple-900/20' : 'border-[rgb(69,104,130)] bg-[rgb(249,243,239)]') : (isDarkMode ? 'border-gray-600' : 'border-[rgb(210,193,182)]')}`}>
-                  <RadioGroupItem value="cod" id="cod" />
-                  <Label htmlFor="cod" className={`flex items-center space-x-2 cursor-pointer ${isDarkMode ? 'text-white' : 'text-[rgb(27,60,83)]'}`}>
-                    <Banknote className="h-4 w-4" />
-                    <span>Cash on Delivery</span>
-                  </Label>
-                </div>
-              </RadioGroup>
-
-              {/* Order Summary */}
-              <div className="mt-6 p-4 rounded-lg bg-gray-50 dark:bg-gray-800">
-                <h3 className={`font-semibold mb-3 ${isDarkMode ? 'text-white' : 'text-[rgb(27,60,83)]'}`}>Order Summary</h3>
-                
-                {/* Cart Items */}
-                {cartItems.length > 0 && (
-                  <div className="mb-4 space-y-2">
-                    {cartItems.map((item) => (
-                      <div key={item.id} className={`flex justify-between items-center text-sm ${isDarkMode ? 'text-gray-300' : 'text-[rgb(69,104,130)]'}`}>
-                        <div className="flex-1">
-                          <span className="font-medium">{item.name}</span>
-                          <span className="text-xs text-gray-500 ml-2">x{item.quantity}</span>
-                        </div>
-                        <span>₹{item.price * item.quantity}</span>
+            {paymentMethod === "card" && (
+              <Card>
+                <CardHeader>
+                  <CardTitle>Card Details</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <form onSubmit={handlePayment} className="space-y-4">
+                    <div className="space-y-2">
+                      <Label htmlFor="cardNumber">Card Number</Label>
+                      <Input
+                        id="cardNumber"
+                        placeholder="1234 5678 9012 3456"
+                        required
+                      />
+                    </div>
+                    <div className="grid grid-cols-2 gap-4">
+                      <div className="space-y-2">
+                        <Label htmlFor="expiry">Expiry Date</Label>
+                        <Input
+                          id="expiry"
+                          placeholder="MM/YY"
+                          required
+                        />
                       </div>
-                    ))}
-                    <div className={`border-t pt-2 mt-2 ${isDarkMode ? 'border-gray-600' : 'border-[rgb(210,193,182)]'}`} />
-                  </div>
-                )}
+                      <div className="space-y-2">
+                        <Label htmlFor="cvv">CVV</Label>
+                        <Input
+                          id="cvv"
+                          placeholder="123"
+                          required
+                        />
+                      </div>
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="cardName">Cardholder Name</Label>
+                      <Input
+                        id="cardName"
+                        placeholder="John Doe"
+                        required
+                      />
+                    </div>
+                    <Button type="submit" className="w-full" disabled={isProcessing}>
+                      {isProcessing ? "Processing..." : `Pay ₹${total.toFixed(2)}`}
+                    </Button>
+                  </form>
+                </CardContent>
+              </Card>
+            )}
+
+            {paymentMethod === "upi" && (
+              <Card>
+                <CardHeader>
+                  <CardTitle>UPI Payment</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <form onSubmit={handlePayment} className="space-y-4">
+                    <div className="space-y-2">
+                      <Label htmlFor="upiId">UPI ID</Label>
+                      <Input
+                        id="upiId"
+                        placeholder="your-upi@paytm"
+                        required
+                      />
+                    </div>
+                    <Button type="submit" className="w-full" disabled={isProcessing}>
+                      {isProcessing ? "Processing..." : `Pay ₹${total.toFixed(2)}`}
+                    </Button>
+                  </form>
+                </CardContent>
+              </Card>
+            )}
+
+            {paymentMethod === "cod" && (
+              <Card>
+                <CardHeader>
+                  <CardTitle>Cash on Delivery</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-gray-600 mb-4">
+                    You will pay ₹{total.toFixed(2)} when your order is delivered.
+                  </p>
+                  <Button onClick={handlePayment} className="w-full" disabled={isProcessing}>
+                    {isProcessing ? "Processing..." : "Place Order"}
+                  </Button>
+                </CardContent>
+              </Card>
+            )}
+          </div>
+
+          {/* Order Summary */}
+          <div>
+            <Card className="sticky top-24">
+              <CardHeader>
+                <CardTitle>Order Summary</CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div className="space-y-3">
+                  {cartItems.map((item) => (
+                    <div key={`${item.id}-${item.restaurantId}`} className="flex justify-between items-center">
+                      <div className="flex-1">
+                        <h4 className="font-medium text-sm">{item.name}</h4>
+                        <p className="text-xs text-gray-600">{item.restaurant}</p>
+                        <p className="text-xs text-gray-500">Qty: {item.quantity}</p>
+                      </div>
+                      <span className="font-medium">₹{(item.price * item.quantity).toFixed(2)}</span>
+                    </div>
+                  ))}
+                </div>
                 
-                <div className={`space-y-2 text-sm ${isDarkMode ? 'text-gray-300' : 'text-[rgb(69,104,130)]'}`}>
-                  <div className="flex justify-between">
+                <Separator />
+                
+                <div className="space-y-2">
+                  <div className="flex justify-between text-sm">
                     <span>Subtotal</span>
-                    <span>₹{subtotal}</span>
+                    <span>₹{getTotalPrice().toFixed(2)}</span>
                   </div>
-                  <div className="flex justify-between">
+                  <div className="flex justify-between text-sm">
                     <span>Delivery Fee</span>
-                    <span>₹{deliveryFee}</span>
+                    <span>₹{deliveryFee.toFixed(2)}</span>
                   </div>
-                  <div className="flex justify-between">
+                  <div className="flex justify-between text-sm">
                     <span>Tax</span>
-                    <span>₹{tax}</span>
+                    <span>₹{tax.toFixed(2)}</span>
                   </div>
-                  <div className={`flex justify-between font-bold text-lg border-t pt-2 ${isDarkMode ? 'text-white border-gray-600' : 'text-[rgb(27,60,83)] border-[rgb(210,193,182)]'}`}>
+                  <Separator />
+                  <div className="flex justify-between font-bold">
                     <span>Total</span>
-                    <span>₹{total}</span>
+                    <span>₹{total.toFixed(2)}</span>
                   </div>
                 </div>
-              </div>
-
-              <Button
-                onClick={handlePayment}
-                className="w-full mt-6 bg-gradient-to-r from-[rgb(27,60,83)] to-[rgb(69,104,130)] hover:from-[rgb(69,104,130)] hover:to-[rgb(27,60,83)] text-white py-6 text-lg"
-              >
-                Place Order - ₹{total}
-              </Button>
-            </CardContent>
-          </Card>
+              </CardContent>
+            </Card>
+          </div>
         </div>
       </div>
     </div>

@@ -105,11 +105,12 @@ const Index = () => {
             </div>
             
             <div className="flex items-center space-x-2 sm:space-x-4">
+              {/* Hide dark mode toggle on mobile */}
               <Button
                 variant="ghost"
                 size="sm"
                 onClick={toggleTheme}
-                className={`h-7 w-7 sm:h-8 sm:w-8 p-0 ${isDarkMode ? 'hover:bg-gray-800' : 'hover:bg-[rgb(210,193,182)]'}`}
+                className={`hidden sm:flex h-7 w-7 sm:h-8 sm:w-8 p-0 ${isDarkMode ? 'hover:bg-gray-800' : 'hover:bg-[rgb(210,193,182)]'}`}
               >
                 {isDarkMode ? <Sun className="h-4 w-4 text-white" /> : <Moon className="h-4 w-4 text-[rgb(69,104,130)]" />}
               </Button>
@@ -121,7 +122,7 @@ const Index = () => {
                 className={`flex items-center space-x-1 px-2 sm:px-3 py-1 sm:py-2 text-xs sm:text-sm ${isDarkMode ? 'text-white hover:bg-gray-800' : 'text-[rgb(69,104,130)] hover:bg-[rgb(210,193,182)]'}`}
               >
                 <User className="h-3 w-3 sm:h-4 sm:w-4" />
-                <span>Sign In</span>
+                <span className="hidden sm:inline">Sign In</span>
               </Button>
               
               <Link to="/cart">
