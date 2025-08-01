@@ -225,7 +225,7 @@ const Payment = () => {
                     <span>₹{deliveryFee.toFixed(2)}</span>
                   </div>
                   <div className="flex justify-between text-sm">
-                    <span>Tax</span>
+                    <span>GST</span>
                     <span>₹{tax.toFixed(2)}</span>
                   </div>
                   <Separator />

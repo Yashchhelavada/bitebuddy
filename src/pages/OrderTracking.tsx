@@ -11,17 +11,18 @@ const OrderTracking = () => {
   const [currentStep, setCurrentStep] = useState(0);
   const [progress, setProgress] = useState(25);
 
-  // Simulate order progression
+  // Simulate order progression - 2+ minutes total
   useEffect(() => {
     const timer = setInterval(() => {
       setCurrentStep(prev => {
         if (prev < 3) {
-          setProgress((prev + 1) * 25);
-          return prev + 1;
+          const newStep = prev + 1;
+          setProgress(newStep * 25);
+          return newStep;
         }
         return prev;
       });
-    }, 5000);
+    }, 40000); // 40 seconds per step = 2 minutes 40 seconds total
 
     return () => clearInterval(timer);
   }, []);
