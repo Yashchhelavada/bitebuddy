@@ -6,8 +6,10 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
+import { useCart } from "@/contexts/CartContext";
 
 const OrderTracking = () => {
+  const { cartItems, getTotalPrice } = useCart();
   const [currentStep, setCurrentStep] = useState(0);
   const [progress, setProgress] = useState(25);
 
@@ -82,12 +84,9 @@ const OrderTracking = () => {
 
   const order = {
     id: "ORD-2024-001",
-    restaurant: "Bella Italia",
-    items: [
-      { name: "Margherita Pizza", quantity: 2, price: 450.99 },
-      { name: "Spaghetti Carbonara", quantity: 1, price: 520.99 }
-    ],
-    total: 1422.97,
+    restaurant: cartItems.length > 0 ? cartItems[0].restaurant : "Restaurant",
+    items: cartItems,
+    total: getTotalPrice(),
     estimatedDelivery: "25-35 min",
     driver: {
       name: "Rajesh Kumar",
