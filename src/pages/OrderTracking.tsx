@@ -84,15 +84,15 @@ const OrderTracking = () => {
     id: "ORD-2024-001",
     restaurant: "Bella Italia",
     items: [
-      { name: "Margherita Pizza", quantity: 2, price: 18.99 },
-      { name: "Spaghetti Carbonara", quantity: 1, price: 22.99 }
+      { name: "Margherita Pizza", quantity: 2, price: 450.99 },
+      { name: "Spaghetti Carbonara", quantity: 1, price: 520.99 }
     ],
-    total: 63.97,
+    total: 1422.97,
     estimatedDelivery: "25-35 min",
     driver: {
-      name: "Mario Rodriguez",
+      name: "Rajesh Kumar",
       rating: 4.9,
-      phone: "+1 (555) 123-4567"
+      phone: "+91 98765 43210"
     }
   };
 
@@ -290,7 +290,7 @@ const OrderTracking = () => {
                     {order.items.map((item, index) => (
                       <div key={index} className="flex justify-between text-sm">
                         <span>{item.quantity}x {item.name}</span>
-                        <span>${(item.price * item.quantity).toFixed(2)}</span>
+                        <span>₹{(item.price * item.quantity).toFixed(2)}</span>
                       </div>
                     ))}
                   </div>
@@ -298,7 +298,7 @@ const OrderTracking = () => {
                 <hr />
                 <div className="flex justify-between font-bold">
                   <span>Total</span>
-                  <span>${order.total.toFixed(2)}</span>
+                  <span>₹{order.total.toFixed(2)}</span>
                 </div>
                 <div className="text-sm text-gray-600">
                   <p>Estimated delivery: {order.estimatedDelivery}</p>
