@@ -144,9 +144,9 @@ const OrderTracking = () => {
           </Badge>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 gap-8">
           {/* Tracking Timeline */}
-          <div className="lg:col-span-2">
+          <div>
             <Card>
               <CardHeader>
                 <CardTitle className="flex items-center space-x-2">
@@ -274,51 +274,6 @@ const OrderTracking = () => {
                 </CardContent>
               </Card>
             )}
-          </div>
-
-          {/* Order Summary */}
-          <div className="lg:col-span-1">
-            <Card className="sticky top-24">
-              <CardHeader>
-                <CardTitle>Order Details</CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <div>
-                  <h3 className="font-semibold text-gray-900 mb-2">{order.restaurant}</h3>
-                  <div className="space-y-2">
-                    {order.items.map((item, index) => (
-                      <div key={index} className="flex justify-between text-sm">
-                        <span>{item.quantity}x {item.name}</span>
-                        <span>₹{(item.price * item.quantity).toFixed(2)}</span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-                <hr />
-                <div className="flex justify-between font-bold">
-                  <span>Total</span>
-                  <span>₹{order.total.toFixed(2)}</span>
-                </div>
-                <div className="text-sm text-gray-600">
-                  <p>Estimated delivery: {order.estimatedDelivery}</p>
-                </div>
-                
-                {currentStep === 4 && (
-                  <div className="pt-4 space-y-3">
-                    <div className="p-3 bg-green-50 border border-green-200 rounded-lg text-center">
-                      <p className="text-green-700 font-medium">🎉 Order Delivered Successfully!</p>
-                      <p className="text-green-600 text-sm mt-1">Thank you for choosing us. Enjoy your meal!</p>
-                    </div>
-                    <Button className="w-full bg-orange-600 hover:bg-orange-700">
-                      Rate Your Experience ⭐
-                    </Button>
-                    <Button variant="outline" className="w-full">
-                      Reorder This Meal 🔁
-                    </Button>
-                  </div>
-                )}
-              </CardContent>
-            </Card>
           </div>
         </div>
       </div>
