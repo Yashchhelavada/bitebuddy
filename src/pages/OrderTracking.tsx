@@ -1,7 +1,7 @@
 
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { ArrowLeft, Clock, CheckCircle, Truck, ChefHat, Package } from "lucide-react";
+import { ArrowLeft, Clock, CheckCircle, Truck, ChefHat, Package, User } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -15,14 +15,14 @@ const OrderTracking = () => {
   useEffect(() => {
     const timer = setInterval(() => {
       setCurrentStep(prev => {
-        if (prev < 3) {
+        if (prev < 4) {
           const newStep = prev + 1;
-          setProgress(newStep * 25);
+          setProgress((newStep / 4) * 100);
           return newStep;
         }
         return prev;
       });
-    }, 40000); // 40 seconds per step = 2 minutes 40 seconds total
+    }, 30000); // 30 seconds per step = 2 minutes total
 
     return () => clearInterval(timer);
   }, []);
@@ -34,31 +34,49 @@ const OrderTracking = () => {
       description: "We've received your order and sent it to the restaurant",
       icon: Package,
       time: "2:30 PM",
-      completed: true
+      completed: true,
+      image: "🍽️",
+      details: "Your order has been confirmed and payment processed successfully"
     },
     {
       id: 1,
-      title: "Chef's on it! 👨‍🍳",
-      description: "Your delicious meal is being prepared with love",
+      title: "Preparing Your Food 👨‍🍳",
+      description: "Our chef is carefully preparing your delicious meal",
       icon: ChefHat,
       time: "2:35 PM",
-      completed: currentStep >= 1
+      completed: currentStep >= 1,
+      image: "👨‍🍳",
+      details: "Fresh ingredients are being used to craft your perfect meal"
     },
     {
       id: 2,
-      title: "Out for Delivery",
-      description: "Your order is on its way to you",
-      icon: Truck,
-      time: currentStep >= 2 ? "3:05 PM" : "Est. 3:05 PM",
-      completed: currentStep >= 2
+      title: "Delivery Partner Assigned",
+      description: "A delivery partner has been assigned to your order",
+      icon: User,
+      time: currentStep >= 2 ? "2:55 PM" : "Est. 2:55 PM",
+      completed: currentStep >= 2,
+      image: "🚗",
+      details: "Your delivery partner is heading to the restaurant"
     },
     {
       id: 3,
+      title: "Order Picked Up",
+      description: "Your order has been picked up and is on the way",
+      icon: Truck,
+      time: currentStep >= 3 ? "3:05 PM" : "Est. 3:05 PM",
+      completed: currentStep >= 3,
+      image: "📦",
+      details: "Your food is safely packed and heading your way"
+    },
+    {
+      id: 4,
       title: "Delivered",
       description: "Enjoy your meal!",
       icon: CheckCircle,
-      time: currentStep >= 3 ? "3:25 PM" : "Est. 3:25 PM",
-      completed: currentStep >= 3
+      time: currentStep >= 4 ? "3:25 PM" : "Est. 3:25 PM",
+      completed: currentStep >= 4,
+      image: "✅",
+      details: "Your order has been delivered successfully. Bon appétit!"
     }
   ];
 
@@ -83,10 +101,12 @@ const OrderTracking = () => {
       case 0:
         return "We'll ping you when your dish hits the road. 🍱";
       case 1:
-        return "We're tracking every step — from kitchen to doorstep. 🍱🚗";
+        return "Our chef is working their magic in the kitchen! 👨‍🍳✨";
       case 2:
-        return "Driver's just a few bites away from your place. Get your forks ready! 🍴📍";
+        return "A delivery partner is assigned and heading to pick up your order! 🚗";
       case 3:
+        return "Your order is picked up and on the way to you! 🍴📍";
+      case 4:
         return "Meal delivered! Hope your taste buds are dancing. 💃";
       default:
         return "Tracking your delicious order...";
@@ -140,35 +160,79 @@ const OrderTracking = () => {
                 {orderSteps.map((step, index) => {
                   const Icon = step.icon;
                   return (
-                    <div key={step.id} className="flex items-start space-x-4 animate-fade-in" style={{animationDelay: `${index * 200}ms`}}>
-                      <div className={`flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center ${
-                        step.completed 
-                          ? 'bg-green-100 text-green-600' 
-                          : step.id === currentStep 
-                            ? 'bg-orange-100 text-orange-600 animate-pulse' 
-                            : 'bg-gray-100 text-gray-400'
-                      }`}>
-                        <Icon className="h-5 w-5" />
-                      </div>
-                      <div className="flex-1">
-                        <div className="flex items-center justify-between">
-                          <h3 className={`font-semibold ${
-                            step.completed ? 'text-green-600' : step.id === currentStep ? 'text-orange-600' : 'text-gray-400'
+                    <div key={step.id} className="animate-fade-in" style={{animationDelay: `${index * 200}ms`}}>
+                      <div className="flex items-start space-x-4 p-4 rounded-lg border-2 transition-all duration-300" 
+                           style={{
+                             borderColor: step.completed ? '#10b981' : step.id === currentStep ? '#f59e0b' : '#e5e7eb',
+                             backgroundColor: step.completed ? '#ecfdf5' : step.id === currentStep ? '#fef3c7' : '#f9fafb'
+                           }}>
+                        {/* Visual Image/Icon */}
+                        <div className="flex flex-col items-center space-y-2">
+                          <div className={`flex-shrink-0 w-16 h-16 rounded-full flex items-center justify-center text-2xl ${
+                            step.completed 
+                              ? 'bg-green-100 border-2 border-green-500' 
+                              : step.id === currentStep 
+                                ? 'bg-orange-100 border-2 border-orange-500 animate-pulse' 
+                                : 'bg-gray-100 border-2 border-gray-300'
                           }`}>
-                            {step.title}
-                          </h3>
-                          <span className={`text-sm ${
-                            step.completed ? 'text-green-600' : step.id === currentStep ? 'text-orange-600' : 'text-gray-400'
+                            {step.image}
+                          </div>
+                          <div className={`w-8 h-8 rounded-full flex items-center justify-center ${
+                            step.completed 
+                              ? 'bg-green-100 text-green-600' 
+                              : step.id === currentStep 
+                                ? 'bg-orange-100 text-orange-600' 
+                                : 'bg-gray-100 text-gray-400'
                           }`}>
-                            {step.time}
-                          </span>
+                            <Icon className="h-4 w-4" />
+                          </div>
                         </div>
-                        <p className={`text-sm mt-1 ${
-                          step.completed || step.id === currentStep ? 'text-gray-600' : 'text-gray-400'
-                        }`}>
-                          {step.description}
-                        </p>
+                        
+                        {/* Content */}
+                        <div className="flex-1">
+                          <div className="flex items-center justify-between mb-2">
+                            <h3 className={`font-bold text-lg ${
+                              step.completed ? 'text-green-600' : step.id === currentStep ? 'text-orange-600' : 'text-gray-400'
+                            }`}>
+                              {step.title}
+                            </h3>
+                            <span className={`text-sm font-medium ${
+                              step.completed ? 'text-green-600' : step.id === currentStep ? 'text-orange-600' : 'text-gray-400'
+                            }`}>
+                              {step.time}
+                            </span>
+                          </div>
+                          <p className={`text-sm mb-2 ${
+                            step.completed || step.id === currentStep ? 'text-gray-700' : 'text-gray-400'
+                          }`}>
+                            {step.description}
+                          </p>
+                          <p className={`text-xs italic ${
+                            step.completed || step.id === currentStep ? 'text-gray-600' : 'text-gray-400'
+                          }`}>
+                            {step.details}
+                          </p>
+                          
+                          {/* Animation for current step */}
+                          {step.id === currentStep && !step.completed && (
+                            <div className="mt-3 flex items-center space-x-2 text-orange-600">
+                              <div className="w-2 h-2 rounded-full bg-orange-500 animate-bounce"></div>
+                              <div className="w-2 h-2 rounded-full bg-orange-500 animate-bounce" style={{animationDelay: '0.1s'}}></div>
+                              <div className="w-2 h-2 rounded-full bg-orange-500 animate-bounce" style={{animationDelay: '0.2s'}}></div>
+                              <span className="text-sm font-medium">In Progress...</span>
+                            </div>
+                          )}
+                        </div>
                       </div>
+                      
+                      {/* Connection line */}
+                      {index < orderSteps.length - 1 && (
+                        <div className="flex justify-center my-2">
+                          <div className={`w-1 h-8 ${
+                            step.completed ? 'bg-green-500' : 'bg-gray-300'
+                          }`}></div>
+                        </div>
+                      )}
                     </div>
                   );
                 })}
@@ -179,23 +243,33 @@ const OrderTracking = () => {
             {currentStep >= 2 && (
               <Card className="mt-6 animate-fade-in">
                 <CardHeader>
-                  <CardTitle>Your Driver</CardTitle>
+                  <CardTitle className="flex items-center space-x-2">
+                    <span>🚗</span>
+                    <span>Your Delivery Partner</span>
+                  </CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <div className="flex items-center space-x-4">
-                    <div className="w-12 h-12 bg-orange-100 rounded-full flex items-center justify-center">
-                      <span className="text-xl">🚗</span>
+                  <div className="flex items-center space-x-4 p-4 bg-gradient-to-r from-orange-50 to-yellow-50 rounded-lg border border-orange-200">
+                    <div className="w-16 h-16 bg-orange-100 rounded-full flex items-center justify-center border-2 border-orange-300">
+                      <span className="text-2xl">🧑‍🚀</span>
                     </div>
                     <div className="flex-1">
-                      <h3 className="font-semibold text-gray-900">{order.driver.name}</h3>
-                      <div className="flex items-center space-x-2 text-sm text-gray-600">
-                        <span>⭐ {order.driver.rating}</span>
+                      <h3 className="font-bold text-gray-900 text-lg">{order.driver.name}</h3>
+                      <div className="flex items-center space-x-3 text-sm text-gray-600 mt-1">
+                        <span className="flex items-center space-x-1">
+                          <span>⭐</span>
+                          <span className="font-medium">{order.driver.rating}</span>
+                        </span>
                         <span>•</span>
-                        <span>{order.driver.phone}</span>
+                        <span className="font-medium">{order.driver.phone}</span>
+                      </div>
+                      <div className="mt-2 text-xs text-orange-600 font-medium">
+                        {currentStep === 2 && "Heading to restaurant..."}
+                        {currentStep >= 3 && "En route to your location!"}
                       </div>
                     </div>
-                    <Button variant="outline" size="sm">
-                      Call Driver
+                    <Button variant="outline" size="sm" className="border-orange-300 text-orange-600 hover:bg-orange-50">
+                      📞 Call
                     </Button>
                   </div>
                 </CardContent>
@@ -230,8 +304,12 @@ const OrderTracking = () => {
                   <p>Estimated delivery: {order.estimatedDelivery}</p>
                 </div>
                 
-                {currentStep === 3 && (
-                  <div className="pt-4 space-y-2">
+                {currentStep === 4 && (
+                  <div className="pt-4 space-y-3">
+                    <div className="p-3 bg-green-50 border border-green-200 rounded-lg text-center">
+                      <p className="text-green-700 font-medium">🎉 Order Delivered Successfully!</p>
+                      <p className="text-green-600 text-sm mt-1">Thank you for choosing us. Enjoy your meal!</p>
+                    </div>
                     <Button className="w-full bg-orange-600 hover:bg-orange-700">
                       Rate Your Experience ⭐
                     </Button>
